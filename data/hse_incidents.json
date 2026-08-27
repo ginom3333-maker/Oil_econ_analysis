@@ -1,0 +1,1311 @@
+{
+  "source": "Estacado HSE Portal export (supervisor-entered descriptions)",
+  "exportedAt": "2026-08-11T20:13:45Z",
+  "incidents": [
+    {
+      "incidentId": 1126,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Pumper tweaked his lower back pulling a valve actuator at W0033. Sent him to the clinic, doc says he'll miss a few shifts.",
+      "occurredOn": 1756944000000,
+      "wellId": "33",
+      "category": "Safety",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1070,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Flared more gas than the permit allows over at W0010. Notified the regulatory group, working to bring it back in line.",
+      "occurredOn": "2025-09-09",
+      "wellId": "W0010",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1034,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Floorhand strained his back lifting a joint of pipe on W0001. Couldn't finish the tour, put in for lost time.",
+      "occurredOn": "2025-09-14",
+      "wellId": "W0001",
+      "category": "Safety",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1038,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Flare volumes ran over permit limits on W0001 this reporting period. Documented and reported up.",
+      "occurredOn": "2025-09-20",
+      "wellId": "W0001",
+      "category": "Environment",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1003,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Op slipped on an icy patch walking the W0026 location this morning. Caught himself, no injury, just shook up.",
+      "occurredOn": "2025-09-20",
+      "wellId": "W0026",
+      "category": "Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1001,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Tech cut his hand on a sharp edge servicing a valve at W0034. Cleaned it up, needed stitches, recordable.",
+      "occurredOn": "2025-09-22",
+      "wellId": "W0034",
+      "category": "Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1025,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Crude overflowed a tank at the W0001 battery. Stayed inside the berm, cleaning it up now.",
+      "occurredOn": "2025-09-23",
+      "wellId": "W0001",
+      "category": "Environment",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1033,
+      "incidentTitle": "Fire / near miss",
+      "incidentDescription": "Small fire on the compressor at W0001. Knocked it down with an extinguisher, no one hurt.",
+      "occurredOn": "2025-09-24",
+      "wellId": "W0001",
+      "category": "Process Safety",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1036,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Mechanic sliced his palm during valve maintenance on W0013. Got it bandaged, first aid wasn't enough so it's recordable.",
+      "occurredOn": "2025-09-24",
+      "wellId": "W0013",
+      "category": "Safety",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1079,
+      "incidentTitle": "Fire / near miss",
+      "incidentDescription": "Compressor caught fire briefly at W0020. Crew put it out fast, calling it a near miss.",
+      "occurredOn": "2025-09-27",
+      "wellId": "W0020",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1097,
+      "incidentTitle": "Produced water release",
+      "incidentDescription": "Saltwater line sprung a leak at W0017 and produced water got off the pad into the dirt. Digging it out.",
+      "occurredOn": "2025-10-02",
+      "wellId": "W0017",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1135,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Small liquid spill on the W0027 pad, caught it on the location. No big deal, wiped up and absorbed.",
+      "occurredOn": "2025-10-03",
+      "wellId": "27",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1128,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Operator caught his hand on the wrench and gashed it working W0004. Took him in for a couple stitches.",
+      "occurredOn": "2025-10-04",
+      "wellId": "W0004",
+      "category": "Safety",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1066,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Operator hurt his back moving a heavy skid over at W0017. Restricted from work, waiting on the doctor's release.",
+      "occurredOn": 1759708800000,
+      "wellId": "W0017",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1101,
+      "incidentTitle": "Produced water release",
+      "incidentDescription": "SWD line failed near W0037, produced water reached soil off-location. Started remediation.",
+      "occurredOn": "2025-10-06",
+      "wellId": "W0037",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1115,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Hand laceration on W0024 while breaking a union. Deep enough to need medical, logging as recordable.",
+      "occurredOn": "2025-10-08",
+      "wellId": "W0024",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1059,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Company truck rear-ended another vehicle on the lease road to W0010. Minor damage, no injuries.",
+      "occurredOn": "2025-10-09",
+      "wellId": "W0010",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1057,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "We exceeded the permitted flare allowance at W0020. Compressor was down so gas got routed to flare.",
+      "occurredOn": "2025-10-11",
+      "wellId": "W0020",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1117,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Minor release at W0015, stayed on the pad. Soaked it up with absorbent, no reach off-location.",
+      "occurredOn": "2025-10-17",
+      "wellId": "W0015",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1100,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Guy on W0037 felt something pop in his back lifting equipment off the trailer. Off the job for now, LTI.",
+      "occurredOn": "2025-10-17",
+      "wellId": "W0037",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1133,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Permit exceedance on flaring at W0033 - volumes were above the cap. Reported to compliance.",
+      "occurredOn": "2025-10-18",
+      "wellId": "W0033",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1017,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Hand lost his footing on ice by the W0025 tank battery. Went down but got up fine, no LTI.",
+      "occurredOn": "2025-10-20",
+      "wellId": "W0025",
+      "category": "Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1105,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Lease op wrenched his back setting a pump on W0024. Sent home hurt, expecting days away.",
+      "occurredOn": "2025-10-22",
+      "wellId": "24",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1068,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Light-duty truck bumped the truck ahead of it heading into W0020. Fender damage only, everyone okay.",
+      "occurredOn": "2025-10-23",
+      "wellId": "W0020",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1049,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Guy cut himself pretty good on a valve stem at W0020. Bleeding stopped but he needed sutures.",
+      "occurredOn": "2025-10-24",
+      "wellId": "W0020",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1047,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Somebody slipped on frost on the stairs at W0019. No injury reported, reminded the crew to salt the walkways.",
+      "occurredOn": "2025-10-25",
+      "wellId": "W0019",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1000,
+      "incidentTitle": "Produced water release",
+      "incidentDescription": "Leak on the produced water line at W0030 let saltwater get off-pad. Vac trucks recovering it.",
+      "occurredOn": 1761436800000,
+      "wellId": "W0030",
+      "category": "Environment",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1083,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Back injury on W0017 while manhandling a valve into place. Crew member is off work until further notice.",
+      "occurredOn": "2025-10-30",
+      "wellId": "W0017",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1107,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Driver rear-ended a pickup on the way out from W0024. Slow speed, just some bent sheet metal.",
+      "occurredOn": "2025-10-31",
+      "wellId": "W0024",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1134,
+      "incidentTitle": "Fire / near miss",
+      "incidentDescription": "Little fire flared up on the W0033 compressor. Extinguished on the spot, no damage to speak of.",
+      "occurredOn": "2025-11-01",
+      "wellId": "W0033",
+      "category": "Process Safety",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1050,
+      "incidentTitle": "Fire / near miss",
+      "incidentDescription": "Compressor fire at W0010 - out quick with a dry chem. No injuries, near miss.",
+      "occurredOn": "2025-11-03",
+      "wellId": "W0010",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1046,
+      "incidentTitle": "Permit violation",
+      "incidentDescription": "Operated outside the permitted flare window at W0037. Self-reported to the agency.",
+      "occurredOn": "2025-11-03",
+      "wellId": "W0037",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1139,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Tank ran over at W0027 and spilled crude, but the containment held. No off-pad impact.",
+      "occurredOn": "2025-11-04",
+      "wellId": "W0027",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1078,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "TRRC wrote us up for missing signage at W0010. Fixed the signs, responding to the citation.",
+      "occurredOn": "2025-11-08",
+      "wellId": "10",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1041,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Rear-end collision on the W0037 access road. Both drivers fine, filed a vehicle report.",
+      "occurredOn": "2025-11-09",
+      "wellId": "W0037",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1123,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "Got a Railroad Commission citation at W0003 over signage. Correcting it now.",
+      "occurredOn": "2025-11-11",
+      "wellId": "W0003",
+      "category": "Regulatory",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1124,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Little spill on W0003 contained right on the pad. Cleaned it up same day.",
+      "occurredOn": "2025-11-12",
+      "wellId": "W0003",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1113,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Small amount of liquid released at W0024, all on the pad. Handled with sorbent, no issue.",
+      "occurredOn": "2025-11-14",
+      "wellId": "W0024",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1094,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Hand strained his lower back loading tools at W0019. Ended up being a lost-time case, he's out.",
+      "occurredOn": "2025-11-18",
+      "wellId": "W0019",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1060,
+      "incidentTitle": "Fire / near miss",
+      "incidentDescription": "Had a small compressor fire over at W0037. Handled it with the extinguisher, everyone safe.",
+      "occurredOn": 1763510400000,
+      "wellId": "W0037",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1144,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Truck ran into the back of a stopped vehicle near W0005. No one hurt, damage to the front bumper.",
+      "occurredOn": "2025-11-23",
+      "wellId": "W0005",
+      "category": "Safety",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1110,
+      "incidentTitle": "Produced water release",
+      "incidentDescription": "Produced water release at W0015 - line leak carried it off the pad onto the ground. Reported.",
+      "occurredOn": "2025-11-23",
+      "wellId": "W0015",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1092,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Worker at W0037 nicked his hand on threaded pipe doing maintenance. Recordable injury, treated at clinic.",
+      "occurredOn": "2025-11-26",
+      "wellId": "W0037",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1116,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Minor spill at W0015 kept inside the pad. Cleaned up, documented for the record.",
+      "occurredOn": "2025-11-28",
+      "wellId": "W0015",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1120,
+      "incidentTitle": "Permit violation",
+      "incidentDescription": "Ran the flare on W0024 outside the allowed hours. Permit violation, notified compliance.",
+      "occurredOn": "2025-12-03",
+      "wellId": "24",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1119,
+      "incidentTitle": "Fire / near miss",
+      "incidentDescription": "Fire on the W0024 compressor package, put out immediately. Logged as a near miss.",
+      "occurredOn": "2025-12-05",
+      "wellId": "W0024",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1052,
+      "incidentTitle": "Permit violation",
+      "incidentDescription": "Flared at W0020 outside the permit window. Documenting the violation for reporting.",
+      "occurredOn": "2025-12-11",
+      "wellId": "W0020",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1054,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Laceration to the hand on W0037 servicing a gate valve. Wrapped it, sent for treatment, recordable.",
+      "occurredOn": "2025-12-19",
+      "wellId": "W0037",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1024,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Fender bender on the lease road by W0001 - our truck tapped the one in front. No injuries.",
+      "occurredOn": "2025-12-21",
+      "wellId": "W0001",
+      "category": "Safety",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1072,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Overfill on the W0020 tank battery put crude in the bund. Vac truck on the way to recover it.",
+      "occurredOn": "2025-12-22",
+      "wellId": "W0020",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1056,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Crude spill at W0020 from a tank overflow, contained within the firewall. No soil impact.",
+      "occurredOn": "2026-01-04",
+      "wellId": "W0020",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1015,
+      "incidentTitle": "Uncontrolled release",
+      "incidentDescription": "Got a sour gas release during the workover on W0025. Cleared the area, brought it under control.",
+      "occurredOn": "2026-01-04",
+      "wellId": "W0025",
+      "category": "Process Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1127,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Flared over the allowable at W0033 while the plant was offline. Logged the exceedance for reporting.",
+      "occurredOn": 1767744000000,
+      "wellId": "W0033",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1129,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "TRRC citation at W0003 for inadequate signage. Ordered new signs, responding formally.",
+      "occurredOn": "2026-01-12",
+      "wellId": "W0003",
+      "category": "Regulatory",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1102,
+      "incidentTitle": "Serious injury",
+      "incidentDescription": "Worker at W0010 got a dose of H2S and had to be hospitalized for several days. Serious one.",
+      "occurredOn": "2026-01-13",
+      "wellId": "W0010",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1012,
+      "incidentTitle": "Serious injury",
+      "incidentDescription": "H2S exposure on W0025 sent an employee to the hospital, multi-day stay. Investigating.",
+      "occurredOn": "2026-01-13",
+      "wellId": "25",
+      "category": "Process Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1037,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "Inspector cited W0001 for signage issues. Handling the citation with compliance.",
+      "occurredOn": "2026-01-17",
+      "wellId": "W0001",
+      "category": "Regulatory",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1142,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Had a small release on the W0023 location, contained on pad. No environmental impact.",
+      "occurredOn": "2026-01-17",
+      "wellId": "W0023",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1004,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "Railroad Commission tagged W0034 for missing signs. Remediating and replying to the citation.",
+      "occurredOn": "2026-01-18",
+      "wellId": "W0034",
+      "category": "Regulatory",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1104,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Worker on W0037 lifting a heavy fitting felt his back give out. Reported as lost time, at home recovering.",
+      "occurredOn": "2026-01-21",
+      "wellId": "W0037",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1014,
+      "incidentTitle": "Fire / near miss",
+      "incidentDescription": "Brief compressor fire at W0009, crew extinguished it. No harm, close call though.",
+      "occurredOn": "2026-01-23",
+      "wellId": "W0009",
+      "category": "Process Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1011,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Slick conditions at W0025, worker slipped and landed on his side. Checked out okay, no lost time.",
+      "occurredOn": "2026-01-23",
+      "wellId": "W0025",
+      "category": "Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1069,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Tiny spill at W0020, stayed on the pad and got mopped up. Nothing left the location.",
+      "occurredOn": "2026-01-25",
+      "wellId": "W0020",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1044,
+      "incidentTitle": "Uncontrolled release",
+      "incidentDescription": "Uncontrolled sour gas release at W0017 while working the well over. Evacuated, then shut it in.",
+      "occurredOn": "2026-02-02",
+      "wellId": "W0017",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1095,
+      "incidentTitle": "Permit violation",
+      "incidentDescription": "Permit window blown on flaring at W0037 - operated when we shouldn't have. Reported.",
+      "occurredOn": "2026-02-04",
+      "wellId": "W0037",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1086,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Vehicle incident on W0010 road, light truck rear-ended at a stop. Damage minor, no medical.",
+      "occurredOn": 1770681600000,
+      "wellId": "W0010",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1098,
+      "incidentTitle": "Fire / near miss",
+      "incidentDescription": "Small blaze on the compressor at W0019. Knocked down fast, no one injured.",
+      "occurredOn": "2026-02-10",
+      "wellId": "19",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1005,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Gas flaring at W0026 went past permit limits. Getting the numbers together for the exceedance report.",
+      "occurredOn": "2026-02-11",
+      "wellId": "W0026",
+      "category": "Environment",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1007,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Minor liquid release on W0026 pad, absorbed and cleaned. No off-pad migration.",
+      "occurredOn": "2026-02-14",
+      "wellId": "W0026",
+      "category": "Environment",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1032,
+      "incidentTitle": "Produced water release",
+      "incidentDescription": "Saltwater line breach at W0001 put produced water into off-pad soil. Excavating the affected area.",
+      "occurredOn": "2026-02-17",
+      "wellId": "W0001",
+      "category": "Environment",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1090,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Pumper tweaked his lower back pulling a valve actuator at W0017. Sent him to the clinic, doc says he'll miss a few shifts.",
+      "occurredOn": "2026-02-19",
+      "wellId": "W0017",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1031,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Crew member slid on ice near the W0001 separator. No harm done, just a near miss on a fall.",
+      "occurredOn": "2026-03-02",
+      "wellId": "W0001",
+      "category": "Safety",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1067,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Exceeded flare permit at W0010 due to a takeaway constraint. Notified environmental team.",
+      "occurredOn": "2026-03-02",
+      "wellId": "W0010",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1140,
+      "incidentTitle": "Uncontrolled release",
+      "incidentDescription": "Sour gas came uncontrolled during workover at W0027. Pulled everyone back, regained control.",
+      "occurredOn": "2026-03-02",
+      "wellId": "W0027",
+      "category": "Process Safety",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1077,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Field hand cut his hand changing out a valve at W0019. More than first aid, so it goes down as recordable.",
+      "occurredOn": "2026-03-05",
+      "wellId": "W0019",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1016,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "Citation from TRRC at W0016 - signage not up to spec. Getting it corrected.",
+      "occurredOn": "2026-03-07",
+      "wellId": "W0016",
+      "category": "Regulatory",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1043,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "TRRC cited us at W0020 for signage. Already ordered replacements, closing it out.",
+      "occurredOn": "2026-03-10",
+      "wellId": "W0020",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1080,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Floorhand strained his back lifting a joint of pipe on W0017. Couldn't finish the tour, put in for lost time.",
+      "occurredOn": "2026-03-11",
+      "wellId": "17",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1071,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "Signage citation from the Railroad Commission at W0010. Fixing and documenting.",
+      "occurredOn": 1773273600000,
+      "wellId": "W0010",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1108,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Had a crude overflow off a stock tank at W0015. Bunded area caught it all, remediation underway.",
+      "occurredOn": "2026-03-13",
+      "wellId": "W0015",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1035,
+      "incidentTitle": "Permit violation",
+      "incidentDescription": "Flare at W0001 ran past the permitted timeframe. Logging as a permit violation.",
+      "occurredOn": "2026-03-19",
+      "wellId": "W0001",
+      "category": "Regulatory",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1081,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "TRRC wrote us up for missing signage at W0017. Fixed the signs, responding to the citation.",
+      "occurredOn": "2026-03-21",
+      "wellId": "W0017",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1087,
+      "incidentTitle": "Permit violation",
+      "incidentDescription": "We flared outside the permit conditions at W0037. Self-disclosed to the regulator.",
+      "occurredOn": "2026-03-23",
+      "wellId": "W0037",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1137,
+      "incidentTitle": "Serious injury",
+      "incidentDescription": "Bad H2S exposure at W0021 - crew member hospitalized for days. Treating as a serious injury.",
+      "occurredOn": "2026-03-24",
+      "wellId": "W0021",
+      "category": "Process Safety",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1020,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Driver couldn't stop in time on the icy road to W0006 and rear-ended another truck. Nobody injured.",
+      "occurredOn": "2026-03-25",
+      "wellId": "W0006",
+      "category": "Safety",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1122,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Tank battery at W0033 overflowed crude into the containment. Cleaned up, no release to ground.",
+      "occurredOn": "2026-03-26",
+      "wellId": "W0033",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1006,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Flare on W0035 tripped the permit threshold this month. Documenting the exceedance.",
+      "occurredOn": "2026-03-28",
+      "wellId": "W0035",
+      "category": "Environment",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1114,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Tech cut his hand on a sharp edge servicing a valve at W0015. Cleaned it up, needed stitches, recordable.",
+      "occurredOn": "2026-03-29",
+      "wellId": "W0015",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1026,
+      "incidentTitle": "Produced water release",
+      "incidentDescription": "PW line at W0001 leaked and reached soil beyond the pad. Cleanup crew mobilized.",
+      "occurredOn": "2026-03-30",
+      "wellId": "1",
+      "category": "Environment",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1112,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "Got a Railroad Commission citation at W0036 over signage. Correcting it now.",
+      "occurredOn": "2026-03-30",
+      "wellId": "W0036",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1121,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Small liquid spill on the W0040 pad, caught it on the location. No big deal, wiped up and absorbed.",
+      "occurredOn": "2026-04-01",
+      "wellId": "W0040",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1099,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Flared more gas than the permit allows over at W0020. Notified the regulatory group, working to bring it back in line.",
+      "occurredOn": 1775347200000,
+      "wellId": "W0020",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1021,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Company truck rear-ended another vehicle on the lease road to W0014. Minor damage, no injuries.",
+      "occurredOn": "2026-04-06",
+      "wellId": "W0014",
+      "category": "Safety",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1075,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Overfilled a tank on W0019 and spilled crude, held by the bund. Recovering product now.",
+      "occurredOn": "2026-04-07",
+      "wellId": "W0019",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1039,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Mechanic sliced his palm during valve maintenance on W0020. Got it bandaged, first aid wasn't enough so it's recordable.",
+      "occurredOn": "2026-04-11",
+      "wellId": "W0020",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1013,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "TRRC citation at W0025 for inadequate signage. Ordered new signs, responding formally.",
+      "occurredOn": "2026-04-15",
+      "wellId": "W0025",
+      "category": "Regulatory",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1084,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Guy slipped stepping off the catwalk at W0037 in the cold. No injury, we iced-treated the area.",
+      "occurredOn": "2026-04-15",
+      "wellId": "W0037",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1053,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Operator hurt his back moving a heavy skid over at W0010. Restricted from work, waiting on the doctor's release.",
+      "occurredOn": "2026-04-16",
+      "wellId": "W0010",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1125,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Operator caught his hand on the wrench and gashed it working W0018. Took him in for a couple stitches.",
+      "occurredOn": "2026-04-16",
+      "wellId": "W0018",
+      "category": "Safety",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1138,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Flare volumes ran over permit limits on W0005 this reporting period. Documented and reported up.",
+      "occurredOn": "2026-04-20",
+      "wellId": "5",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1002,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Light-duty truck bumped the truck ahead of it heading into W0026. Fender damage only, everyone okay.",
+      "occurredOn": "2026-04-21",
+      "wellId": "W0026",
+      "category": "Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1109,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Driver rear-ended a pickup on the way out from W0015. Slow speed, just some bent sheet metal.",
+      "occurredOn": "2026-04-25",
+      "wellId": "W0015",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1111,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Rear-end collision on the W0024 access road. Both drivers fine, filed a vehicle report.",
+      "occurredOn": "2026-04-25",
+      "wellId": "W0024",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1076,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Crude release at W0010 from an overtopped tank. Contained on the pad, no environmental reach.",
+      "occurredOn": "2026-04-27",
+      "wellId": "W0010",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1088,
+      "incidentTitle": "Permit violation",
+      "incidentDescription": "Operated the W0037 flare outside permitted hours. Permit violation on record.",
+      "occurredOn": 1777420800000,
+      "wellId": "W0037",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1085,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Guy on W0037 felt something pop in his back lifting equipment off the trailer. Off the job for now, LTI. (Ref 1085)",
+      "occurredOn": "2026-04-30",
+      "wellId": "W0037",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1141,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "We exceeded the permitted flare allowance at W0008. Compressor was down so gas got routed to flare.",
+      "occurredOn": "2026-05-01",
+      "wellId": "W0008",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1143,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "Inspector cited W0021 for signage issues. Handling the citation with compliance.",
+      "occurredOn": "2026-05-05",
+      "wellId": "W0021",
+      "category": "Regulatory",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1132,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Minor release at W0040, stayed on the pad. Soaked it up with absorbent, no reach off-location.",
+      "occurredOn": "2026-05-07",
+      "wellId": "W0040",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1073,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Truck ran into the back of a stopped vehicle near W0020. No one hurt, damage to the front bumper.",
+      "occurredOn": "2026-05-23",
+      "wellId": "W0020",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1061,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Operator lost traction on the frozen pad at W0037. Fell but walked it off, no medical needed.",
+      "occurredOn": "2026-05-31",
+      "wellId": "37",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1023,
+      "incidentTitle": "Produced water release",
+      "incidentDescription": "Produced water got loose from a line leak at W0001 and hit the ground off-location. Remediating.",
+      "occurredOn": "2026-06-02",
+      "wellId": "W0001",
+      "category": "Environment",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1051,
+      "incidentTitle": "Uncontrolled release",
+      "incidentDescription": "H2S release during the W0019 workover. Uncontrolled for a bit, area cleared and secured.",
+      "occurredOn": "2026-06-07",
+      "wellId": "W0019",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1009,
+      "incidentTitle": "Produced water release",
+      "incidentDescription": "Line failure on W0009 released saltwater off the pad. Soil impacted, recovery in progress.",
+      "occurredOn": "2026-06-09",
+      "wellId": "W0009",
+      "category": "Environment",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1074,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "Railroad Commission tagged W0019 for missing signs. Remediating and replying to the citation.",
+      "occurredOn": "2026-06-22",
+      "wellId": "W0019",
+      "category": "Regulatory",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1010,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Hand laceration on W0038 while breaking a union. Deep enough to need medical, logging as recordable.",
+      "occurredOn": "2026-06-22",
+      "wellId": "W0038",
+      "category": "Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1058,
+      "incidentTitle": "Serious injury",
+      "incidentDescription": "Employee overcome by H2S at W0037, admitted for multiple days. Serious injury, full review underway.",
+      "occurredOn": "2026-06-27",
+      "wellId": "W0037",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1029,
+      "incidentTitle": "Fire / near miss",
+      "incidentDescription": "Small fire on the compressor at W0001. Knocked it down with an extinguisher, no one hurt. (Ref 1029)",
+      "occurredOn": 1783123200000,
+      "wellId": "W0001",
+      "category": "Process Safety",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1136,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "Citation from TRRC at W0021 - signage not up to spec. Getting it corrected.",
+      "occurredOn": "2026-07-05",
+      "wellId": "W0021",
+      "category": "Regulatory",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1130,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Fender bender on the lease road by W0040 - our truck tapped the one in front. No injuries.",
+      "occurredOn": "2026-07-08",
+      "wellId": "W0040",
+      "category": "Safety",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1106,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Little spill on W0015 contained right on the pad. Cleaned it up same day.",
+      "occurredOn": "2026-07-13",
+      "wellId": "W0015",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1030,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Slip on ice at W0029 while doing rounds. Employee is fine, wrote it up as a near miss.",
+      "occurredOn": "2026-07-20",
+      "wellId": "29",
+      "category": "Safety",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1048,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Crude overflowed a tank at the W0037 battery. Stayed inside the berm, cleaning it up now.",
+      "occurredOn": "2026-07-20",
+      "wellId": "W0037",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1018,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Permit exceedance on flaring at W0016 - volumes were above the cap. Reported to compliance.",
+      "occurredOn": "2026-07-21",
+      "wellId": "W0016",
+      "category": "Environment",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1028,
+      "incidentTitle": "Regulatory citation",
+      "incidentDescription": "TRRC cited us at W0012 for signage. Already ordered replacements, closing it out.",
+      "occurredOn": "2026-07-22",
+      "wellId": "W0012",
+      "category": "Regulatory",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1089,
+      "incidentTitle": "Serious injury",
+      "incidentDescription": "Guy caught an H2S exposure on W0010 and ended up in the hospital several days. Serious.",
+      "occurredOn": "2026-07-25",
+      "wellId": "W0010",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1065,
+      "incidentTitle": "Recordable injury",
+      "incidentDescription": "Guy cut himself pretty good on a valve stem at W0037. Bleeding stopped but he needed sutures.",
+      "occurredOn": "2026-07-25",
+      "wellId": "W0037",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1022,
+      "incidentTitle": "Produced water release",
+      "incidentDescription": "Saltwater line sprung a leak at W0001 and produced water got off the pad into the dirt. Digging it out.",
+      "occurredOn": "2026-07-26",
+      "wellId": "W0001",
+      "category": "Environment",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1082,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Tank ran over at W0019 and spilled crude, but the containment held. No off-pad impact.",
+      "occurredOn": "2026-07-27",
+      "wellId": "W0019",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1008,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Op slipped on an icy patch walking the W0016 location this morning. Caught himself, no injury, just shook up.",
+      "occurredOn": "2026-07-30",
+      "wellId": "W0016",
+      "category": "Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1055,
+      "incidentTitle": "Serious injury",
+      "incidentDescription": "H2S event at W0017 put a worker in the hospital for multiple days. Serious injury reported.",
+      "occurredOn": 1785456000000,
+      "wellId": "W0017",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1040,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Lease op wrenched his back setting a pump on W0017. Sent home hurt, expecting days away.",
+      "occurredOn": "2026-08-01",
+      "wellId": "W0017",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1063,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Vehicle incident on W0020 road, light truck rear-ended at a stop. Damage minor, no medical.",
+      "occurredOn": "2026-08-01",
+      "wellId": "20",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1118,
+      "incidentTitle": "Produced water release",
+      "incidentDescription": "SWD line failed near W0015, produced water reached soil off-location. Started remediation.",
+      "occurredOn": "2026-08-02",
+      "wellId": "W0015",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1042,
+      "incidentTitle": "Uncontrolled release",
+      "incidentDescription": "Workover on W0010 had a sour gas release. Got it shut in, no injuries thankfully.",
+      "occurredOn": "2026-08-04",
+      "wellId": "W0010",
+      "category": "Process Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1019,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Driver couldn't stop in time on the icy road to W0025 and rear-ended another truck. Nobody injured.",
+      "occurredOn": "2026-08-06",
+      "wellId": "W0025",
+      "category": "Safety",
+      "businessUnit": "Permian West"
+    },
+    {
+      "incidentId": 1103,
+      "incidentTitle": "Environmental exceedance",
+      "incidentDescription": "Flared over the allowable at W0037 while the plant was offline. Logged the exceedance for reporting.",
+      "occurredOn": "2026-08-11",
+      "wellId": "W0037",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1027,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Hand lost his footing on ice by the W0001 tank battery. Went down but got up fine, no LTI.",
+      "occurredOn": "2026-08-13",
+      "wellId": "W0001",
+      "category": "Safety",
+      "businessUnit": "Permian Central"
+    },
+    {
+      "incidentId": 1064,
+      "incidentTitle": "Hydrocarbon spill",
+      "incidentDescription": "Overfill on the W0017 tank battery put crude in the bund. Vac truck on the way to recover it.",
+      "occurredOn": "2026-08-15",
+      "wellId": "W0017",
+      "category": "Environment",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1091,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Back injury on W0010 while manhandling a valve into place. Crew member is off work until further notice.",
+      "occurredOn": "2026-08-17",
+      "wellId": "W0010",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1062,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Hand strained his lower back loading tools at W0017. Ended up being a lost-time case, he's out.",
+      "occurredOn": "2026-08-20",
+      "wellId": "W0017",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1045,
+      "incidentTitle": "Lost-time injury",
+      "incidentDescription": "Worker on W0019 lifting a heavy fitting felt his back give out. Reported as lost time, at home recovering.",
+      "occurredOn": "2026-08-21",
+      "wellId": "W0019",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1096,
+      "incidentTitle": "Vehicle incident",
+      "incidentDescription": "Company truck rear-ended another vehicle on the lease road to W0020. Minor damage, no injuries.",
+      "occurredOn": "2026-08-21",
+      "wellId": "W0020",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    },
+    {
+      "incidentId": 1131,
+      "incidentTitle": "Minor spill",
+      "incidentDescription": "Small amount of liquid released at W0018, all on the pad. Handled with sorbent, no issue.",
+      "occurredOn": 1787443200000,
+      "wellId": "18",
+      "category": "Environment",
+      "businessUnit": "Permian East"
+    },
+    {
+      "incidentId": 1093,
+      "incidentTitle": "Slip / trip / fall",
+      "incidentDescription": "Somebody slipped on frost on the stairs at W0037. No injury reported, reminded the crew to salt the walkways.",
+      "occurredOn": "2026-08-26",
+      "wellId": "W0037",
+      "category": "Safety",
+      "businessUnit": "Permian North"
+    }
+  ]
+}
