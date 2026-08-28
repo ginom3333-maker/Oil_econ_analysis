@@ -1,0 +1,6 @@
+well_id,total_readings,temp_below_60_count,temp_above_302_count,temp_total_anomalies,pressure_below_200_count,pressure_above_10000_count,pressure_total_anomalies,combined_total_anomalies,iot_reliability_percent
+W0009,8639,5,223,228,2,489,491,719,91.6772774626693
+W0011,8638,6,14,20,8574,0,8574,8594,0.5093771706413563
+W0016,8629,7,298,305,2,366,368,673,92.2007185073589
+W0025,8626,5,389,394,3,306,309,703,91.85022026431719
+W0038,8621,5,17,22,8574,0,8574,8596,0.28998956037582513
