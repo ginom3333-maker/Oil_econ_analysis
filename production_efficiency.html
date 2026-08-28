@@ -52,12 +52,15 @@
     </div>
   </header>
 
- <nav class="bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
+<nav class="nav-tabs bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
     <a href="index.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">1. Geospatial Footprint</a>
-    <a href="type_curves.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">3. 5-Year Type Curves</a>
-    <a href="production_efficiency.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">5. Production Efficiency</a>
+    <a href="well_tiering.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">2. Single-Well Tiering & Q5</a>
+    <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">4. Economic Viability</a>
+    <a href="production_efficiency.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">5. Production Efficiency</a>
     <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">6. HSE Site Grading</a>
-  </nav>
+    <a href="competitor_acumen.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">7. Competitor & Acumen</a>
+</nav>
 
 <main class="max-w-7xl mx-auto p-6 space-y-6">
     <div>
@@ -167,7 +170,7 @@
   </main>
 
   <script>
-    // Master Asset Directory mapped to user-specified site names and codes (S01 - S08) with empirical telemetry
+    // Master Asset Directory mapped to exact site names and codes (S01 - S08) with empirical telemetry
     const siteDirectory = [
       { code: 'S01', name: 'Estacado Ridge', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76 },
       { code: 'S02', name: 'Big Spring Complex', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80 },
