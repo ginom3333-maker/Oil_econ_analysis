@@ -1,4 +1,7 @@
-<header class="cop-header text-white px-6 h-12 shadow-lg flex justify-between items-center overflow-hidden">
+
+<<<<<<< HEAD
+=======
+  <header class="cop-header text-white px-6 h-12 shadow-lg flex justify-between items-center overflow-hidden">
     <div class="flex items-center h-full">
       <img src="conoco logo.png" alt="ConocoPhillips Logo" class="h-28 w-auto object-cover object-left">
     </div>
@@ -134,14 +137,14 @@
 
   <script>
     const siteDirectory = [
-      { code: 'S01', name: 'Estacado Ridge', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76, totalSiteBoe: 2655.16, boeAvgPerWell: 531.03, iotPercent: 93.10, score: 494.11 },
-      { code: 'S02', name: 'Big Spring Complex', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80, totalSiteBoe: 377.40, boeAvgPerWell: 75.48, iotPercent: 55.31, score: 69.37 },
-      { code: 'S03', name: 'Midland Central', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 198.91, stdTemp: 29.32, meanPress: 6424.24, stdPress: 1165.75, totalSiteBoe: 4352.88, boeAvgPerWell: 870.58, iotPercent: 92.09, score: 802.72 },
-      { code: 'S04', name: 'Odessa Yard', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 109.76, stdTemp: 49.73, meanPress: 1366.32, stdPress: 2567.71, totalSiteBoe: 60.61, boeAvgPerWell: 12.12, iotPercent: 18.89, score: 11.19 },
-      { code: 'S05', name: 'Wolfcamp North', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 285.90, stdTemp: 39.56, meanPress: 7334.92, stdPress: 1278.61, totalSiteBoe: 5290.40, boeAvgPerWell: 1058.08, iotPercent: 78.14, score: 825.15 },
-      { code: 'S06', name: 'Delaware Flats', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 136.39, stdTemp: 65.25, meanPress: 2639.00, stdPress: 3169.65, totalSiteBoe: 218.39, boeAvgPerWell: 43.68, iotPercent: 37.01, score: 40.14 },
-      { code: 'S07', name: 'Andrews Legacy', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 194.28, stdTemp: 62.63, meanPress: 5294.67, stdPress: 2762.15, totalSiteBoe: 1310.83, boeAvgPerWell: 262.17, iotPercent: 73.21, score: 239.65 },
-      { code: 'S08', name: 'Alamo Sunset', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 207.29, stdTemp: 29.05, meanPress: 6487.19, stdPress: 1095.88, totalSiteBoe: 2545.33, boeAvgPerWell: 509.07, iotPercent: 92.00, score: 468.54 }
+      { code: 'S01', name: 'Estacado Ridge', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76 },
+      { code: 'S02', name: 'Big Spring Complex', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80 },
+      { code: 'S03', name: 'Midland Central', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 198.91, stdTemp: 29.32, meanPress: 6424.24, stdPress: 1165.75 },
+      { code: 'S04', name: 'Odessa Yard', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 109.76, stdTemp: 49.73, meanPress: 1366.32, stdPress: 2567.71 },
+      { code: 'S05', name: 'Wolfcamp North', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 285.90, stdTemp: 39.56, meanPress: 7334.92, stdPress: 1278.61 },
+      { code: 'S06', name: 'Delaware Flats', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 136.39, stdTemp: 65.25, meanPress: 2639.00, stdPress: 3169.65 },
+      { code: 'S07', name: 'Andrews Legacy', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 194.28, stdTemp: 62.63, meanPress: 5294.67, stdPress: 2762.15 },
+      { code: 'S08', name: 'Alamo Sunset', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 207.29, stdTemp: 29.05, meanPress: 6487.19, stdPress: 1095.88 }
     ];
 
     const allWells = [];
@@ -158,6 +161,7 @@
       let forecastStart = status === 'Active Producer' ? Math.round(recentActual * 0.95) : 0;
       let econLimit = (6.0 + (i * 0.3) % 11.0).toFixed(1);
       
+      // Points explicitly to wells_curves/W00XX_forecast.png
       let imgName = `wells_curves/${wellId}_forecast.png`;
 
       allWells.push({
@@ -310,3 +314,4 @@
   </script>
 </body>
 </html>
+>>>>>>> cc6bf9b2278f6afd3c75a1630e005b1bc76858ca
