@@ -40,32 +40,43 @@
 <body class="text-gray-900">
 
   <header class="cop-header text-white p-4 shadow-lg flex justify-between items-center">
-    <div class="flex items-center space-x-4">
-      <!-- Replace 'logo.png' with your actual image path or URL -->
-      <img src="conoco logo.png" alt="ConocoPhillips Logo" class="h-10 w-auto object-contain">
-      
-      <div class="border-l border-red-300 pl-4">
-    
+    <div>
+      <div class="flex items-center space-x-3">
+        <h1 class="text-xl font-black tracking-widest uppercase">ConocoPhillips</h1>
       </div>
+      <p class="text-xs text-red-100 tracking-wide uppercase mt-0.5 font-medium">Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
     </div>
-    
     <div class="hidden md:block text-right text-xs text-red-100 font-medium">
       <div><b>Active Asset Region:</b> Permian Basin</div>
       <div><b>System Status:</b> Optimal Telemetry Feed</div>
     </div>
   </header>
 
-  <nav class="nav-tabs bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
+<nav class="nav-tabs bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
+    <a href="index.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">1. Geospatial Footprint</a>
+    <a href="well_tiering.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">2. Single-Well Tiering & Q5</a>
+    <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">4. Economic Viability</a>
+    <a href="production_efficiency.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">5. Production Efficiency</a>
+    <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">6. HSE Site Grading</a>
+    <a href="competitor_acumen.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">7. Competitor & Acumen</a>
     <a href="index.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">Geospatial Footprint</a>
     <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">5-Year Type Curves</a>
     <a href="production_efficiency.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">Production Efficiency</a>
     <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">HSE Site Grading</a>
-  </nav>
+</nav>
 
-  <main class="max-w-7xl mx-auto p-6 space-y-6">
+<main class="max-w-7xl mx-auto p-6 space-y-6">
     <div>
       <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Production Efficiency & IoT Monte Carlo Engine</h2>
-      <p class="text-gray-600 text-sm mt-1"><b>Question Solved:</b> Which sites have the highest production efficiency defined as 1,000 BOE per active well, weighted by IoT production reliability ($60 \le T \le 302^\circ\text{F}$ and $200 \le P \le 10,000\,\text{psi}$), evaluated via Monte Carlo simulation?</p>
+      <div class="bg-white border border-gray-200 p-4 rounded-md mt-2 shadow-sm space-y-2 text-sm text-gray-700">
+        <div class="font-bold text-gray-900 uppercase tracking-wide text-xs text-red-700">Question Solved:</div>
+        <p>Which sites have the highest production efficiency? This is evaluated using a Monte Carlo simulation where efficiency is defined as <b>1,000 BOE per active well</b>, weighted by IoT production reliability constraints:</p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-gray-600">
+          <li><b>Temperature limit:</b> Between $60^\circ\text{F}$ and $302^\circ\text{F}$</li>
+          <li><b>Pressure limit:</b> Between $200\,\text{psi}$ and $10,000\,\text{psi}$</li>
+        </ul>
+      </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -163,7 +174,7 @@
   </main>
 
   <script>
-    // Site directory mapped directly to exact site names and codes (S01 - S08) with dataset empirical parameters
+    // Master Asset Directory mapped to user-specified site names and codes (S01 - S08) with empirical telemetry
     const siteDirectory = [
       { code: 'S01', name: 'Estacado Ridge', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76 },
       { code: 'S02', name: 'Big Spring Complex', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80 },
