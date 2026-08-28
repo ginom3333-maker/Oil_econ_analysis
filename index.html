@@ -44,21 +44,13 @@
 <body class="text-gray-900">
   
  <header class="cop-header text-white px-6 h-12 shadow-lg flex justify-between items-center overflow-hidden">
-
     <div class="flex items-center h-full">
-
       <img src="conoco logo.png" alt="ConocoPhillips Logo" class="h-28 w-auto object-cover object-left">
-
     </div>
-
-   
 
     <div class="hidden md:block text-right text-xs text-red-100 font-medium leading-tight">
-
       <div><b>Active Asset Region:</b> Permian Basin</div>
-
     </div>
-
   </header>
 
   <nav class="nav-tabs bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
@@ -220,7 +212,7 @@
     // Initialize Leaflet Map centered over the Permian Basin
     const map = L.map('map').setView([30.8457, -101.6676], 7);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?api_key=cb1_2gqv_1_65cb4104826184dd212bacaf', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
     }).addTo(map);
