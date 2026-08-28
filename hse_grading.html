@@ -70,6 +70,7 @@
     let wellDataMap = {};        // Maps wellId -> { score, incidents, explicitCount }
     let siteToWells = {};        // Maps siteCode -> array of well objects
     let sensorAnomalyMap = {};   // Maps wellId -> total anomalies
+    let siteDirectIncidents = {}; // Maps siteCode -> site-level incidents
 
     // Incident Severity Grading Weights Schema
     const INCIDENT_SEVERITY = {
@@ -147,16 +148,16 @@
       sensorAnomalyMap = {};
       if (rows && rows.length > 0) {
         rows.forEach(r => {
-          const wId = normalizeWellId(r.well_id || r.well);
-          const total = parseInt(r.combined_total_anomalies || r.temp_total_anomalies || 0, 10);
+          const wId = normalizeWellId(r.well_id || r.well || r.Well_ID);
+          const total = parseInt(r.combined_total_anomalies || r.temp_total_anomalies || r.pressure_total_anomalies || 0, 10);
           if (wId) sensorAnomalyMap[wId] = isNaN(total) ? 0 : total;
         });
       }
     }
 
     function parseIncidentField(row) {
-      const rawIncidents = row.incidents || row.incident || row.incident_type || row.incident_list || "";
-      const rawCount = row.incident_count || row.num_incidents || row.incidents_count;
+      const rawIncidents = row.incidents || row.incident || row.incident_type || row.incident_list || row.Incidents || "";
+      const rawCount = row.incident_count || row.num_incidents || row.incidents_count || row.Incident_Count;
 
       let list = [];
       if (typeof rawIncidents === 'string' && rawIncidents.trim() !== '') {
@@ -177,8 +178,9 @@
       siteNameMap = {};
       wellDataMap = {};
       siteToWells = {};
+      siteDirectIncidents = {};
 
-      // 1. Process site scores & names
+      // 1. Process site scores, names, & site-level incident fields
       siteRows.forEach(row => {
         const rawSite = row.site_id || row.site || row.site_code || row.Site;
         const siteCode = normalizeSiteCode(rawSite);
@@ -188,6 +190,11 @@
         if (siteCode) {
           if (!isNaN(score)) siteDataMap[siteCode] = score;
           siteNameMap[siteCode] = name;
+
+          const incData = parseIncidentField(row);
+          if (incData.list.length > 0 || incData.count !== null) {
+            siteDirectIncidents[siteCode] = incData;
+          }
         }
       });
 
@@ -256,16 +263,38 @@
         const wells = siteToWells[siteCode] || [];
         let totalIncidents = 0;
         let severityPoints = 0;
+        let totalAnomalies = 0;
 
+        // Sum well-level explicit incidents and sensor anomalies
         wells.forEach(well => {
+          totalAnomalies += well.anomalies || 0;
+
           if (well.incidents && well.incidents.length > 0) {
             totalIncidents += well.incidents.length;
             well.incidents.forEach(inc => severityPoints += getSeverityPoints(inc));
           } else if (well.explicitCount !== null && well.explicitCount > 0) {
             totalIncidents += well.explicitCount;
-            severityPoints += well.explicitCount;
+            severityPoints += well.explicitCount * 1;
           }
         });
+
+        // Fallback 1: Site-level incident row check
+        if (totalIncidents === 0 && siteDirectIncidents[siteCode]) {
+          const direct = siteDirectIncidents[siteCode];
+          if (direct.list && direct.list.length > 0) {
+            totalIncidents = direct.list.length;
+            direct.list.forEach(inc => severityPoints += getSeverityPoints(inc));
+          } else if (direct.count !== null && direct.count > 0) {
+            totalIncidents = direct.count;
+            severityPoints = direct.count * 1;
+          }
+        }
+
+        // Fallback 2: Map sensor anomalies directly to incident count if no explicit incidents are recorded
+        if (totalIncidents === 0 && totalAnomalies > 0) {
+          totalIncidents = totalAnomalies;
+          severityPoints = Math.round(totalAnomalies * 0.1); // Weight high anomaly volume
+        }
 
         const baseScore = siteDataMap[siteCode] !== undefined ? siteDataMap[siteCode] : 0;
         const calculatedScore = Math.max(0, Math.min(100, Math.round(baseScore - (severityPoints * 0.5))));
@@ -274,8 +303,8 @@
         rowsHtml += `
           <tr class="border-b hover:bg-gray-50 transition-colors">
             <td class="py-3 font-semibold text-slate-900">${siteDisplayName}</td>
-            <td class="py-3 text-gray-600">${totalIncidents}</td>
-            <td class="py-3 font-semibold text-gray-700">${severityPoints} pts</td>
+            <td class="py-3 text-gray-600 font-semibold">${totalIncidents.toLocaleString()}</td>
+            <td class="py-3 font-semibold text-gray-700">${severityPoints.toLocaleString()} pts</td>
             <td class="py-3 font-bold">${calculatedScore}</td>
             <td class="py-3">${getGradeBadge(calculatedScore)}</td>
           </tr>
