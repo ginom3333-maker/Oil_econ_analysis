@@ -79,7 +79,7 @@
       </div>
       <div class="cop-card p-4 border-l-4 border-blue-600">
         <div class="text-xs font-bold text-gray-500 uppercase">Top Efficiency Leader</div>
-        <div class="text-xl font-black text-blue-700 mt-1" id="stat_top_site">EE Site 3</div>
+        <div class="text-xl font-black text-blue-700 mt-1" id="stat_top_site">EE Site 5</div>
       </div>
       <div class="cop-card p-4 border-l-4 border-amber-500">
         <div class="text-xs font-bold text-gray-500 uppercase">Portfolio Mean Efficiency</div>
@@ -163,7 +163,7 @@
   </main>
 
   <script>
-    // Master Asset Directory synchronized directly with cleaned_unified_master.csv empirical telemetry
+    // Master Asset Directory synchronized with updated site_efficiency_ranked.csv and master telemetry
     const siteDirectory = [
       { code: 'S001', name: 'EE Site 1', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76 },
       { code: 'S002', name: 'EE Site 2', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80 },
@@ -196,7 +196,6 @@
           const t = sampleNormal(site.meanTemp, site.stdTemp);
           const p = sampleNormal(site.meanPress, site.stdPress);
 
-          // IoT Reliability check: 60 <= T <= 302 and 200 <= P <= 10000
           if (t >= 60 && t <= 302 && p >= 200 && p <= 10000) {
             successCount++;
           }
