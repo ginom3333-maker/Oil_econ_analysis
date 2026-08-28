@@ -62,8 +62,8 @@
         <div class="font-bold text-gray-900 uppercase tracking-wide text-xs text-red-700">Question Solved:</div>
         <p>Which sites have the highest production efficiency? This is evaluated using a Monte Carlo simulation where efficiency is defined as <b>1,000 BOE per active well</b>, weighted by IoT production reliability constraints:</p>
         <ul class="list-disc pl-5 space-y-1 text-xs text-gray-600">
-          <li><b>Temperature limit:</b> Between $60^\circ\text{F}$ and $302^\circ\text{F}$</li>
-          <li><b>Pressure limit:</b> Between $200\,\text{psi}$ and $10,000\,\text{psi}$</li>
+          <li><b>Temperature limit:</b> Between 60°F and 302°F</li>
+          <li><b>Pressure limit:</b> Between 200 psi and 10,000 psi</li>
         </ul>
       </div>
     </div>
@@ -108,12 +108,12 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Safe Temperature ($T$)</label>
+            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Safe Temperature (T)</label>
             <input type="text" value="60°F - 302°F" class="w-full p-2 border border-gray-300 rounded text-sm bg-gray-50" readonly>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Safe Pressure ($P$)</label>
+            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Safe Pressure (P)</label>
             <input type="text" value="200 psi - 10,000 psi" class="w-full p-2 border border-gray-300 rounded text-sm bg-gray-50" readonly>
           </div>
 
@@ -125,7 +125,7 @@
         <div class="pt-2 border-t">
           <h4 class="font-bold text-xs text-gray-700 uppercase mb-2">Efficiency Formulation</h4>
           <div class="bg-gray-50 p-3 rounded text-xs text-gray-600 leading-relaxed border text-center">
-            $$\text{Eff.} = (\text{Wells} \times 1,000) \times P(60 \le T \le 302 \land 200 \le P \le 10000)$$
+            $$\text{Eff.} = (\text{Wells} \times 1000) \times P(60 \le T \le 302 \land 200 \le P \le 10000)$$
           </div>
         </div>
       </div>
