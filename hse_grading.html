@@ -5,6 +5,10 @@
   <title>ConocoPhillips | HSE Site Grading</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <!-- Plotly.js for Heatmap Rendering -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <!-- PapaParse for Dynamic CSV Parsing -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 </head>
 <body>
   <div class="cop-header">
@@ -25,7 +29,15 @@
   <h2 class="text-xl font-bold mb-2">HSE Environmental & Safety Grading Scorecard</h2>
   <p class="mb-4 text-gray-600"><b>Question Solved:</b> How are operations performing across safety compliance and environmental metrics?</p>
 
+  <!-- Heatmap Section -->
+  <div class="glass-card mb-6">
+    <h3 class="font-bold text-lg mb-2">Well Asset HSE Score Heatmap (0 - 100 Scale)</h3>
+    <div id="hseHeatmap" style="width: 100%; height: 420px;"></div>
+  </div>
+
+  <!-- Summary Table -->
   <div class="glass-card">
+    <h3 class="font-bold text-lg mb-4">Site Safety Summaries</h3>
     <table class="w-full text-left">
       <thead>
         <tr class="border-b">
@@ -51,5 +63,81 @@
       </tbody>
     </table>
   </div>
+
+  <script>
+    // Load and parse well_hse_scores.csv dynamically
+    Papa.parse("well_hse_scores.csv", {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: function(results) {
+        renderHeatmap(results.data);
+      },
+      error: function(err) {
+        console.error("Failed to load CSV file:", err);
+      }
+    });
+
+    function renderHeatmap(csvData) {
+      // Clean and slice to guarantee exact 40 records
+      const wellData = csvData
+        .map(row => ({
+          id: row.well_id,
+          score: parseFloat(row.hse_score)
+        }))
+        .filter(item => item.id && !isNaN(item.score))
+        .slice(0, 40);
+
+      // Fixed 8 rows x 5 columns grid layout
+      const rows = 8;
+      const cols = 5;
+
+      let zMatrix = [];
+      let textMatrix = [];
+
+      for (let r = 0; r < rows; r++) {
+        let zRow = [];
+        let textRow = [];
+        for (let c = 0; c < cols; c++) {
+          let index = r * cols + c;
+          if (index < wellData.length) {
+            zRow.push(wellData[index].score);
+            textRow.push(`<b>${wellData[index].id}</b><br>HSE Score: ${wellData[index].score}`);
+          }
+        }
+        zMatrix.push(zRow);
+        textMatrix.push(textRow);
+      }
+
+      const data = [{
+        z: zMatrix,
+        text: textMatrix,
+        hoverinfo: 'text',
+        type: 'heatmap',
+        zmin: 0,
+        zmax: 100,
+        colorscale: [
+          [0.0, '#C8102E'], // Red (0)
+          [0.5, '#EAB308'], // Yellow (50)
+          [1.0, '#059669']  // Green (100)
+        ],
+        colorbar: {
+          title: 'HSE Score',
+          dtick: 20
+        }
+      }];
+
+      const layout = {
+        autosize: true,
+        margin: { t: 20, b: 20, l: 20, r: 20 },
+        xaxis: { showticklabels: false, ticks: '' },
+        yaxis: { showticklabels: false, ticks: '', autorange: 'reversed' }
+      };
+
+      const config = { responsive: true, displayModeBar: false };
+
+      Plotly.newPlot('hseHeatmap', data, layout, config);
+    }
+  </script>
 </body>
 </html>
