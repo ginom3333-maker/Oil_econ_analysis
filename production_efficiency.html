@@ -213,6 +213,7 @@
         };
       });
 
+      // Sort results by the dynamically calculated Monte Carlo score
       results.sort((a, b) => b.dynamicScore - a.dynamicScore);
 
       const statTopSite = document.getElementById('stat_top_site');
