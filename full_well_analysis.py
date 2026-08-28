@@ -22,7 +22,6 @@ def find_date_column(df):
 # ============================================================
 
 def hyperbolic_arps(t, qi, Di, b):
-    # Guard against b near zero to prevent ZeroDivisionError
     b = np.maximum(b, 1e-5)
     return qi / np.power(1.0 + b * Di * t, 1.0 / b)
 
@@ -36,15 +35,12 @@ def build_monthly_rates(df):
     df[date_col] = pd.to_datetime(df[date_col])
     df["month"] = df[date_col].dt.to_period("M").dt.to_timestamp()
 
-    # Fill missing production values with 0 to prevent NaN propagation
     df["oil_rate"] = df["oil_rate"].fillna(0)
     df["gas_rate"] = df["gas_rate"].fillna(0)
 
-    # NOTE: If gas_rate is logged in SCF/day (instead of MSCF/day), change 6.0 to 6000.0
     df["gas_boe"] = df["gas_rate"] / 6.0
     df["boe_rate"] = df["oil_rate"] + df["gas_boe"]
 
-    # Calculate average daily rates per month per well
     monthly = (
         df.groupby(["well_id", "site_id", "month"])
         .agg({
@@ -60,7 +56,7 @@ def build_monthly_rates(df):
     return monthly
 
 # ============================================================
-# LOAD IoT ANOMALY CSV (FIXED FOR MULTI-ROW AGGREGATION)
+# LOAD IoT ANOMALY CSV
 # ============================================================
 
 def load_iot_anomalies(csv_path="well_sensor_anomalies.csv"):
@@ -106,14 +102,20 @@ def get_top5_last6_boe(monthly_df):
     top5 = last6_boe.head(5)["well_id"].tolist()
     return top5, last6_boe
 
+def save_top5_report(last6_boe, outdir="Top5_Last6_Months"):
+    os.makedirs(outdir, exist_ok=True)
+    last6_boe.head(5).to_csv(os.path.join(outdir, "top5_wells_last_6_months.csv"), index=False)
+    last6_boe.to_csv(os.path.join(outdir, "all_wells_last_6_months_ranked.csv"), index=False)
+
 # ============================================================
-# FIT DECLINE + FORECAST 5 YEARS FOR TOP 5 WELLS
+# FIT DECLINE + FORECAST FOR ALL WELLS (DAILY OPEX & NW TEXAS FLOORS)
 # ============================================================
 
-def fit_and_forecast_top5(monthly_df, top5):
+def fit_and_forecast_all_wells(monthly_df, anomalies_df, boe_price=60.0):
     results = {}
+    all_wells = monthly_df["well_id"].unique()
 
-    for well in top5:
+    for well in all_wells:
         w = monthly_df[monthly_df["well_id"] == well].sort_values("month")
         if len(w) < 6:
             continue
@@ -152,45 +154,73 @@ def fit_and_forecast_top5(monthly_df, top5):
             "boe_rate_forecast": q_future
         })
 
+        # --- Adjusted Lighter Risk Scoring Weights ---
         risk_score = 0.0
         temp = w["temperature"].mean()
         pressure = w["pressure"].mean()
 
-        if temp < 60: risk_score += 0.25
-        if temp > 302: risk_score += 0.25
-        if pressure < 200: risk_score += 0.25
-        if pressure > 10000: risk_score += 0.25
+        if temp < 60: risk_score += 0.10
+        if temp > 302: risk_score += 0.10
+        if pressure < 200: risk_score += 0.10
+        if pressure > 10000: risk_score += 0.10
 
-        qi_risk = qi * (1.0 - 0.10 * risk_score)
+        well_iot = anomalies_df[anomalies_df["well_id"] == well]
+        iot_rel = well_iot["iot_reliability_percent"].values[0] if not well_iot.empty else 100.0
+        
+        if iot_rel < 95.0:
+            risk_score += (95.0 - iot_rel) / 150.0
+
         Di_risk = Di * (1.0 + risk_score)
 
-        q_future_risk = hyperbolic_arps(t_future_years, qi_risk, Di_risk, b)
+        t_fc = ((future_months - future_months[0]).days / 365.0).astype(float)
+        q_future_risk = hyperbolic_arps(t_fc, q_future[0], Di_risk, b)
         q_future_risk = np.array(q_future_risk, dtype=float)
         q_future_risk[q_future_risk < 0] = 0
 
         forecast_df["boe_rate_risk"] = q_future_risk
 
+        # --- Integrated Economic Limit (Converted Monthly to Daily OPEX) ---
+        avg_op_cost_monthly = w["operating_cost"].mean()
+        if np.isnan(avg_op_cost_monthly) or avg_op_cost_monthly <= 0:
+            avg_op_cost_monthly = 9000.0  # Default fallback monthly OPEX (~$300/day)
+
+        avg_op_cost_daily = avg_op_cost_monthly / 30.44
+
+        risk_cost_multiplier = 1.0 + (risk_score * 0.15) + max(0.0, (100.0 - iot_rel) / 500.0)
+        adjusted_op_cost_daily = avg_op_cost_daily * risk_cost_multiplier
+        calculated_econ_limit = adjusted_op_cost_daily / boe_price if boe_price > 0 else 5.0
+
+        # Northwest Texas industry baseline floors (5 BOE/d for horizontal, 2.5 BOE/d for vertical)
+        is_horizontal = "H" in str(well).upper() or "HZ" in str(well).upper()
+        regional_min_floor = 5.0 if is_horizontal else 2.5  
+        econ_limit = max(calculated_econ_limit, regional_min_floor)
+
         results[well] = {
             "history": w,
             "params": (qi, Di, b),
-            "params_risk": (qi_risk, Di_risk, b),
+            "params_risk": (q_future[0], Di_risk, b),
             "forecast": forecast_df,
-            "risk_score": risk_score
+            "risk_score": risk_score,
+            "iot_reliability": iot_rel,
+            "econ_limit": econ_limit
         }
 
     return results
 
 # ============================================================
-# PLOT TOP 5 WELLS
+# PLOT ALL WELLS
 # ============================================================
 
-def plot_top5(results, outdir="top5_last6_boe"):
+def plot_all_wells(results, outdir="wells_curves"):
     os.makedirs(outdir, exist_ok=True)
 
     for well, data in results.items():
         w = data["history"]
         qi, Di, b = data["params"]
         f = data["forecast"]
+        iot_rel = data["iot_reliability"]
+        risk_score = data["risk_score"]
+        econ_limit = data["econ_limit"]
 
         first_date = w["month"].min()
         t_years = ((w["month"] - first_date).dt.days.values / 365.0).astype(float)
@@ -202,8 +232,53 @@ def plot_top5(results, outdir="top5_last6_boe"):
         plt.plot(w["month"], w["boe_rate"], "o-", label="Actual BOE/day")
         plt.plot(w["month"], q_fit, "--", label="Fitted Decline")
         plt.plot(f["month"], f["boe_rate_forecast"], "r--", label="Forecast")
-        plt.plot(f["month"], f["boe_rate_risk"], "m--", label="Risk Forecast")
-        plt.title(f"Top 5 BOE — {well}")
+        plt.plot(f["month"], f["boe_rate_risk"], "m--", label=f"Risk Forecast (IoT Rel: {iot_rel:.1f}%, Risk: {risk_score:.2f})")
+        
+        plt.axhline(y=econ_limit, color="g", linestyle="-", linewidth=2, label=f"NW Texas Econ Limit ({econ_limit:.1f} BOE/d)")
+
+        plt.title(f"Well Forecast — {well} (IoT Rel: {iot_rel:.1f}% | Econ Limit: {econ_limit:.1f} BOE/d)")
+        plt.xlabel("Month")
+        plt.ylabel("BOE/day")
+        plt.grid(True)
+        plt.legend()
+        plt.tight_layout()
+        plt.savefig(os.path.join(outdir, f"{well}_forecast.png"))
+        plt.close()
+
+# ============================================================
+# PLOT SPECIFIC WELLS (E.G., TOP 5) TO SEPARATE FOLDER
+# ============================================================
+
+def plot_specific_wells(results, target_wells, outdir="Top5_Curves"):
+    os.makedirs(outdir, exist_ok=True)
+
+    for well in target_wells:
+        if well not in results:
+            continue
+        
+        data = results[well]
+        w = data["history"]
+        qi, Di, b = data["params"]
+        f = data["forecast"]
+        iot_rel = data["iot_reliability"]
+        risk_score = data["risk_score"]
+        econ_limit = data["econ_limit"]
+
+        first_date = w["month"].min()
+        t_years = ((w["month"] - first_date).dt.days.values / 365.0).astype(float)
+        q_fit = hyperbolic_arps(t_years, qi, Di, b)
+        q_fit = np.array(q_fit, dtype=float)
+        q_fit[q_fit < 0] = 0
+
+        plt.figure(figsize=(12, 6))
+        plt.plot(w["month"], w["boe_rate"], "o-", label="Actual BOE/day")
+        plt.plot(w["month"], q_fit, "--", label="Fitted Decline")
+        plt.plot(f["month"], f["boe_rate_forecast"], "r--", label="Forecast")
+        plt.plot(f["month"], f["boe_rate_risk"], "m--", label=f"Risk Forecast (IoT Rel: {iot_rel:.1f}%, Risk: {risk_score:.2f})")
+        
+        plt.axhline(y=econ_limit, color="g", linestyle="-", linewidth=2, label=f"NW Texas Econ Limit ({econ_limit:.1f} BOE/d)")
+
+        plt.title(f"Top 5 Well Forecast — {well} (IoT Rel: {iot_rel:.1f}% | Econ Limit: {econ_limit:.1f} BOE/d)")
         plt.xlabel("Month")
         plt.ylabel("BOE/day")
         plt.grid(True)
@@ -217,11 +292,6 @@ def plot_top5(results, outdir="top5_last6_boe"):
 # ============================================================
 
 def compute_site_efficiency(monthly_df, anomalies_df):
-    """
-    Computes site-level efficiency by applying IoT reliability 
-    to each well individually before averaging at the site level.
-    """
-    # 1. Average daily BOE per well across active months
     well_boe_avg = (
         monthly_df.groupby(["site_id", "well_id"])["boe_rate"]
         .mean()
@@ -229,19 +299,16 @@ def compute_site_efficiency(monthly_df, anomalies_df):
         .rename(columns={"boe_rate": "boe_avg_per_well"})
     )
 
-    # 2. Merge IoT reliability per well and handle missing values
     merged_iot = well_boe_avg.merge(
         anomalies_df[["well_id", "iot_reliability_percent"]],
         on="well_id",
         how="left"
     ).fillna({"iot_reliability_percent": 100.0})
 
-    # 3. Calculate expected BOE for each individual well first
     merged_iot["expected_well_boe"] = (
         merged_iot["boe_avg_per_well"] * (merged_iot["iot_reliability_percent"] / 100.0)
     )
 
-    # 4. Aggregate to site level by taking the mean of the well-level expected BOEs
     site_stats = (
         merged_iot.groupby("site_id")
         .agg(
@@ -303,8 +370,17 @@ if __name__ == "__main__":
 
     save_iot_reliability_file(anomalies_df)
 
+    # Get top 5 wells from the last 6 months and save tables
     top5, last6_boe_table = get_top5_last6_boe(monthly)
-    results = fit_and_forecast_top5(monthly, top5)
-    plot_top5(results)
+    save_top5_report(last6_boe_table, outdir="Top5_Last6_Months")
 
-    print("\nDone: IoT reliability + monthly BOE averages + top 5 forecasts.")
+    # Fit and forecast all wells
+    results = fit_and_forecast_all_wells(monthly, anomalies_df, boe_price=60.0)
+    
+    # Save all well curves to general folder
+    plot_all_wells(results, outdir="wells_curves")
+    
+    # Save ONLY the top 5 well curves into their own separate folder
+    plot_specific_wells(results, top5, outdir="Top5_Curves")
+
+    print("\nDone: Top 5 curves saved to 'Top5_Curves', reports to 'Top5_Last6_Months', and all well curves saved to 'wells_curves'.")
