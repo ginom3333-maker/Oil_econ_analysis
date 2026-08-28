@@ -8,6 +8,22 @@
   <!-- Heatmap Rendering & CSV Parsing Libraries -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <style>
+    :root {
+      --cop-red: #C8102E;
+      --cop-dark-red: #9B0C23;
+      --cop-charcoal: #222222;
+      --cop-gray-bg: #F4F5F7;
+    }
+    .cop-header {
+      background: linear-gradient(135deg, var(--cop-red) 0%, var(--cop-dark-red) 100%);
+      border-bottom: 4px solid #1a1a1a;
+    }
+    .nav-tab-item.active {
+      color: var(--cop-red);
+      border-bottom-color: var(--cop-red);
+    }
+  </style>
 </head>
 <body>
   <header class="cop-header text-white px-6 h-12 shadow-lg flex justify-between items-center overflow-hidden">
@@ -20,30 +36,34 @@
     </div>
   </header>
 
-  <nav class="nav-tabs">
-    <a href="index.html" class="nav-tab-item">Geospatial Footprint</a>
-    <a href="type_curves.html" class="nav-tab-item">5-Year Type Curves</a>
-    <a href="production_efficiency.html" class="nav-tab-item">Production Efficiency</a>
-    <a href="hse_grading.html" class="nav-tab-item active">HSE Site Grading</a>
+  <nav class="bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
+    <a href="index.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">Geospatial Footprint</a>
+    <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">5-Year Type Curves</a>
+    <a href="production_efficiency.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">Production Efficiency</a>
+    <a href="hse_grading.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">HSE Site Grading</a>
   </nav>
 
-  <h2 class="text-xl font-bold mb-2">HSE Environmental & Safety Grading Scorecard</h2>
-  <p class="mb-4 text-gray-600"><b>Question Solved:</b> How are operations performing across safety compliance and environmental metrics?</p>
-
-  <!-- Interactive Heatmap Card -->
-  <div class="glass-card mb-6">
-    <div class="flex justify-between items-center mb-4">
-      <div>
-        <h3 id="heatmapTitle" class="font-bold text-lg">Site Asset Overview (Click a Site to Inspect Wells)</h3>
-        <p id="heatmapSubtitle" class="text-sm text-gray-500">Click any site cell below to inspect its individual well metrics.</p>
-      </div>
-      <button id="backBtn" onclick="renderSiteLevel()" class="btn-primary text-xs hidden">
-        ← Back to All Sites
-      </button>
+  <main class="max-w-7xl mx-auto p-6 space-y-6">
+    <div>
+      <h2 class="text-xl font-bold mb-2">HSE Environmental & Safety Grading Scorecard</h2>
+      <p class="mb-4 text-gray-600"><b>Question Solved:</b> How are operations performing across safety compliance and environmental metrics?</p>
     </div>
 
-    <div id="hseHeatmap" style="width: 100%; height: 450px;"></div>
-  </div>
+    <!-- Interactive Heatmap Card -->
+    <div class="glass-card mb-6">
+      <div class="flex justify-between items-center mb-4">
+        <div>
+          <h3 id="heatmapTitle" class="font-bold text-lg">Site Asset Overview (Click a Site to Inspect Wells)</h3>
+          <p id="heatmapSubtitle" class="text-sm text-gray-500">Click any site cell below to inspect its individual well metrics.</p>
+        </div>
+        <button id="backBtn" onclick="renderSiteLevel()" class="btn-primary text-xs hidden">
+          ← Back to All Sites
+        </button>
+      </div>
+
+      <div id="hseHeatmap" style="width: 100%; height: 450px;"></div>
+    </div>
+  </main>
 
   <script>
     let siteDataMap = {}; // Maps siteCode -> score
