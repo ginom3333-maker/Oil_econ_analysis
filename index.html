@@ -43,7 +43,7 @@
 </head>
 <body class="text-gray-900">
   
- <header class="cop-header text-white px-6 h-12 shadow-lg flex justify-between items-center overflow-hidden">
+  <header class="cop-header text-white px-6 h-12 shadow-lg flex justify-between items-center overflow-hidden">
     <div class="flex items-center h-full">
       <img src="conoco logo.png" alt="ConocoPhillips Logo" class="h-28 w-auto object-cover object-left">
     </div>
@@ -113,7 +113,6 @@
   </main>
 
   <script>
-    // Comprehensive site metadata updated with exact user-provided list and master financials
     const siteDirectory = [
       { 
         code: 'S01', name: 'Estacado Ridge', unit: 'PERMIAN WEST', lat: 30.799264, lon: -100.918286, 
@@ -165,7 +164,6 @@
       }
     ];
 
-    // Individual well master records derived from the master dataset for accurate smaller dot rendering
     const wellDirectory = {
       'W0001': { id: 'W0001', oil: 33.53, gas: 151.78, water: 763.63, status: 'active' },
       'W0002': { id: 'W0002', oil: 0.00, gas: 0.00, water: 0.00, status: 'shut_in' },
@@ -209,22 +207,20 @@
       'W0040': { id: 'W0040', oil: 138.10, gas: 650.30, water: 275.40, status: 'active' }
     };
 
-    // Initialize Leaflet Map centered over the Permian Basin
     const map = L.map('map').setView([30.8457, -101.6676], 7);
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?api_key=cb1_2gqv_1_65cb4104826184dd212bacaf', {
+    // Updated tile URL parameter to ?key=
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=cb1_2gqv_1_65cb4104826184dd212bacaf', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
     }).addTo(map);
 
     const tbody = document.getElementById('sitesTableBody');
 
-    // Populate Table and Add Map Markers & Individual Well Sub-markers
     siteDirectory.forEach((site, index) => {
       const profitClass = site.profit >= 0 ? 'text-emerald-600 font-bold' : 'text-red-600 font-bold';
       const profitFormatted = site.profit >= 0 ? `+$${site.profit.toLocaleString('en-US', {minimumFractionDigits: 2})}` : `-$${Math.abs(site.profit).toLocaleString('en-US', {minimumFractionDigits: 2})}`;
 
-      // Add table row
       const row = document.createElement('tr');
       row.className = 'border-b hover:bg-gray-50';
       row.innerHTML = `
@@ -248,7 +244,6 @@
       `;
       tbody.appendChild(row);
 
-      // Add main site hub marker
       const marker = L.circleMarker([site.lat, site.lon], {
         radius: 9,
         fillColor: site.profit >= 0 ? '#059669' : '#C8102E',
@@ -276,11 +271,9 @@
         </div>
       `);
 
-      // Add smaller dots for all 5 wells surrounding the site hub
       site.wells.forEach((wellId, wIdx) => {
         const well = wellDirectory[wellId] || { id: wellId, oil: 100, gas: 400, water: 250, status: 'active' };
         
-        // Calculate offset angles in a circle around the site center
         const angle = (wIdx / site.wells.length) * 2 * Math.PI;
         const offsetLat = site.lat + (0.018 * Math.cos(angle));
         const offsetLon = site.lon + (0.022 * Math.sin(angle));
