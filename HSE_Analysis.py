@@ -2,8 +2,8 @@ import os
 import pandas as pd
 
 
-def export_all_well_safety_scores(
-    output_csv="well_hse_scores.csv", file_path="cleaned_unified_master.csv"
+def export_all_site_safety_scores(
+    output_csv="site_hse_scores.csv", file_path="cleaned_unified_master.csv"
 ):
   if not os.path.exists(file_path):
     print(f"Error: '{file_path}' was not found in the current directory.")
@@ -11,9 +11,15 @@ def export_all_well_safety_scores(
 
   df = pd.read_csv(file_path)
 
-  if "well_id" not in df.columns:
-    print("Error: 'well_id' column missing from the dataset.")
+  # Determine grouping identifier (use 'site_id' if present, otherwise map/fallback from 'well_id')
+  group_col = "site_id" if "site_id" in df.columns else "well_id"
+  if group_col not in df.columns:
+    print("Error: Neither 'site_id' nor 'well_id' column found in the dataset.")
     return
+
+  # If grouping by site but only well_id exists, create a site mapping
+  if group_col == "site_id" and "site_id" not in df.columns:
+    df["site_id"] = df["well_id"]
 
   def get_incident_points(description):
     if not description or pd.isna(description):
@@ -88,27 +94,26 @@ def export_all_well_safety_scores(
     return 0
 
   results = []
-  unique_wells = df["well_id"].unique()
+  unique_sites = df[group_col].unique()
 
-  for well_id in unique_wells:
-    well_rows = df[df["well_id"] == well_id]
+  for site_id in unique_sites:
+    site_rows = df[df[group_col] == site_id]
     total_penalty = 0
 
-    for _, row in well_rows.iterrows():
+    for _, row in site_rows.iterrows():
       desc = row.get("incident_description", "")
       total_penalty += get_incident_points(desc)
 
     final_score = max(0, 100 - total_penalty)
-    # Only keep well_id and hse_score
-    results.append({"well_id": well_id, "hse_score": final_score})
+    results.append({"site_id": site_id, "hse_score": final_score})
 
   result_df = pd.DataFrame(results)
   result_df.to_csv(output_csv, index=False)
   print(
       f"Successfully generated and saved '{output_csv}' with"
-      f" {len(unique_wells)} wells."
+      f" {len(unique_sites)} sites."
   )
 
 
 if __name__ == "__main__":
-  export_all_well_safety_scores()
+  export_all_site_safety_scores()
