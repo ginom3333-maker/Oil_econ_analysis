@@ -39,12 +39,13 @@
 </head>
 <body class="text-gray-900">
 
-  <header class="cop-header text-white p-4 shadow-lg flex justify-between items-center">
-    <div>
-      <div class="flex items-center space-x-3">
-        <h1 class="text-xl font-black tracking-widest uppercase">ConocoPhillips</h1>
+  <header class="cop-header text-white px-6 py-3 shadow-lg flex justify-between items-center">
+    <div class="flex items-center space-x-4">
+      <img src="conoco logo.png" alt="ConocoPhillips Logo" class="max-h-12 w-auto object-contain" onerror="this.style.display='none';">
+      <div>
+        <h1 class="text-xl font-black tracking-widest uppercase leading-none">ConocoPhillips</h1>
+        <p class="text-xs text-red-100 tracking-wide uppercase mt-1 font-medium leading-none">Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
       </div>
-      <p class="text-xs text-red-100 tracking-wide uppercase mt-0.5 font-medium">Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
     </div>
     <div class="hidden md:block text-right text-xs text-red-100 font-medium">
       <div><b>Active Asset Region:</b> Permian Basin</div>
@@ -52,7 +53,7 @@
     </div>
   </header>
 
-<nav class="nav-tabs bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
+  <nav class="nav-tabs bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
     <a href="index.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">1. Geospatial Footprint</a>
     <a href="well_tiering.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">2. Single-Well Tiering & Q5</a>
     <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">3. 5-Year Type Curves</a>
@@ -60,9 +61,9 @@
     <a href="production_efficiency.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">5. Production Efficiency</a>
     <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">6. HSE Site Grading</a>
     <a href="competitor_acumen.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">7. Competitor & Acumen</a>
-</nav>
+  </nav>
 
-<main class="max-w-7xl mx-auto p-6 space-y-6">
+  <main class="max-w-7xl mx-auto p-6 space-y-6">
     <div>
       <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Production Efficiency & IoT Monte Carlo Engine</h2>
       <div class="bg-white border border-gray-200 p-4 rounded-md mt-2 shadow-sm space-y-2 text-sm text-gray-700">
@@ -153,7 +154,7 @@
                 </tr>
               </thead>
               <tbody id="rankingTableBody">
-                </tbody>
+              </tbody>
             </table>
           </div>
         </div>
@@ -170,7 +171,6 @@
   </main>
 
   <script>
-    // Master Asset Directory mapped to exact site names and codes (S01 - S08) with empirical telemetry
     const siteDirectory = [
       { code: 'S01', name: 'Estacado Ridge', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76 },
       { code: 'S02', name: 'Big Spring Complex', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80 },
