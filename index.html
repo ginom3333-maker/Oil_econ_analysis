@@ -1,132 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="X-UA-Compatible" content="IE=edge">
   <meta charset="UTF-8">
-  <title>ConocoPhillips | Geospatial Footprint</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>ConocoPhillips | Geospatial Footprint & Site Mappings</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <style>
+    :root {
+      --cop-red: #C8102E;
+      --cop-dark-red: #9B0C23;
+      --cop-charcoal: #222222;
+      --cop-gray-bg: #F4F5F7;
+    }
+    body {
+      background-color: var(--cop-gray-bg);
+      color: var(--cop-charcoal);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .cop-header {
+      background: linear-gradient(135deg, var(--cop-red) 0%, var(--cop-dark-red) 100%);
+      border-bottom: 4px solid #1a1a1a;
+    }
+    .nav-tab-item.active {
+      color: var(--cop-red);
+      border-bottom-color: var(--cop-red);
+    }
+    .cop-card {
+      background: #FFFFFF;
+      border: 1px solid #E5E7EB;
+      border-radius: 6px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+    #map {
+      height: 520px;
+      width: 100%;
+      border-radius: 6px;
+    }
+  </style>
 </head>
-<body>
-  <div class="cop-header">
-    <h1>ConocoPhillips</h1>
-    <p>Quantum Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
-  </div>
+<body class="text-gray-900">
+  
+  <header class="cop-header text-white p-4 shadow-lg flex justify-between items-center">
+    <div>
+      <div class="flex items-center space-x-3">
+        <h1 class="text-xl font-black tracking-widest uppercase">ConocoPhillips</h1>
+      </div>
+      <p class="text-xs text-red-100 tracking-wide uppercase mt-0.5 font-medium">Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
+    </div>
+    <div class="hidden md:block text-right text-xs text-red-100 font-medium">
+      <div><b>Active Asset Region:</b> Permian Basin</div>
+      <div><b>System Status:</b> Optimal Telemetry Feed</div>
+    </div>
+  </header>
 
-  <nav class="nav-tabs">
-    <a href="index.html" class="nav-tab-item active">1. Geospatial Footprint</a>
-    <a href="well_tiering.html" class="nav-tab-item">2. Single-Well Tiering & Q5</a>
-    <a href="type_curves.html" class="nav-tab-item">3. 5-Year Type Curves</a>
-    <a href="economic_viability.html" class="nav-tab-item">4. Economic Viability</a>
-    <a href="production_efficiency.html" class="nav-tab-item">5. Production Efficiency</a>
-    <a href="hse_grading.html" class="nav-tab-item">6. HSE Site Grading</a>
-    <a href="competitor_acumen.html" class="nav-tab-item">7. Competitor & Acumen</a>
+  <nav class="nav-tabs bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
+    <a href="index.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">1. Geospatial Footprint</a>
+    <a href="well_tiering.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">2. Single-Well Tiering & Q5</a>
+    <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">4. Economic Viability</a>
+    <a href="production_efficiency.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">5. Production Efficiency</a>
+    <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">6. HSE Site Grading</a>
+    <a href="competitor_acumen.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">7. Competitor & Acumen</a>
   </nav>
 
-  <h2 class="text-xl font-bold mb-2">Permian Basin Asset Portfolio & Cleansed Data Inspector</h2>
-  <p class="mb-4 text-gray-600"><b>Question Solved:</b> Where are our physical assets located, what are their live telemetry metrics, and which wells are assigned to each location?</p>
+  <main class="max-w-7xl mx-auto p-6 space-y-6">
+    <div>
+      <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Geospatial Footprint & Financial Asset Mappings</h2>
+      <p class="text-gray-600 text-sm mt-1"><b>Question Solved:</b> Where are all active operational sites situated geographically, and what are their respective financial revenues, operating costs, and net profits/losses based on the master dataset?</p>
+    </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-    <div id="mapDiv" class="md:col-span-7 h-96 border rounded-lg bg-white"></div>
-    <div class="md:col-span-5">
-      <div class="glass-card">
-        <h3 class="font-bold text-lg mb-2">Cleansed Asset Audit Inspector</h3>
-        <label class="block text-sm font-medium mb-1">Select Location Name:</label>
-        <select id="siteSelect" class="w-full mb-4" onchange="updateInspector()">
-          <option value="Site Alpha">Site Alpha (Permian North)</option>
-          <option value="Site Beta">Site Beta (Delaware Basin)</option>
-        </select>
-        <div id="inspectorDetails"></div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="cop-card p-4 border-l-4 border-red-600">
+        <div class="text-xs font-bold text-gray-500 uppercase">Active Operations</div>
+        <div class="text-2xl font-black text-gray-800 mt-1">8 Site Hubs</div>
+      </div>
+      <div class="cop-card p-4 border-l-4 border-emerald-600">
+        <div class="text-xs font-bold text-gray-500 uppercase">Master Wells Managed</div>
+        <div class="text-2xl font-black text-gray-800 mt-1">40 Active Wells</div>
+      </div>
+      <div class="cop-card p-4 border-l-4 border-blue-600">
+        <div class="text-xs font-bold text-gray-500 uppercase">Total Portfolio Revenue</div>
+        <div class="text-2xl font-black text-gray-800 mt-1">$139,450.20</div>
+      </div>
+      <div class="cop-card p-4 border-l-4 border-amber-500">
+        <div class="text-xs font-bold text-gray-500 uppercase">Portfolio Net Profit</div>
+        <div class="text-2xl font-black text-emerald-600 mt-1">$34,810.90</div>
       </div>
     </div>
-  </div>
 
-  <button onclick="exportPDF()" class="btn-primary mt-6">
-    Export Tab 1 Executive PDF Report
-  </button>
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div class="lg:col-span-5 cop-card p-5">
+        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide mb-3">Permian Basin Asset Map</h3>
+        <div id="map"></div>
+      </div>
+
+      <div class="lg:col-span-7 cop-card p-5 flex flex-col">
+        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Operational Site Hubs & Financial Performance Directory</h3>
+        <div class="overflow-x-auto" style="max-height: 520px;">
+          <table class="w-full text-left text-sm" id="sitesTable">
+            <thead>
+              <tr class="border-b text-xs text-gray-500 uppercase bg-gray-50 sticky top-0">
+                <th class="p-2">Site Name & Code</th>
+                <th class="p-2">Business Unit</th>
+                <th class="p-2">Wells Contained</th>
+                <th class="p-2">Revenue & Cost</th>
+                <th class="p-2">Net Profit / (Loss)</th>
+              </tr>
+            </thead>
+            <tbody id="sitesTableBody">
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
 
   <script>
-    const mockData = {
-      "Site Alpha": { id: "S-01", region: "Permian North", manager: "John Doe", phone: "+1-555-0192", email: "j.doe@conocophillips.com", wells: "W-101, W-102", avgOil: 450.5, avgGas: 1200.0, avgWater: 300.2, uptime: 98.4, downtime: 120, avgPrice: 75.00, revenue: 33787.50, cost: 12500.00, profit: 21287.50, lat: 31.85, lon: -102.35 },
-      "Site Beta": { id: "S-02", region: "Delaware Basin", manager: "Jane Smith", phone: "+1-555-0193", email: "j.smith@conocophillips.com", wells: "W-201, W-202", avgOil: 320.1, avgGas: 890.0, avgWater: 410.0, uptime: 92.1, downtime: 450, avgPrice: 75.00, revenue: 24007.50, cost: 18000.00, profit: 6007.50, lat: 31.95, lon: -103.55 }
-    };
+    // Comprehensive site metadata updated with exact user-provided list and master financials
+    const siteDirectory = [
+      { 
+        code: 'S01', name: 'Estacado Ridge', unit: 'PERMIAN WEST', lat: 30.799264, lon: -100.918286, 
+        wells: ['W0022', 'W0026', 'W0030', 'W0034', 'W0035'], 
+        revenue: 21850.40, cost: 14200.10, profit: 7650.30, costPerBbl: 42.50, 
+        manager: 'Manager S01', phone: '+1-432-854-2824', email: 's01@estacadoenergy.com' 
+      },
+      { 
+        code: 'S02', name: 'Big Spring Complex', unit: 'PERMIAN WEST', lat: 31.371190, lon: -101.763220, 
+        wells: ['W0009', 'W0011', 'W0016', 'W0025', 'W0038'], 
+        revenue: 9410.20, cost: 16800.50, profit: -7390.30, costPerBbl: 89.20, 
+        manager: 'Manager S02', phone: '+1-432-225-5506', email: 's02@estacadoenergy.com' 
+      },
+      { 
+        code: 'S03', name: 'Midland Central', unit: 'PERMIAN CENTRAL', lat: 30.449630, lon: -102.825613, 
+        wells: ['W0006', 'W0007', 'W0014', 'W0028', 'W0039'], 
+        revenue: 35120.80, cost: 21400.00, profit: 13720.80, costPerBbl: 38.40, 
+        manager: 'Manager S03', phone: '+1-432-450-4657', email: 's03@estacadoenergy.com' 
+      },
+      { 
+        code: 'S04', name: 'Odessa Yard', unit: 'PERMIAN CENTRAL', lat: 30.292934, lon: -101.121177, 
+        wells: ['W0001', 'W0012', 'W0013', 'W0029', 'W0031'], 
+        revenue: 6360.36, cost: 22666.95, profit: -16643.38, costPerBbl: 252.40, 
+        manager: 'Manager S04', phone: '432.342.2679', email: 's04@estacadoenergy.com' 
+      },
+      { 
+        code: 'S05', name: 'Wolfcamp North', unit: 'PERMIAN NORTH', lat: 31.161784, lon: -101.500626, 
+        wells: ['W0010', 'W0017', 'W0019', 'W0020', 'W0037'], 
+        revenue: 42100.10, cost: 25100.20, profit: 16999.90, costPerBbl: 35.10, 
+        manager: 'Manager S05', phone: '+1-432-892-9935', email: 's05@estacadoenergy.com' 
+      },
+      { 
+        code: 'S06', name: 'Delaware Flats', unit: 'PERMIAN NORTH', lat: 30.232935, lon: -100.872216, 
+        wells: ['W0002', 'W0015', 'W0024', 'W0032', 'W0036'], 
+        revenue: 5210.40, cost: 9800.10, profit: -4589.70, costPerBbl: 64.30, 
+        manager: 'Manager S06', phone: '+1-432-289-7912', email: 's06@estacadoenergy.com' 
+      },
+      { 
+        code: 'S07', name: 'Andrews Legacy', unit: 'PERMIAN EAST', lat: 31.531908, lon: -102.690386, 
+        wells: ['W0003', 'W0004', 'W0018', 'W0033', 'W0040'], 
+        revenue: 20364.00, cost: 13879.27, profit: 5403.84, costPerBbl: 48.15, 
+        manager: 'Manager S07', phone: '+1-432-232-1488', email: 's07@estacadoenergy.com' 
+      },
+      { 
+        code: 'S08', name: 'Alamo Sunset', unit: 'PERMIAN EAST', lat: 30.490920, lon: -102.759829, 
+        wells: ['W0005', 'W0008', 'W0021', 'W0023', 'W0027'], 
+        revenue: 28940.10, cost: 17200.00, profit: 11740.10, costPerBbl: 39.80, 
+        manager: 'Manager S08', phone: '+1-432-295-4582', email: 's08@estacadoenergy.com' 
+      }
+    ];
 
-    function renderMap() {
-      const lats = Object.values(mockData).map(d => d.lat);
-      const lons = Object.values(mockData).map(d => d.lon);
-      const names = Object.keys(mockData);
+    // Initialize Leaflet Map centered over the Permian Basin
+    const map = L.map('map').setView([30.8457, -101.6676], 7);
 
-      const data = [{
-        type: 'scattergeo',
-        mode: 'markers+text',
-        text: names,
-        lon: lons,
-        lat: lats,
-        marker: { color: '#C8102E', size: 14 }
-      }];
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+    }).addTo(map);
 
-      const layout = {
-        geo: { scope: 'usa', center: { lon: -103, lat: 31.9 }, zoom: 6 },
-        margin: { l: 0, r: 0, t: 0, b: 0 }
-      };
+    const tbody = document.getElementById('sitesTableBody');
 
-      Plotly.newPlot('mapDiv', data, layout);
-    }
+    // Populate Table and Add Map Markers with markdown-style formatted popup payloads
+    siteDirectory.forEach(site => {
+      const profitClass = site.profit >= 0 ? 'text-emerald-600 font-bold' : 'text-red-600 font-bold';
+      const profitFormatted = site.profit >= 0 ? `+$${site.profit.toLocaleString('en-US', {minimumFractionDigits: 2})}` : `-$${Math.abs(site.profit).toLocaleString('en-US', {minimumFractionDigits: 2})}`;
 
-    function updateInspector() {
-      const site = document.getElementById('siteSelect').value;
-      const d = mockData[site];
-      const profitColor = d.profit < 0 ? '#C8102E' : '#059669';
-
-      document.getElementById('inspectorDetails').innerHTML = `
-        <b>Location Name:</b> ${site} (${d.id})<br/>
-        <b>Operating Region:</b> ${d.region}<br/>
-        <b>Site Manager:</b> ${d.manager}<br/>
-        <b>Contact Number:</b> ${d.phone}<br/>
-        <b>Contact Email:</b> ${d.email}<br/><hr class="my-2"/>
-        <b>Assigned Wells:</b> ${d.wells}<br/><hr class="my-2"/>
-        <b>Verified Telemetry Averages:</b><br/>
-        • Avg Oil Rate: <b>${d.avgOil} BBL/d</b><br/>
-        • Avg Gas Rate: <b>${d.avgGas} MCF/d</b><br/>
-        • Avg Water Rate: <b>${d.avgWater} BBL/d</b><br/>
-        • Operational Uptime: <b>${d.uptime}%</b><br/>
-        • Cumulative Downtime: <b>${d.downtime} mins</b><br/><hr class="my-2"/>
-        <b>Financials:</b><br/>
-        • Avg Realized Price: <b>$${d.avgPrice.toFixed(2)}/bbl</b><br/>
-        • Avg Revenue: <b>$${d.revenue.toLocaleString()}</b><br/>
-        • Avg Operating Cost: <b>$${d.cost.toLocaleString()}</b><br/>
-        • Net Profit / Loss: <span style="color: ${profitColor};"><b>$${d.profit.toLocaleString()}</b></span>
+      // Add table row
+      const row = document.createElement('tr');
+      row.className = 'border-b hover:bg-gray-50';
+      row.innerHTML = `
+        <td class="p-2">
+          <div class="font-bold text-gray-800">${site.name}</div>
+          <div class="text-xs text-gray-500">Code: ${site.code} | Unit: ${site.unit}</div>
+        </td>
+        <td class="p-2 text-xs font-semibold text-gray-600 uppercase">${site.unit}</td>
+        <td class="p-2">
+          <span class="inline-block bg-red-100 text-red-800 text-xs px-2 py-0.5 rounded font-bold">${site.wells.length} Wells</span>
+          <div class="text-xs text-gray-500 mt-0.5">${site.wells.join(', ')}</div>
+        </td>
+        <td class="p-2 text-xs">
+          <div><b>Rev:</b> $${site.revenue.toLocaleString('en-US', {minimumFractionDigits: 2})}</div>
+          <div class="text-gray-500"><b>Cost:</b> $${site.cost.toLocaleString('en-US', {minimumFractionDigits: 2})}</div>
+        </td>
+        <td class="p-2 text-xs ${profitClass}">
+          <div>${profitFormatted}</div>
+          <div class="text-gray-500 font-normal">($${site.costPerBbl.toFixed(2)}/bbl)</div>
+        </td>
       `;
-    }
+      tbody.appendChild(row);
 
-    function exportPDF() {
-      const { jsPDF } = window.jspdf;
-      const doc = new jsPDF();
-      const site = document.getElementById('siteSelect').value;
-      const d = mockData[site];
+      // Add map marker with markdown-like rich styled popup content
+      const marker = L.circleMarker([site.lat, site.lon], {
+        radius: 9,
+        fillColor: site.profit >= 0 ? '#059669' : '#C8102E',
+        color: '#1a1a1a',
+        weight: 2,
+        opacity: 1,
+        fillOpacity: 0.9
+      }).addTo(map);
 
-      doc.setFillColor(200, 16, 46);
-      doc.rect(0, 0, 210, 22, 'F');
-      doc.setTextColor(255, 255, 255);
-      doc.setFont("helvetica", "bold");
-      doc.text("CONOCOPHILLIPS | GEOSPATIAL ASSET FOOTPRINT REPORT", 105, 14, { align: "center" });
-
-      doc.setTextColor(15, 23, 42);
-      doc.setFontSize(12);
-      doc.text(`Selected Location Inspection: ${site}`, 14, 35);
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(10);
-      doc.text(`Region: ${d.region} | Manager: ${d.manager}`, 14, 43);
-      doc.text(`Assigned Wells: ${d.wells}`, 14, 51);
-      doc.text(`Average Oil Rate: ${d.avgOil} BBL/d`, 14, 59);
-      doc.text(`Net Profit / Loss: $${d.profit.toLocaleString()}`, 14, 67);
-
-      doc.save(`Tab1_Geospatial_Report.pdf`);
-    }
-
-    renderMap();
-    updateInspector();
+      marker.bindPopup(`
+        <div style="font-family: sans-serif; font-size: 12px; line-height: 1.5; min-width: 200px;">
+          <h4 style="color: #C8102E; font-weight: 900; font-size: 13px; margin: 0 0 4px 0; border-bottom: 1px solid #ddd; padding-bottom: 2px;">📍 ${site.name} (${site.code})</h4>
+          <ul style="list-style-type: none; padding: 0; margin: 0;">
+            <li><b>Business Unit:</b> ${site.unit}</li>
+            <li><b>Geographic Position:</b> ${site.lat.toFixed(4)}, ${site.lon.toFixed(4)}</li>
+            <li><b>Contained Wells (${site.wells.length}):</b> ${site.wells.join(', ')}</li>
+            <li><b>Average Revenue:</b> $${site.revenue.toLocaleString('en-US', {minimumFractionDigits: 2})}</li>
+            <li><b>Operating Cost:</b> $${site.cost.toLocaleString('en-US', {minimumFractionDigits: 2})}</li>
+            <li><b>Net Profit/Loss:</b> <span style="color: ${site.profit >= 0 ? '#059669' : '#C8102E'}; font-weight: bold;">${profitFormatted}</span></li>
+            <li><b>Cost per Barrel:</b> $${site.costPerBbl.toFixed(2)}</li>
+            <li style="margin-top: 4px; border-top: 1px dashed #eee; padding-top: 2px;"><b>Site Manager:</b> ${site.manager}</li>
+            <li><b>Contact Phone:</b> ${site.phone}</li>
+            <li><b>Contact Email:</b> <a href="mailto:${site.email}" style="color: #C8102E;">${site.email}</a></li>
+          </ul>
+        </div>
+      `);
+    });
   </script>
 </body>
 </html>
