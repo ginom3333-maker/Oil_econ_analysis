@@ -54,9 +54,12 @@
 
   <nav class="nav-tabs bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
     <a href="index.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">1. Geospatial Footprint</a>
+    <a href="well_tiering.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">2. Single-Well Tiering & Q5</a>
     <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">4. Economic Viability</a>
     <a href="production_efficiency.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">5. Production Efficiency</a>
     <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">6. HSE Site Grading</a>
+    <a href="competitor_acumen.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">7. Competitor & Acumen</a>
   </nav>
 
   <main class="max-w-7xl mx-auto p-6 space-y-6">
@@ -76,7 +79,7 @@
       </div>
       <div class="cop-card p-4 border-l-4 border-blue-600">
         <div class="text-xs font-bold text-gray-500 uppercase">Top Efficiency Leader</div>
-        <div class="text-xl font-black text-blue-700 mt-1" id="stat_top_site">EE Site 5</div>
+        <div class="text-xl font-black text-blue-700 mt-1" id="stat_top_site">Wolfcamp North</div>
       </div>
       <div class="cop-card p-4 border-l-4 border-amber-500">
         <div class="text-xs font-bold text-gray-500 uppercase">Portfolio Mean Efficiency</div>
@@ -160,16 +163,16 @@
   </main>
 
   <script>
-    // Master Asset Directory synchronized with updated site_efficiency_ranked.csv and master telemetry
+    // Site directory mapped directly to exact site names and codes (S01 - S08) with dataset empirical parameters
     const siteDirectory = [
-      { code: 'S001', name: 'EE Site 1', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76 },
-      { code: 'S002', name: 'EE Site 2', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80 },
-      { code: 'S003', name: 'EE Site 3', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 198.91, stdTemp: 29.32, meanPress: 6424.24, stdPress: 1165.75 },
-      { code: 'S004', name: 'EE Site 4', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 109.76, stdTemp: 49.73, meanPress: 1366.32, stdPress: 2567.71 },
-      { code: 'S005', name: 'EE Site 5', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 285.90, stdTemp: 39.56, meanPress: 7334.92, stdPress: 1278.61 },
-      { code: 'S006', name: 'EE Site 6', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 136.39, stdTemp: 65.25, meanPress: 2639.00, stdPress: 3169.65 },
-      { code: 'S007', name: 'EE Site 7', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 194.28, stdTemp: 62.63, meanPress: 5294.67, stdPress: 2762.15 },
-      { code: 'S008', name: 'EE Site 8', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 207.29, stdTemp: 29.05, meanPress: 6487.19, stdPress: 1095.88 }
+      { code: 'S01', name: 'Estacado Ridge', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76 },
+      { code: 'S02', name: 'Big Spring Complex', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80 },
+      { code: 'S03', name: 'Midland Central', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 198.91, stdTemp: 29.32, meanPress: 6424.24, stdPress: 1165.75 },
+      { code: 'S04', name: 'Odessa Yard', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 109.76, stdTemp: 49.73, meanPress: 1366.32, stdPress: 2567.71 },
+      { code: 'S05', name: 'Wolfcamp North', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 285.90, stdTemp: 39.56, meanPress: 7334.92, stdPress: 1278.61 },
+      { code: 'S06', name: 'Delaware Flats', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 136.39, stdTemp: 65.25, meanPress: 2639.00, stdPress: 3169.65 },
+      { code: 'S07', name: 'Andrews Legacy', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 194.28, stdTemp: 62.63, meanPress: 5294.67, stdPress: 2762.15 },
+      { code: 'S08', name: 'Alamo Sunset', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 207.29, stdTemp: 29.05, meanPress: 6487.19, stdPress: 1095.88 }
     ];
 
     let efficiencyChartInstance = null;
