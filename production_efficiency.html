@@ -117,7 +117,7 @@
 
       <div class="cop-card p-5">
         <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">60-Month Forecast Model (BOE / Month)</h3>
-        <div style="height: 320px;">
+        <div class="relative w-full" style="height: 320px;">
           <canvas id="typeCurveChart"></canvas>
         </div>
       </div>
@@ -212,7 +212,7 @@
 
           <div class="cop-card p-5">
             <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Comparative Efficiency Profile</h3>
-            <div style="height: 250px;">
+            <div class="relative w-full" style="height: 250px;">
               <canvas id="efficiencyChart"></canvas>
             </div>
           </div>
@@ -279,7 +279,6 @@
 
     let efficiencyChartInstance = null;
     let typeCurveChartInstance = null;
-    let typeCurveInitialized = false;
 
     function switchTab(tabId, el) {
       ['geospatial', 'typecurves', 'efficiency', 'hse'].forEach(id => {
@@ -299,9 +298,9 @@
         el.classList.remove('border-transparent', 'text-gray-500');
       }
 
-      if (tabId === 'typecurves' && !typeCurveInitialized) {
-        initTypeCurveChart();
-        typeCurveInitialized = true;
+      // Initialize or resize chart when switching to type curves
+      if (tabId === 'typecurves') {
+        setTimeout(initTypeCurveChart, 50);
       }
     }
 
@@ -422,8 +421,12 @@
     function initTypeCurveChart() {
       const canvasEl = document.getElementById('typeCurveChart');
       if (!canvasEl) return;
-      const ctx = canvasEl.getContext('2d');
+      
+      if (typeCurveChartInstance) {
+        typeCurveChartInstance.destroy();
+      }
 
+      const ctx = canvasEl.getContext('2d');
       const months = Array.from({length: 60}, (_, i) => `Month ${i + 1}`);
       const declineData = months.map((_, i) => Math.max(1200 * Math.exp(-0.042 * i) + 80, 50));
 
