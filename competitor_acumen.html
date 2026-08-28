@@ -2,33 +2,87 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ConocoPhillips | Competitor Acumen</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>ConocoPhillips | Competitor & Acumen</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    :root {
+      --cop-red: #C8102E;
+      --cop-dark-red: #9B0C23;
+      --cop-charcoal: #222222;
+      --cop-gray-bg: #F4F5F7;
+      --cop-border: #E5E7EB;
+    }
+    body {
+      background-color: var(--cop-gray-bg);
+      color: var(--cop-charcoal);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    .cop-header {
+      background: linear-gradient(135deg, var(--cop-red) 0%, var(--cop-dark-red) 100%);
+      border-bottom: 4px solid #111111;
+    }
+    .nav-tab-item.active {
+      color: var(--cop-red);
+      border-bottom-color: var(--cop-red);
+    }
+    .cop-card {
+      background: #FFFFFF;
+      border: 1px solid var(--cop-border);
+      border-radius: 6px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+    .cop-button {
+      background-color: var(--cop-red);
+      color: #FFFFFF;
+      font-weight: 700;
+      transition: background-color 0.2s ease;
+    }
+    .cop-button:hover {
+      background-color: var(--cop-dark-red);
+    }
+  </style>
 </head>
-<body>
-  <div class="cop-header">
-    <h1>ConocoPhillips</h1>
-    <p>Quantum Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
-  </div>
+<body class="text-gray-900">
 
-  <nav class="nav-tabs">
-    <a href="index.html" class="nav-tab-item">1. Geospatial Footprint</a>
-    <a href="well_tiering.html" class="nav-tab-item">2. Single-Well Tiering & Q5</a>
-    <a href="type_curves.html" class="nav-tab-item">3. 5-Year Type Curves</a>
-    <a href="economic_viability.html" class="nav-tab-item">4. Economic Viability</a>
-    <a href="production_efficiency.html" class="nav-tab-item">5. Production Efficiency</a>
-    <a href="hse_grading.html" class="nav-tab-item">6. HSE Site Grading</a>
-    <a href="competitor_acumen.html" class="nav-tab-item active">7. Competitor & Acumen</a>
+  <header class="cop-header text-white p-4 shadow-lg flex justify-between items-center">
+    <div>
+      <div class="flex items-center space-x-3">
+        <h1 class="text-xl font-black tracking-widest uppercase">ConocoPhillips</h1>
+      </div>
+      <p class="text-xs text-red-100 tracking-wide uppercase mt-0.5 font-medium">Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
+    </div>
+    <div class="hidden md:block text-right text-xs text-red-100 font-medium">
+      <div><b>Active Asset Region:</b> Permian Basin</div>
+      <div><b>System Status:</b> Optimal Telemetry Feed</div>
+    </div>
+  </header>
+
+  <nav class="bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
+    <a href="index.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">1. Geospatial Footprint</a>
+    <a href="well_tiering.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">2. Single-Well Tiering & Q5</a>
+    <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">4. Economic Viability</a>
+    <a href="production_efficiency.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">5. Production Efficiency</a>
+    <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">6. HSE Site Grading</a>
+    <a href="competitor_acumen.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">7. Competitor & Acumen</a>
   </nav>
 
-  <h2 class="text-xl font-bold mb-2">Strategic Peer Benchmarking</h2>
-  <p class="mb-4 text-gray-600"><b>Question Solved:</b> How does ConocoPhillips' supply cost efficiency compare to key industry peers?</p>
+  <main class="max-w-7xl mx-auto p-6 space-y-6">
+    <div>
+      <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Strategic Peer Benchmarking</h2>
+      <p class="text-gray-600 text-sm mt-1"><b>Question Solved:</b> How does ConocoPhillips' supply cost efficiency compare to key industry peers?</p>
+    </div>
 
-  <div class="glass-card">
-    <div id="compChart" class="h-80"></div>
-  </div>
+    <div class="cop-card p-5">
+      <div id="compChart" class="w-full" style="height: 400px;"></div>
+    </div>
+
+    <button class="cop-button px-6 py-2.5 rounded shadow text-sm flex items-center">
+      Export Tab 7 Executive PDF Report
+    </button>
+  </main>
 
   <script>
     Plotly.newPlot('compChart', [{
@@ -38,8 +92,12 @@
       marker: { color: ['#C8102E', '#334155', '#475569', '#64748B', '#94A3B8'] }
     }], {
       title: 'Average Cost of Supply Benchmark ($/bbl)',
-      margin: { t: 40, b: 40, l: 40, r: 20 }
-    });
+      xaxis: { title: 'Company Peer' },
+      yaxis: { title: 'Cost of Supply ($/bbl)' },
+      margin: { t: 40, b: 40, l: 60, r: 20 },
+      paper_bgcolor: 'transparent',
+      plot_bgcolor: 'transparent'
+    }, { responsive: true });
   </script>
 </body>
 </html>
