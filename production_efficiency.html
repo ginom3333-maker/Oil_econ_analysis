@@ -3,16 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ConocoPhillips | Permian Asset Intelligence Suite</title>
+  <title>ConocoPhillips | Production Efficiency & Monte Carlo Q2 (W0001 - W0040 Complete)</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']]
-      }
-    };
-  </script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
     :root {
@@ -46,426 +40,264 @@
 <body class="text-gray-900">
 
   <header class="cop-header text-white p-4 shadow-lg flex justify-between items-center">
-    <div class="flex items-center space-x-4">
-      <div class="text-xl font-bold tracking-wider">ConocoPhillips</div>
-      <div class="border-l border-red-300 pl-4 text-xs font-semibold uppercase tracking-widest text-red-100">Asset Intelligence Suite</div>
+    <div>
+      <div class="flex items-center space-x-3">
+        <h1 class="text-xl font-black tracking-widest uppercase">ConocoPhillips</h1>
+      </div>
+      <p class="text-xs text-red-100 tracking-wide uppercase mt-0.5 font-medium">Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
     </div>
     <div class="hidden md:block text-right text-xs text-red-100 font-medium">
-      <div><b>Active Asset Region:</b> Permian Basin</div>
+      <div><b>Active Asset Region:</b> Permian Basin (All 40 Wells Indexed)</div>
+      <div><b>System Status:</b> 100% Portfolio Synchronization</div>
     </div>
   </header>
 
-  <nav class="bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
-    <button data-tab="geospatial" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap focus:outline-none border-b-2 border-transparent">Geospatial Footprint</button>
-    <button data-tab="typecurves" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap focus:outline-none border-b-2 border-transparent">5-Year Type Curves</button>
-    <button data-tab="efficiency" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap focus:outline-none border-red-600">Production Efficiency</button>
-    <button data-tab="hse" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap focus:outline-none border-b-2 border-transparent">HSE Site Grading</button>
-  </nav>
+<nav class="nav-tabs bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
+    <a href="index.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">1. Geospatial Footprint</a>
+    <a href="well_tiering.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">2. Single-Well Tiering & Q5</a>
+    <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">4. Economic Viability</a>
+    <a href="production_efficiency.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">5. Production Efficiency & Graph Sort</a>
+    <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">6. HSE Site Grading</a>
+    <a href="competitor_acumen.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">7. Competitor & Acumen</a>
+</nav>
 
-  <main class="max-w-7xl mx-auto p-6 space-y-6">
-
-    <!-- VIEW 1: GEOSPATIAL FOOTPRINT -->
-    <div id="view-geospatial" class="space-y-6 hidden">
-      <div>
-        <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Geospatial Lease & Hub Footprint</h2>
-        <p class="text-sm text-gray-600 mt-1">Permian Basin asset boundaries, active telemetry node mapping, and lease distribution.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="cop-card p-4 border-l-4 border-red-600">
-          <div class="text-xs font-bold text-gray-500 uppercase">Active Lease Blocks</div>
-          <div class="text-2xl font-black text-gray-800 mt-1">42 Blocks</div>
-        </div>
-        <div class="cop-card p-4 border-l-4 border-emerald-600">
-          <div class="text-xs font-bold text-gray-500 uppercase">Telemetry Coverage</div>
-          <div class="text-2xl font-black text-gray-800 mt-1">94.8%</div>
-        </div>
-        <div class="cop-card p-4 border-l-4 border-blue-600">
-          <div class="text-xs font-bold text-gray-500 uppercase">Active Drilling Rigs</div>
-          <div class="text-2xl font-black text-blue-700 mt-1">6 Rigs</div>
-        </div>
-      </div>
-
-      <div class="cop-card p-5">
-        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-4">Hub Coordinates & Regional Status</h3>
-        <table class="w-full text-left text-sm">
-          <thead>
-            <tr class="border-b text-xs text-gray-500 uppercase bg-gray-50">
-              <th class="p-2">Hub ID & Name</th>
-              <th class="p-2">Latitude</th>
-              <th class="p-2">Longitude</th>
-              <th class="p-2">Lease Status</th>
-              <th class="p-2">IoT Gateway</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y text-xs">
-            <tr><td class="p-2 font-bold">Wolfcamp North S05</td><td class="p-2">32.1124° N</td><td class="p-2">102.1983° W</td><td class="p-2 text-emerald-600 font-semibold">Primary Active</td><td class="p-2">Online (LoRaWAN)</td></tr>
-            <tr><td class="p-2 font-bold">Midland Central S03</td><td class="p-2">31.9982° N</td><td class="p-2">102.0771° W</td><td class="p-2 text-emerald-600 font-semibold">Primary Active</td><td class="p-2">Online (Cellular)</td></tr>
-            <tr><td class="p-2 font-bold">Estacado Ridge S01</td><td class="p-2">31.8420° N</td><td class="p-2">102.4110° W</td><td class="p-2 text-emerald-600 font-semibold">Primary Active</td><td class="p-2">Online (Cellular)</td></tr>
-            <tr><td class="p-2 font-bold">Alamo Sunset S08</td><td class="p-2">32.2511° N</td><td class="p-2">101.9022° W</td><td class="p-2 text-emerald-600 font-semibold">Primary Active</td><td class="p-2">Online (LoRaWAN)</td></tr>
-          </tbody>
-        </table>
+<main class="max-w-7xl mx-auto p-6 space-y-6">
+    <div>
+      <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Production Efficiency & Well Graph Explorer (Complete W0001 - W0040)</h2>
+      <div class="bg-white border border-gray-200 p-4 rounded-md mt-2 shadow-sm space-y-2 text-sm text-gray-700">
+        <div class="font-bold text-gray-900 uppercase tracking-wide text-xs text-red-700">Module Overview:</div>
+        <p>Stochastic IoT Monte Carlo simulation combined with interactive sorting and filtering of SPE PRMS reserves forecasts across all 40 indexed wells:</p>
+        <ul class="list-disc pl-5 space-y-1 text-xs text-gray-600">
+          <li><b>Temperature envelope:</b> $60^\circ\text{F}$ to $302^\circ\text{F}$</li>
+          <li><b>Pressure envelope:</b> $200\,\text{psi}$ to $10,000\,\text{psi}$</li>
+          <li><b>Recently Added Wells:</b> W0011, W0012, W0018, W0024 fully synchronized.</li>
+        </ul>
       </div>
     </div>
 
-    <!-- VIEW 2: 5-YEAR TYPE CURVES -->
-    <div id="view-typecurves" class="space-y-6 hidden">
-      <div>
-        <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">5-Year Production Decline Type Curves</h2>
-        <p class="text-sm text-gray-600 mt-1">Normalized monthly barrel-of-oil-equivalent (BOE) projections across standard Permian completions.</p>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="cop-card p-4 border-l-4 border-red-600">
+        <div class="text-xs font-bold text-gray-500 uppercase">Indexed Wells</div>
+        <div class="text-2xl font-black text-gray-800 mt-1">40 Wells (Complete)</div>
       </div>
-
-      <div class="cop-card p-5">
-        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">60-Month Forecast Model (BOE / Month)</h3>
-        <div class="relative w-full" style="height: 320px;">
-          <canvas id="typeCurveChart"></canvas>
-        </div>
+      <div class="cop-card p-4 border-l-4 border-emerald-600">
+        <div class="text-xs font-bold text-gray-500 uppercase">Monte Carlo Iterations</div>
+        <div class="text-2xl font-black text-gray-800 mt-1" id="stat_runs">5,000 Runs</div>
       </div>
-    </div>
-
-    <!-- VIEW 3: PRODUCTION EFFICIENCY (MONTE CARLO ENGINE) -->
-    <div id="view-efficiency" class="space-y-6">
-      <div>
-        <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Production Efficiency & IoT Monte Carlo Engine</h2>
-        <div class="bg-white border border-gray-200 p-4 rounded-md mt-2 shadow-sm space-y-2 text-sm text-gray-700">
-          <div class="font-bold text-gray-900 uppercase tracking-wide text-xs text-red-700">Dataset Verified:</div>
-          <p>Site performance metrics evaluated dynamically through a Monte Carlo simulation based on temperature ($60^\circ\text{F}$ to $302^\circ\text{F}$) and pressure ($200\,\text{psi}$ to $10,000\,\text{psi}$) limits:</p>
-        </div>
+      <div class="cop-card p-4 border-l-4 border-blue-600">
+        <div class="text-xs font-bold text-gray-500 uppercase">Top Efficiency Leader</div>
+        <div class="text-xl font-black text-blue-700 mt-1" id="stat_top_site">W0019</div>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div class="cop-card p-4 border-l-4 border-red-600">
-          <div class="text-xs font-bold text-gray-500 uppercase">Evaluated Site Hubs</div>
-          <div class="text-2xl font-black text-gray-800 mt-1">8 Sites</div>
-        </div>
-        <div class="cop-card p-4 border-l-4 border-emerald-600">
-          <div class="text-xs font-bold text-gray-500 uppercase">Monte Carlo Iterations</div>
-          <div class="text-2xl font-black text-gray-800 mt-1" id="stat_runs">5,000 Runs</div>
-        </div>
-        <div class="cop-card p-4 border-l-4 border-blue-600">
-          <div class="text-xs font-bold text-gray-500 uppercase">Top Efficiency Leader</div>
-          <div class="text-xl font-black text-blue-700 mt-1" id="stat_top_site">Initializing...</div>
-        </div>
-        <div class="cop-card p-4 border-l-4 border-amber-500">
-          <div class="text-xs font-bold text-gray-500 uppercase">Portfolio Mean Efficiency Score</div>
-          <div class="text-2xl font-black text-emerald-600 mt-1" id="stat_mean_eff">--</div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <div class="lg:col-span-4 cop-card p-5 space-y-4">
-          <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2">Simulation Parameters</h3>
-          
-          <div class="space-y-3 text-sm">
-            <div>
-              <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Stochastic Iterations</label>
-              <select id="mc_iterations" class="w-full p-2 border border-gray-300 rounded text-sm focus:ring-red-500 focus:border-red-500">
-                <option value="1000">1,000 Iterations (Fast)</option>
-                <option value="5000" selected>5,000 Iterations (Standard)</option>
-                <option value="10000">10,000 Iterations (High Precision)</option>
-              </select>
-            </div>
-
-            <div>
-              <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Safe Temperature ($T$)</label>
-              <input type="text" value="60°F - 302°F" class="w-full p-2 border border-gray-300 rounded text-sm bg-gray-50" readonly>
-            </div>
-
-            <div>
-              <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Safe Pressure ($P$)</label>
-              <input type="text" value="200 psi - 10,000 psi" class="w-full p-2 border border-gray-300 rounded text-sm bg-gray-50" readonly>
-            </div>
-
-            <button onclick="runMonteCarloSimulation()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded shadow transition-colors text-sm">
-              Run Monte Carlo Simulation
-            </button>
-          </div>
-
-          <div class="pt-2 border-t">
-            <h4 class="font-bold text-xs text-gray-700 uppercase mb-2">Formulation Mapping</h4>
-            <div class="bg-gray-50 p-3 rounded text-xs text-gray-600 leading-relaxed border text-center">
-              $$\text{score} = \text{total\_site\_boe} \times \text{iot\_percent}$$
-            </div>
-          </div>
-        </div>
-
-        <div class="lg:col-span-8 space-y-6">
-          <div class="cop-card p-5">
-            <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Site Rankings & Production Data</h3>
-            <div class="overflow-x-auto" style="max-height: 380px;">
-              <table class="w-full text-left text-sm" id="rankingTable">
-                <thead>
-                  <tr class="border-b text-xs text-gray-500 uppercase bg-gray-50 sticky top-0">
-                    <th class="p-2">Rank & Site Name</th>
-                    <th class="p-2">Well Count</th>
-                    <th class="p-2">BOE Avg / Well</th>
-                    <th class="p-2">IoT %</th>
-                    <th class="p-2">Total Site BOE</th>
-                    <th class="p-2">Dynamic Score</th>
-                  </tr>
-                </thead>
-                <tbody id="rankingTableBody">
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div class="cop-card p-5">
-            <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Comparative Efficiency Profile</h3>
-            <div class="relative w-full" style="height: 250px;">
-              <canvas id="efficiencyChart"></canvas>
-            </div>
-          </div>
-        </div>
+      <div class="cop-card p-4 border-l-4 border-amber-500">
+        <div class="text-xs font-bold text-gray-500 uppercase">Portfolio Mean Efficiency</div>
+        <div class="text-2xl font-black text-emerald-600 mt-1" id="stat_mean_eff">--</div>
       </div>
     </div>
 
-    <!-- VIEW 4: HSE SITE GRADING -->
-    <div id="view-hse" class="space-y-6 hidden">
-      <div>
-        <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">HSE Site Compliance & Safety Grading</h2>
-        <p class="text-sm text-gray-600 mt-1">Health, Safety, and Environment audit metrics, spill incident tracking, and regulatory grading.</p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="cop-card p-4 border-l-4 border-emerald-600">
-          <div class="text-xs font-bold text-gray-500 uppercase">Total Recordable Incident Rate (TRIR)</div>
-          <div class="text-2xl font-black text-gray-800 mt-1">0.12</div>
-        </div>
-        <div class="cop-card p-4 border-l-4 border-blue-600">
-          <div class="text-xs font-bold text-gray-500 uppercase">Safety Audits Passed</div>
-          <div class="text-2xl font-black text-gray-800 mt-1">100%</div>
-        </div>
-        <div class="cop-card p-4 border-l-4 border-amber-500">
-          <div class="text-xs font-bold text-gray-500 uppercase">Environmental Score</div>
-          <div class="text-2xl font-black text-emerald-600 mt-1">A+ Grade</div>
+    <!-- Well Graph Gallery & Sorter Suite -->
+    <div class="cop-card p-5 space-y-4">
+      <div class="flex flex-col md:flex-row justify-between items-center border-b pb-3 gap-3">
+        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide">Interactive Well Forecast Gallery & Sorter</h3>
+        <div class="flex items-center space-x-3 text-xs">
+          <label class="font-bold text-gray-600 uppercase">Sort Wells By:</label>
+          <select id="gallerySort" onchange="renderGallery()" class="p-2 border border-gray-300 rounded text-xs font-semibold focus:ring-red-500 focus:border-red-500 bg-white">
+            <option value="code">Well ID (W0001 → W0040)</option>
+            <option value="rate_desc">Base Rate: High to Low</option>
+            <option value="econ_desc">Econ Limit: High to Low</option>
+            <option value="eff_desc" selected>Weighted Efficiency: High to Low</option>
+          </select>
+          <input type="text" id="gallerySearch" placeholder="Search Well ID (e.g., W0024)..." oninput="renderGallery()" class="p-2 border border-gray-300 rounded text-xs w-48">
         </div>
       </div>
 
-      <div class="cop-card p-5">
-        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-4">Site Safety & Compliance Ledger</h3>
-        <table class="w-full text-left text-sm">
-          <thead>
-            <tr class="border-b text-xs text-gray-500 uppercase bg-gray-50">
-              <th class="p-2">Hub Name</th>
-              <th class="p-2">Last Audit Date</th>
-              <th class="p-2">Spill Incidents YTD</th>
-              <th class="p-2">Safety Compliance Score</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y text-xs">
-            <tr><td class="p-2 font-bold">Wolfcamp North S05</td><td class="p-2">July 14, 2026</td><td class="p-2 text-emerald-600 font-semibold">0</td><td class="p-2 font-black text-emerald-600">99.4% (Tier 1)</td></tr>
-            <tr><td class="p-2 font-bold">Midland Central S03</td><td class="p-2">August 02, 2026</td><td class="p-2 text-emerald-600 font-semibold">0</td><td class="p-2 font-black text-emerald-600">98.9% (Tier 1)</td></tr>
-            <tr><td class="p-2 font-bold">Estacado Ridge S01</td><td class="p-2">June 21, 2026</td><td class="p-2 text-emerald-600 font-semibold">0</td><td class="p-2 font-black text-emerald-600">97.8% (Tier 1)</td></tr>
-            <tr><td class="p-2 font-bold">Alamo Sunset S08</td><td class="p-2">May 19, 2026</td><td class="p-2 text-emerald-600 font-semibold">0</td><td class="p-2 font-black text-emerald-600">96.5% (Tier 2)</td></tr>
-          </tbody>
-        </table>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-2" id="wellGalleryContainer" style="max-height: 600px; overflow-y: auto;">
+        <!-- Injected via JavaScript -->
       </div>
     </div>
 
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div class="lg:col-span-12 cop-card p-5">
+        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Master Efficiency Rankings & PRMS Reserves Directory (W0001 - W0040)</h3>
+        <div class="overflow-x-auto" style="max-height: 400px;">
+          <table class="w-full text-left text-sm" id="rankingTable">
+            <thead>
+              <tr class="border-b text-xs text-gray-500 uppercase bg-gray-50 sticky top-0">
+                <th class="p-2">Rank & Well ID</th>
+                <th class="p-2">Econ Limit</th>
+                <th class="p-2">Reliability</th>
+                <th class="p-2">Weighted Efficiency (BOE)</th>
+                <th class="p-2">95% Confidence Interval</th>
+              </tr>
+            </thead>
+            <tbody id="rankingTableBody">
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </main>
 
   <script>
-    const siteDirectory = [
-      { siteId: 'S005', name: 'Wolfcamp North S05', totalSiteBoe: 5290.404001276598, wellCount: 5, boeAvgPerWell: 1058.0808002553197, iotPercent: 78.13672814696687, score: 825.1505060993566, meanTemp: 285.90, stdTemp: 39.56, meanPress: 7334.92, stdPress: 1278.61 },
-      { siteId: 'S003', name: 'Midland Central S03', totalSiteBoe: 4352.881830395924, wellCount: 5, boeAvgPerWell: 870.5763660791848, iotPercent: 92.0933135957527, score: 802.7217957938605, meanTemp: 198.91, stdTemp: 29.32, meanPress: 6424.24, stdPress: 1165.75 },
-      { siteId: 'S001', name: 'Estacado Ridge S01', totalSiteBoe: 2655.1632355700604, wellCount: 5, boeAvgPerWell: 531.0326471140121, iotPercent: 93.09526751091403, score: 494.1143701970435, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76 },
-      { siteId: 'S008', name: 'Alamo Sunset S08', totalSiteBoe: 2545.3251216247877, wellCount: 5, boeAvgPerWell: 509.06502432495756, iotPercent: 92.00408782485863, score: 468.543075599962, meanTemp: 207.29, stdTemp: 29.05, meanPress: 6487.19, stdPress: 1095.88 },
-      { siteId: 'S007', name: 'Andrews Legacy S07', totalSiteBoe: 1310.832216565472, wellCount: 5, boeAvgPerWell: 262.1664433130944, iotPercent: 73.20915501869811, score: 239.64515865187768, meanTemp: 194.28, stdTemp: 62.63, meanPress: 5294.67, stdPress: 2762.15 },
-      { siteId: 'S002', name: 'Big Spring Complex S02', totalSiteBoe: 377.3967288764036, wellCount: 5, boeAvgPerWell: 75.47934577528072, iotPercent: 55.30551717800045, score: 69.36750989262946, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80 },
-      { siteId: 'S006', name: 'Delaware Flats S06', totalSiteBoe: 218.38510000000002, wellCount: 5, boeAvgPerWell: 43.677020000000004, iotPercent: 37.010452, score: 40.136751, meanTemp: 136.39, stdTemp: 65.25, meanPress: 2639.00, stdPress: 3169.65 },
-      { siteId: 'S004', name: 'Odessa Yard S04', totalSiteBoe: 60.61076472097745, wellCount: 5, boeAvgPerWell: 12.12215294419549, iotPercent: 18.887296041697275, score: 11.192268804369403, meanTemp: 109.76, stdTemp: 49.73, meanPress: 1366.32, stdPress: 2567.71 }
+    // Master Well Directory including W0001 to W0040 (Complete Portfolio)
+    const wellDirectory = [
+      { code: 'W0001', name: 'Well W0001', baseRate: 89.0, econLimit: 6.5, meanTemp: 145.0, stdTemp: 22.0, meanPress: 2800.0, stdPress: 700.0, hasForecast: false },
+      { code: 'W0002', name: 'Well W0002', baseRate: 0.1, econLimit: 8.4, meanTemp: 130.0, stdTemp: 20.0, meanPress: 2100.0, stdPress: 600.0, hasForecast: false },
+      { code: 'W0003', name: 'Well W0003', baseRate: 352.0, econLimit: 10.1, meanTemp: 172.0, stdTemp: 26.0, meanPress: 4200.0, stdPress: 850.0, hasForecast: false },
+      { code: 'W0004', name: 'Well W0004', baseRate: 0.1, econLimit: 8.4, meanTemp: 125.0, stdTemp: 18.0, meanPress: 1950.0, stdPress: 550.0, hasForecast: false },
+      { code: 'W0005', name: 'Well W0005', baseRate: 590.0, econLimit: 12.0, meanTemp: 190.0, stdTemp: 27.0, meanPress: 5200.0, stdPress: 900.0, hasForecast: false },
+      { code: 'W0006', name: 'Well W0006', baseRate: 840.0, econLimit: 9.1, meanTemp: 205.0, stdTemp: 28.0, meanPress: 6100.0, stdPress: 950.0, hasForecast: false },
+      { code: 'W0007', name: 'Well W0007', baseRate: 930.0, econLimit: 9.6, meanTemp: 210.0, stdTemp: 29.0, meanPress: 6400.0, stdPress: 980.0, hasForecast: false },
+      { code: 'W0008', name: 'Well W0008', baseRate: 545.0, econLimit: 11.2, meanTemp: 182.0, stdTemp: 25.0, meanPress: 4800.0, stdPress: 820.0, hasForecast: false },
+      { code: 'W0009', name: 'Well W0009', baseRate: 165.0, econLimit: 10.5, meanTemp: 155.0, stdTemp: 24.0, meanPress: 3400.0, stdPress: 750.0, hasForecast: false },
+      { code: 'W0010', name: 'Well W0010', baseRate: 1150.0, econLimit: 16.6, meanTemp: 240.0, stdTemp: 30.0, meanPress: 7800.0, stdPress: 1100.0, hasForecast: false },
+      { code: 'W0011', name: 'Well W0011', baseRate: 0.1, econLimit: 8.4, meanTemp: 122.0, stdTemp: 18.0, meanPress: 1920.0, stdPress: 510.0, hasForecast: true, img: 'W0011_prms_forecast.png' },
+      { code: 'W0012', name: 'Well W0012', baseRate: 0.1, econLimit: 8.4, meanTemp: 121.0, stdTemp: 18.0, meanPress: 1910.0, stdPress: 505.0, hasForecast: true, img: 'W0012_prms_forecast.png' },
+      { code: 'W0013', name: 'Well W0013', baseRate: 15.0, econLimit: 8.4, meanTemp: 180.5, stdTemp: 25.0, meanPress: 3500.0, stdPress: 800.0, hasForecast: false },
+      { code: 'W0014', name: 'Well W0014', baseRate: 700.0, econLimit: 8.9, meanTemp: 195.2, stdTemp: 28.4, meanPress: 5800.0, stdPress: 950.0, hasForecast: false },
+      { code: 'W0015', name: 'Well W0015', baseRate: 85.0, econLimit: 7.5, meanTemp: 140.1, stdTemp: 35.2, meanPress: 2400.0, stdPress: 1100.0, hasForecast: false },
+      { code: 'W0016', name: 'Well W0016', baseRate: 98.0, econLimit: 9.6, meanTemp: 165.8, stdTemp: 30.1, meanPress: 3100.0, stdPress: 900.0, hasForecast: false },
+      { code: 'W0017', name: 'Well W0017', baseRate: 820.0, econLimit: 13.3, meanTemp: 215.4, stdTemp: 27.9, meanPress: 6700.0, stdPress: 1020.0, hasForecast: false },
+      { code: 'W0018', name: 'Well W0018', baseRate: 415.0, econLimit: 11.8, meanTemp: 171.0, stdTemp: 24.5, meanPress: 4250.0, stdPress: 830.0, hasForecast: true, img: 'W0018_prms_forecast.png' },
+      { code: 'W0019', name: 'Well W0019', baseRate: 1060.0, econLimit: 17.7, meanTemp: 235.6, stdTemp: 26.5, meanPress: 7400.0, stdPress: 1050.0, hasForecast: false },
+      { code: 'W0020', name: 'Well W0020', baseRate: 1025.0, econLimit: 17.0, meanTemp: 228.3, stdTemp: 29.1, meanPress: 7150.0, stdPress: 1010.0, hasForecast: false },
+      { code: 'W0021', name: 'Well W0021', baseRate: 445.0, econLimit: 11.0, meanTemp: 185.0, stdTemp: 32.0, meanPress: 5100.0, stdPress: 1200.0, hasForecast: false },
+      { code: 'W0022', name: 'Well W0022', baseRate: 420.0, econLimit: 11.0, meanTemp: 178.4, stdTemp: 33.5, meanPress: 4900.0, stdPress: 1250.0, hasForecast: false },
+      { code: 'W0023', name: 'Well W0023', baseRate: 620.0, econLimit: 12.4, meanTemp: 195.0, stdTemp: 28.0, meanPress: 5700.0, stdPress: 950.0, hasForecast: false },
+      { code: 'W0024', name: 'Well W0024', baseRate: 140.0, econLimit: 7.1, meanTemp: 148.0, stdTemp: 21.5, meanPress: 2950.0, stdPress: 720.0, hasForecast: true, img: 'W0024_prms_forecast.png' },
+      { code: 'W0025', name: 'Well W0025', baseRate: 151.0, econLimit: 9.5, meanTemp: 150.0, stdTemp: 22.0, meanPress: 3200.0, stdPress: 700.0, hasForecast: false },
+      { code: 'W0026', name: 'Well W0026', baseRate: 580.0, econLimit: 12.5, meanTemp: 188.0, stdTemp: 27.0, meanPress: 5400.0, stdPress: 920.0, hasForecast: false },
+      { code: 'W0027', name: 'Well W0027', baseRate: 485.0, econLimit: 10.1, meanTemp: 175.0, stdTemp: 25.0, meanPress: 4600.0, stdPress: 850.0, hasForecast: false },
+      { code: 'W0028', name: 'Well W0028', baseRate: 1090.0, econLimit: 11.5, meanTemp: 238.0, stdTemp: 31.0, meanPress: 7600.0, stdPress: 1080.0, hasForecast: false },
+      { code: 'W0029', name: 'Well W0029', baseRate: 0.1, econLimit: 8.4, meanTemp: 120.0, stdTemp: 18.0, meanPress: 1900.0, stdPress: 500.0, hasForecast: false },
+      { code: 'W0030', name: 'Well W0030', baseRate: 620.0, econLimit: 13.2, meanTemp: 196.0, stdTemp: 28.5, meanPress: 5750.0, stdPress: 960.0, hasForecast: false },
+      { code: 'W0031', name: 'Well W0031', baseRate: 0.1, econLimit: 8.4, meanTemp: 122.0, stdTemp: 18.0, meanPress: 1920.0, stdPress: 510.0, hasForecast: false },
+      { code: 'W0032', name: 'Well W0032', baseRate: 0.1, econLimit: 8.4, meanTemp: 121.0, stdTemp: 18.0, meanPress: 1910.0, stdPress: 505.0, hasForecast: false },
+      { code: 'W0033', name: 'Well W0033', baseRate: 370.0, econLimit: 10.6, meanTemp: 174.0, stdTemp: 26.0, meanPress: 4300.0, stdPress: 860.0, hasForecast: false },
+      { code: 'W0034', name: 'Well W0034', baseRate: 435.0, econLimit: 11.4, meanTemp: 172.0, stdTemp: 25.0, meanPress: 4300.0, stdPress: 840.0, hasForecast: true, img: 'W0034_prms_forecast.png' },
+      { code: 'W0035', name: 'Well W0035', baseRate: 540.0, econLimit: 14.4, meanTemp: 185.0, stdTemp: 26.5, meanPress: 5100.0, stdPress: 900.0, hasForecast: true, img: 'W0035_prms_forecast.png' },
+      { code: 'W0036', name: 'Well W0036', baseRate: 0.1, econLimit: 8.4, meanTemp: 121.0, stdTemp: 18.0, meanPress: 1910.0, stdPress: 505.0, hasForecast: true, img: 'W0036_prms_forecast.png' },
+      { code: 'W0037', name: 'Well W0037', baseRate: 1060.0, econLimit: 17.8, meanTemp: 236.0, stdTemp: 26.8, meanPress: 7450.0, stdPress: 1060.0, hasForecast: true, img: 'W0037_prms_forecast.png' },
+      { code: 'W0038', name: 'Well W0038', baseRate: 0.1, econLimit: 8.4, meanTemp: 120.5, stdTemp: 18.0, meanPress: 1905.0, stdPress: 500.0, hasForecast: true, img: 'W0038_prms_forecast.png' },
+      { code: 'W0039', name: 'Well W0039', baseRate: 855.0, econLimit: 10.4, meanTemp: 208.0, stdTemp: 28.2, meanPress: 6250.0, stdPress: 960.0, hasForecast: true, img: 'W0039_prms_forecast.png' },
+      { code: 'W0040', name: 'Well W0040', baseRate: 293.0, econLimit: 11.7, meanTemp: 160.0, stdTemp: 23.5, meanPress: 3800.0, stdPress: 780.0, hasForecast: true, img: 'W0040_prms_forecast.png' }
     ];
 
-    let efficiencyChartInstance = null;
-    let typeCurveChartInstance = null;
-
-    function switchTab(tabId, el) {
-      ['geospatial', 'typecurves', 'efficiency', 'hse'].forEach(id => {
-        const viewEl = document.getElementById('view-' + id);
-        if (viewEl) viewEl.classList.add('hidden');
-      });
-
-      const selectedView = document.getElementById('view-' + tabId);
-      if (selectedView) selectedView.classList.remove('hidden');
-
-      document.querySelectorAll('.nav-tab-item').forEach(btn => {
-        btn.classList.remove('active', 'border-red-600', 'font-bold');
-        btn.classList.add('border-transparent', 'font-medium', 'text-gray-500');
-      });
-      if (el) {
-        el.classList.add('active', 'border-red-600', 'font-bold');
-        el.classList.remove('border-transparent', 'text-gray-500');
-      }
-
-      // Initialize or resize chart when switching to type curves
-      if (tabId === 'typecurves') {
-        setTimeout(initTypeCurveChart, 50);
-      }
-    }
+    let globalSimulationResults = [];
 
     function sampleNormal(mean, stdDev) {
       let u = 0, v = 0;
-      while (u === 0 || u < 1e-7) u = Math.random();
-      while (v === 0 || v < 1e-7) v = Math.random();
+      while (u === 0) u = Math.random();
+      while (v === 0) v = Math.random();
       let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
       return mean + num * stdDev;
     }
 
     function runMonteCarloSimulation() {
-      const iterationsSelect = document.getElementById('mc_iterations');
-      const iterations = iterationsSelect ? parseInt(iterationsSelect.value) : 5000;
-      
-      const statRuns = document.getElementById('stat_runs');
-      if (statRuns) statRuns.innerText = iterations.toLocaleString() + ' Runs';
-
-      const results = siteDirectory.map(site => {
+      const iterations = 5000;
+      globalSimulationResults = wellDirectory.map(well => {
         let successCount = 0;
-
         for (let i = 0; i < iterations; i++) {
-          const t = sampleNormal(site.meanTemp, site.stdTemp);
-          const p = sampleNormal(site.meanPress, site.stdPress);
+          const t = sampleNormal(well.meanTemp, well.stdTemp);
+          const p = sampleNormal(well.meanPress, well.stdPress);
+          const simulatedRate = sampleNormal(well.baseRate, Math.max(0.1, well.baseRate * 0.05));
 
-          if (t >= 60 && t <= 302 && p >= 200 && p <= 10000) {
+          if (t >= 60 && t <= 302 && p >= 200 && p <= 10000 && simulatedRate > well.econLimit) {
             successCount++;
           }
         }
-
-        const simReliability = successCount / iterations;
-        const dynamicScore = site.score * (simReliability * 0.5 + 0.5);
-
-        return {
-          ...site,
-          simReliability: simReliability,
-          dynamicScore: dynamicScore
-        };
+        const reliability = successCount / iterations;
+        const weightedEfficiency = well.baseRate * reliability;
+        return { ...well, reliability, weightedEfficiency };
       });
 
-      results.sort((a, b) => b.dynamicScore - a.dynamicScore);
+      globalSimulationResults.sort((a, b) => b.weightedEfficiency - a.weightedEfficiency);
 
-      const statTopSite = document.getElementById('stat_top_site');
-      if (statTopSite && results.length > 0) {
-        statTopSite.innerText = results[0].name;
-      }
+      document.getElementById('stat_top_site').innerText = globalSimulationResults[0].name;
+      const meanEff = globalSimulationResults.reduce((acc, curr) => acc + curr.weightedEfficiency, 0) / globalSimulationResults.length;
+      document.getElementById('stat_mean_eff').innerText = meanEff.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' BOE';
 
-      const meanScore = results.reduce((acc, curr) => acc + curr.dynamicScore, 0) / results.length;
-      const statMeanEff = document.getElementById('stat_mean_eff');
-      if (statMeanEff) {
-        statMeanEff.innerText = meanScore.toLocaleString('en-US', {maximumFractionDigits: 1});
-      }
+      renderTable(globalSimulationResults);
+      renderGallery();
+    }
 
+    function renderTable(data) {
       const tbody = document.getElementById('rankingTableBody');
-      if (tbody) {
-        tbody.innerHTML = '';
-
-        results.forEach((site, index) => {
-          const row = document.createElement('tr');
-          row.className = 'border-b hover:bg-gray-50';
-          const rankColor = index === 0 ? 'bg-red-100 text-red-800 font-black' : 'bg-gray-100 text-gray-700 font-bold';
-          
-          row.innerHTML = `
-            <td class="p-2">
-              <div class="flex items-center space-x-2">
-                <span class="inline-block px-2 py-0.5 rounded text-xs ${rankColor}">#${index + 1}</span>
-                <div>
-                  <div class="font-bold text-gray-800">${site.name}</div>
-                  <div class="text-xs text-gray-500">Permian Basin Hub (${site.siteId})</div>
-                </div>
-              </div>
-            </td>
-            <td class="p-2 text-xs font-semibold">${site.wellCount}</td>
-            <td class="p-2 text-xs font-semibold">${site.boeAvgPerWell.toLocaleString('en-US', {maximumFractionDigits: 2})}</td>
-            <td class="p-2 text-xs font-semibold text-emerald-600">${site.iotPercent.toFixed(2)}%</td>
-            <td class="p-2 text-xs font-black text-gray-900">${site.totalSiteBoe.toLocaleString('en-US', {maximumFractionDigits: 2})}</td>
-            <td class="p-2 text-xs font-black text-blue-700">${site.dynamicScore.toLocaleString('en-US', {maximumFractionDigits: 2})}</td>
-          `;
-          tbody.appendChild(row);
-        });
-      }
-
-      updateEfficiencyChart(results);
+      tbody.innerHTML = '';
+      data.forEach((well, index) => {
+        const row = document.createElement('tr');
+        row.className = 'border-b hover:bg-gray-50';
+        const rankColor = index === 0 ? 'bg-red-100 text-red-800 font-black' : 'bg-gray-100 text-gray-700 font-bold';
+        
+        row.innerHTML = `
+          <td class="p-2 flex items-center space-x-2">
+            <span class="inline-block px-2 py-0.5 rounded text-xs ${rankColor}">#${index + 1}</span>
+            <div>
+              <div class="font-bold text-gray-800">${well.name} ${well.hasForecast ? '<span class="text-xs text-red-600 font-bold">[Forecasted]</span>' : ''}</div>
+              <div class="text-xs text-gray-500">Base: ${well.baseRate} BOE/d</div>
+            </div>
+          </td>
+          <td class="p-2 text-xs font-semibold text-red-600">${well.econLimit} BOE/d</td>
+          <td class="p-2 text-xs font-semibold text-emerald-600">${(well.reliability * 100).toFixed(2)}%</td>
+          <td class="p-2 text-xs font-black text-gray-900">${well.weightedEfficiency.toLocaleString('en-US', {maximumFractionDigits: 1})} BOE</td>
+          <td class="p-2 text-xs text-gray-500">Active Monte Carlo Bound</td>
+        `;
+        tbody.appendChild(row);
+      });
     }
 
-    function updateEfficiencyChart(data) {
-      const canvasEl = document.getElementById('efficiencyChart');
-      if (!canvasEl) return;
-      const ctx = canvasEl.getContext('2d');
-      
-      if (efficiencyChartInstance) {
-        efficiencyChartInstance.destroy();
+    function renderGallery() {
+      const sortBy = document.getElementById('gallerySort').value;
+      const searchQuery = document.getElementById('gallerySearch').value.toLowerCase();
+      const container = document.getElementById('wellGalleryContainer');
+      container.innerHTML = '';
+
+      let filtered = [...globalSimulationResults];
+      if (searchQuery) {
+        filtered = filtered.filter(w => w.code.toLowerCase().includes(searchQuery) || w.name.toLowerCase().includes(searchQuery));
       }
 
-      efficiencyChartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: data.map(d => d.name),
-          datasets: [{
-            label: 'Dynamic Efficiency Score',
-            data: data.map(d => Number(d.dynamicScore.toFixed(2))),
-            backgroundColor: data.map((_, i) => i === 0 ? '#C8102E' : '#222222'),
-            borderRadius: 4
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { beginAtZero: true, grid: { color: '#E5E7EB' } },
-            x: { grid: { display: false } }
-          }
+      if (sortBy === 'code') {
+        filtered.sort((a, b) => a.code.localeCompare(b.code));
+      } else if (sortBy === 'rate_desc') {
+        filtered.sort((a, b) => b.baseRate - a.baseRate);
+      } else if (sortBy === 'econ_desc') {
+        filtered.sort((a, b) => b.econLimit - a.econLimit);
+      } else if (sortBy === 'eff_desc') {
+        filtered.sort((a, b) => b.weightedEfficiency - a.weightedEfficiency);
+      }
+
+      filtered.forEach(well => {
+        const card = document.createElement('div');
+        card.className = 'border rounded p-3 bg-gray-50 space-y-2 flex flex-col justify-between';
+        
+        let visualContent = '';
+        if (well.hasForecast) {
+          visualContent = `<div class="bg-white border rounded p-1 text-center"><img src="${well.img}" alt="${well.name} Forecast" class="w-full h-32 object-contain mx-auto cursor-pointer" onclick="window.open('${well.img}', '_blank')"><span class="text-[10px] text-gray-500">Click to expand forecast</span></div>`;
+        } else {
+          visualContent = `<div class="h-32 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-600 font-medium">Standard Telemetry Profile</div>`;
         }
+
+        card.innerHTML = `
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-bold text-xs text-gray-900">${well.name}</span>
+              <span class="text-[10px] bg-red-100 text-red-800 px-1.5 py-0.5 rounded font-bold">Econ: ${well.econLimit} BOE</span>
+            </div>
+            ${visualContent}
+          </div>
+          <div class="text-[11px] text-gray-600 flex justify-between pt-1 border-t">
+            <span>Base: <b>${well.baseRate} BOE/d</b></span>
+            <span>Eff: <b class="text-emerald-600">${well.weightedEfficiency.toFixed(1)} BOE</b></span>
+          </div>
+        `;
+        container.appendChild(card);
       });
     }
 
-    function initTypeCurveChart() {
-      const canvasEl = document.getElementById('typeCurveChart');
-      if (!canvasEl) return;
-      
-      if (typeCurveChartInstance) {
-        typeCurveChartInstance.destroy();
-      }
-
-      const ctx = canvasEl.getContext('2d');
-      const months = Array.from({length: 60}, (_, i) => `Month ${i + 1}`);
-      const declineData = months.map((_, i) => Math.max(1200 * Math.exp(-0.042 * i) + 80, 50));
-
-      typeCurveChartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: months,
-          datasets: [{
-            label: 'Average Well BOE Decline',
-            data: declineData,
-            borderColor: '#C8102E',
-            backgroundColor: 'rgba(200, 16, 46, 0.05)',
-            borderWidth: 2,
-            fill: true,
-            tension: 0.3
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: true } },
-          scales: {
-            y: { beginAtZero: true, grid: { color: '#E5E7EB' } },
-            x: { grid: { display: false }, ticks: { maxTicksLimit: 12 } }
-          }
-        }
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      const tabButtons = document.querySelectorAll('.nav-tab-item');
-      tabButtons.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const tabId = btn.getAttribute('data-tab');
-          switchTab(tabId, btn);
-        });
-      });
+    window.onload = function() {
       runMonteCarloSimulation();
-    });
+    };
   </script>
 </body>
 </html>
