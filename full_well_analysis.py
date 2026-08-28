@@ -36,8 +36,11 @@ def build_monthly_rates(df):
     df[date_col] = pd.to_datetime(df[date_col])
     df["month"] = df[date_col].dt.to_period("M").dt.to_timestamp()
 
-    # NOTE: If gas_rate is logged in SCF/day (instead of MSCF/day), 
-    # change 6.0 to 6000.0 below to prevent 1000x gas inflation.
+    # Fill missing production values with 0 to prevent NaN propagation
+    df["oil_rate"] = df["oil_rate"].fillna(0)
+    df["gas_rate"] = df["gas_rate"].fillna(0)
+
+    # NOTE: If gas_rate is logged in SCF/day (instead of MSCF/day), change 6.0 to 6000.0
     df["gas_boe"] = df["gas_rate"] / 6.0
     df["boe_rate"] = df["oil_rate"] + df["gas_boe"]
 
@@ -57,17 +60,31 @@ def build_monthly_rates(df):
     return monthly
 
 # ============================================================
-# LOAD IoT ANOMALY CSV
+# LOAD IoT ANOMALY CSV (FIXED FOR MULTI-ROW AGGREGATION)
 # ============================================================
 
 def load_iot_anomalies(csv_path="well_sensor_anomalies.csv"):
     anomalies = pd.read_csv(csv_path)
+    
+    anomalies["combined_total_anomalies"] = pd.to_numeric(anomalies["combined_total_anomalies"], errors="coerce").fillna(0)
+    anomalies["total_readings"] = pd.to_numeric(anomalies["total_readings"], errors="coerce").fillna(1)
 
-    anomalies["iot_reliability_percent"] = (
-        1.0 - (anomalies["combined_total_anomalies"] / anomalies["total_readings"])
+    agg_anomalies = (
+        anomalies.groupby("well_id")
+        .agg({
+            "combined_total_anomalies": "sum",
+            "total_readings": "sum"
+        })
+        .reset_index()
+    )
+
+    agg_anomalies["iot_reliability_percent"] = (
+        1.0 - (agg_anomalies["combined_total_anomalies"] / agg_anomalies["total_readings"])
     ) * 100.0
 
-    return anomalies
+    agg_anomalies["iot_reliability_percent"] = agg_anomalies["iot_reliability_percent"].clip(0, 100)
+
+    return agg_anomalies
 
 # ============================================================
 # TOP 5 WELLS BY BOE IN LAST 6 MONTHS
@@ -75,7 +92,7 @@ def load_iot_anomalies(csv_path="well_sensor_anomalies.csv"):
 
 def get_top5_last6_boe(monthly_df):
     last_month = monthly_df["month"].max()
-    cutoff = last_month - pd.offsets.MonthBegin(6)
+    cutoff = last_month - pd.DateOffset(months=6)
 
     last6 = monthly_df[monthly_df["month"] >= cutoff]
 
@@ -107,7 +124,6 @@ def fit_and_forecast_top5(monthly_df, top5):
 
         qi0, Di0, b0 = q[0], 0.8, 1.0
 
-        # Set lower bound for b to 1e-5 to prevent divide-by-zero
         popt, _ = curve_fit(
             hyperbolic_arps,
             t_years,
@@ -124,8 +140,7 @@ def fit_and_forecast_top5(monthly_df, top5):
             freq="MS"
         )
         
-        # FIXED BUG: Accessing .days directly on DatetimeIndex subtraction
-        t_future_years = ((future_months - first_date).days / 365.0).values.astype(float)
+        t_future_years = ((future_months - first_date).days / 365.0).astype(float)
 
         q_future = hyperbolic_arps(t_future_years, qi, Di, b)
         q_future = np.array(q_future, dtype=float)
@@ -137,7 +152,6 @@ def fit_and_forecast_top5(monthly_df, top5):
             "boe_rate_forecast": q_future
         })
 
-        # Risk score based on temp & pressure
         risk_score = 0.0
         temp = w["temperature"].mean()
         pressure = w["pressure"].mean()
@@ -199,15 +213,15 @@ def plot_top5(results, outdir="top5_last6_boe"):
         plt.close()
 
 # ============================================================
-# SITE-LEVEL PRODUCTION EFFICIENCY (FIXED)
+# SITE-LEVEL PRODUCTION EFFICIENCY
 # ============================================================
 
 def compute_site_efficiency(monthly_df, anomalies_df):
     """
-    Computes site performance based on average daily BOE rates per well
-    to avoid 10x inflation caused by summing daily rates.
+    Computes site-level efficiency by applying IoT reliability 
+    to each well individually before averaging at the site level.
     """
-    # 1. Average monthly BOE rate per well across its active months
+    # 1. Average daily BOE per well across active months
     well_boe_avg = (
         monthly_df.groupby(["site_id", "well_id"])["boe_rate"]
         .mean()
@@ -215,34 +229,30 @@ def compute_site_efficiency(monthly_df, anomalies_df):
         .rename(columns={"boe_rate": "boe_avg_per_well"})
     )
 
-    # 2. Site BOE average = mean of its wells' average daily rates
-    site_boe_avg = (
-        well_boe_avg.groupby("site_id")["boe_avg_per_well"]
-        .mean()
-        .reset_index()
-        .rename(columns={"boe_avg_per_well": "boe_avg"})
-    )
-
-    # 3. Merge IoT reliability per well
+    # 2. Merge IoT reliability per well and handle missing values
     merged_iot = well_boe_avg.merge(
         anomalies_df[["well_id", "iot_reliability_percent"]],
         on="well_id",
         how="left"
+    ).fillna({"iot_reliability_percent": 100.0})
+
+    # 3. Calculate expected BOE for each individual well first
+    merged_iot["expected_well_boe"] = (
+        merged_iot["boe_avg_per_well"] * (merged_iot["iot_reliability_percent"] / 100.0)
     )
 
-    # 4. Site IoT reliability = average reliability of site's wells
-    site_iot = (
-        merged_iot.groupby("site_id")["iot_reliability_percent"]
-        .mean()
+    # 4. Aggregate to site level by taking the mean of the well-level expected BOEs
+    site_stats = (
+        merged_iot.groupby("site_id")
+        .agg(
+            total_site_boe=("boe_avg_per_well", "sum"),
+            well_count=("well_id", "count"),
+            boe_avg_per_well=("boe_avg_per_well", "mean"),
+            iot_percent=("iot_reliability_percent", "mean"),
+            score=("expected_well_boe", "mean")
+        )
         .reset_index()
-        .rename(columns={"iot_reliability_percent": "iot_percent"})
     )
-
-    # 5. Combine BOE + IoT
-    site_stats = site_boe_avg.merge(site_iot, on="site_id")
-
-    # Final score weighting
-    site_stats["score"] = site_stats["boe_avg"] * (site_stats["iot_percent"] / 100.0)
 
     return site_stats.sort_values("score", ascending=False)
 
@@ -252,7 +262,6 @@ def compute_site_efficiency(monthly_df, anomalies_df):
 
 def save_site_efficiency_outputs(site_eff, monthly_df, anomalies_df, outdir="Sites_High_Efficiency"):
     os.makedirs(outdir, exist_ok=True)
-
     site_eff.to_csv(f"{outdir}/site_efficiency_ranked.csv", index=False)
 
     for _, row in site_eff.iterrows():
@@ -287,10 +296,8 @@ if __name__ == "__main__":
     df = pd.read_csv("cleaned_unified_master.csv")
     anomalies_df = load_iot_anomalies("well_sensor_anomalies.csv")
 
-    # Build monthly rates first to serve as single source of truth
     monthly = build_monthly_rates(df)
 
-    # Pass pre-aggregated monthly DataFrame to site efficiency calculation
     site_eff = compute_site_efficiency(monthly, anomalies_df)
     save_site_efficiency_outputs(site_eff, monthly, anomalies_df)
 
