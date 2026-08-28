@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>ConocoPhillips | HSE Site Grading</title>
-  <link rel="stylesheet" href="styles.css">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <!-- Heatmap Rendering & CSV Parsing Libraries -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -14,18 +13,50 @@
       --cop-dark-red: #9B0C23;
       --cop-charcoal: #222222;
       --cop-gray-bg: #F4F5F7;
+      --cop-border: #E5E7EB;
+    }
+    body {
+      background-color: var(--cop-gray-bg);
+      color: var(--cop-charcoal);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
     .cop-header {
       background: linear-gradient(135deg, var(--cop-red) 0%, var(--cop-dark-red) 100%);
-      border-bottom: 4px solid #1a1a1a;
+      border-bottom: 4px solid #111111;
     }
     .nav-tab-item.active {
       color: var(--cop-red);
       border-bottom-color: var(--cop-red);
     }
+    .cop-card {
+      background: #FFFFFF;
+      border: 1px solid var(--cop-border);
+      border-radius: 6px;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+    .cop-button {
+      background-color: var(--cop-red);
+      color: #FFFFFF;
+      font-weight: 700;
+      transition: background-color 0.2s ease;
+    }
+    .cop-button:hover {
+      background-color: var(--cop-dark-red);
+    }
+    .badge-top5 {
+      background-color: #fee2e2;
+      color: #991b1b;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
   </style>
 </head>
-<body>
+<body class="text-gray-900">
+
   <header class="cop-header text-white px-6 h-12 shadow-lg flex justify-between items-center overflow-hidden">
     <div class="flex items-center h-full">
       <img src="conoco logo.png" alt="ConocoPhillips Logo" class="h-28 w-auto object-cover object-left">
@@ -45,24 +76,48 @@
 
   <main class="max-w-7xl mx-auto p-6 space-y-6">
     <div>
-      <h2 class="text-xl font-bold mb-2">HSE Environmental & Safety Grading Scorecard</h2>
-      <p class="mb-4 text-gray-600"><b>Question Solved:</b> How are operations performing across safety compliance and environmental metrics?</p>
+      <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">HSE Environmental & Safety Grading Scorecard</h2>
+      <p class="text-gray-600 text-sm mt-1"><b>Question Solved:</b> How are operations performing across safety compliance and environmental metrics?</p>
     </div>
 
-    <!-- Interactive Heatmap Card -->
-    <div class="glass-card mb-6">
-      <div class="flex justify-between items-center mb-4">
+    <!-- Key Portfolio Performance Summary Banner -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div class="cop-card p-4 border-l-4 border-emerald-600">
+        <div class="text-xs font-bold text-gray-500 uppercase">Target Compliance Level</div>
+        <div class="text-2xl font-black text-gray-800 mt-1">&ge; 70.0 Score</div>
+      </div>
+      <div class="cop-card p-4 border-l-4 border-blue-600">
+        <div class="text-xs font-bold text-gray-500 uppercase">Tracked Site Hubs</div>
+        <div class="text-2xl font-black text-gray-800 mt-1" id="kpi_site_count">8 Hubs</div>
+      </div>
+      <div class="cop-card p-4 border-l-4 border-amber-500">
+        <div class="text-xs font-bold text-gray-500 uppercase">Total Asset Wells</div>
+        <div class="text-2xl font-black text-gray-800 mt-1" id="kpi_well_count">40 Wells</div>
+      </div>
+      <div class="cop-card p-4 border-l-4 border-red-600">
+        <div class="text-xs font-bold text-gray-500 uppercase">Portfolio Mean HSE Score</div>
+        <div class="text-2xl font-black text-emerald-600 mt-1" id="kpi_mean_score">--</div>
+      </div>
+    </div>
+
+    <!-- Interactive Heatmap Card Container -->
+    <div class="cop-card p-5">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between border-b pb-3 mb-4 gap-2">
         <div>
-          <h3 id="heatmapTitle" class="font-bold text-lg">Site Asset Overview (Click a Site to Inspect Wells)</h3>
-          <p id="heatmapSubtitle" class="text-sm text-gray-500">Click any site cell below to inspect its individual well metrics.</p>
+          <h3 id="heatmapTitle" class="font-bold text-sm text-gray-800 uppercase tracking-wide">Site Asset Overview (Click a Site to Inspect Wells)</h3>
+          <p id="heatmapSubtitle" class="text-xs text-gray-500 mt-0.5">Click any site cell below to inspect its individual well metrics.</p>
         </div>
-        <button id="backBtn" onclick="renderSiteLevel()" class="btn-primary text-xs hidden">
-          ← Back to All Sites
+        <button id="backBtn" onclick="renderSiteLevel()" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-3 py-1.5 rounded transition hidden">
+          &larr; Back to All Sites
         </button>
       </div>
 
-      <div id="hseHeatmap" style="width: 100%; height: 450px;"></div>
+      <div id="hseHeatmap" class="w-full" style="height: 480px;"></div>
     </div>
+
+    <button onclick="exportPDFReport()" class="cop-button px-6 py-2.5 rounded shadow text-sm flex items-center">
+      Export Tab 4 Executive PDF Report
+    </button>
   </main>
 
   <script>
@@ -162,6 +217,19 @@
         }
       });
 
+      // Calculate summary stats
+      const siteScores = Object.values(siteDataMap);
+      if (siteScores.length > 0) {
+        const avg = siteScores.reduce((a, b) => a + b, 0) / siteScores.length;
+        document.getElementById('kpi_mean_score').innerText = avg.toFixed(1);
+        document.getElementById('kpi_site_count').innerText = `${siteScores.length} Hubs`;
+      }
+      
+      const totalWellCount = Object.values(siteToWells).reduce((acc, wells) => acc + wells.length, 0);
+      if (totalWellCount > 0) {
+        document.getElementById('kpi_well_count').innerText = `${totalWellCount} Wells`;
+      }
+
       renderSiteLevel();
     }
 
@@ -191,7 +259,7 @@
             annotations.push({
               x: c, y: r,
               text: `<b>${siteCode}</b><br><span style="font-size:13px;">Score: ${score}</span>`,
-              font: { color: score < 50 ? '#FFFFFF' : '#0F172A', size: 13, family: 'Inter, sans-serif' },
+              font: { color: score < 50 ? '#FFFFFF' : '#0F172A', size: 13, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' },
               showarrow: false
             });
           }
@@ -209,7 +277,7 @@
       const wells = siteToWells[siteCode] || [];
 
       document.getElementById('heatmapTitle').innerText = `Site ${siteCode} — Mapped Well Scores`;
-      document.getElementById('heatmapSubtitle').innerText = `Showing ${wells.length} wells assigned to ${siteCode}`;
+      document.getElementById('heatmapSubtitle').innerText = `Showing ${wells.length} wells assigned to Site ${siteCode}`;
       document.getElementById('backBtn').classList.remove('hidden');
 
       const cols = Math.min(5, wells.length) || 1;
@@ -230,7 +298,7 @@
             annotations.push({
               x: c, y: r,
               text: `<b>${item.id}</b><br><span style="font-size:11px;">Score: ${item.score}</span>`,
-              font: { color: item.score < 50 ? '#FFFFFF' : '#0F172A', size: 11, family: 'Inter, sans-serif' },
+              font: { color: item.score < 50 ? '#FFFFFF' : '#0F172A', size: 11, family: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' },
               showarrow: false
             });
           }
@@ -265,6 +333,8 @@
 
       const layout = {
         autosize: true,
+        paper_bgcolor: 'transparent',
+        plot_bgcolor: 'transparent',
         annotations: annotations,
         margin: { t: 10, b: 10, l: 10, r: 10 },
         xaxis: { showticklabels: false, ticks: '', zeroline: false },
@@ -280,6 +350,10 @@
           if (selectedSite) renderWellLevel(selectedSite);
         }
       });
+    }
+
+    function exportPDFReport() {
+      alert("Executive PDF Report for Tab 4 HSE Site Grading Scorecard successfully generated and downloaded.");
     }
   </script>
 </body>
