@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ConocoPhillips | Production Efficiency & Monte Carlo Q2 (W0001 - W0040 Complete)</title>
+  <title>ConocoPhillips | Production Efficiency & Monte Carlo Q2</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -47,8 +47,8 @@
       <p class="text-xs text-red-100 tracking-wide uppercase mt-0.5 font-medium">Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
     </div>
     <div class="hidden md:block text-right text-xs text-red-100 font-medium">
-      <div><b>Active Asset Region:</b> Permian Basin (All 40 Wells Indexed)</div>
-      <div><b>System Status:</b> 100% Portfolio Synchronization</div>
+      <div><b>Active Asset Region:</b> Permian Basin</div>
+      <div><b>System Status:</b> Optimal Telemetry Feed</div>
     </div>
   </header>
 
@@ -57,29 +57,28 @@
     <a href="well_tiering.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">2. Single-Well Tiering & Q5</a>
     <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">3. 5-Year Type Curves</a>
     <a href="economic_viability.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">4. Economic Viability</a>
-    <a href="production_efficiency.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">5. Production Efficiency & Graph Sort</a>
+    <a href="production_efficiency.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">5. Production Efficiency</a>
     <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">6. HSE Site Grading</a>
     <a href="competitor_acumen.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">7. Competitor & Acumen</a>
 </nav>
 
 <main class="max-w-7xl mx-auto p-6 space-y-6">
     <div>
-      <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Production Efficiency & Well Graph Explorer (Complete W0001 - W0040)</h2>
+      <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Production Efficiency & IoT Monte Carlo Engine</h2>
       <div class="bg-white border border-gray-200 p-4 rounded-md mt-2 shadow-sm space-y-2 text-sm text-gray-700">
-        <div class="font-bold text-gray-900 uppercase tracking-wide text-xs text-red-700">Module Overview:</div>
-        <p>Stochastic IoT Monte Carlo simulation combined with interactive sorting and filtering of SPE PRMS reserves forecasts across all 40 indexed wells:</p>
+        <div class="font-bold text-gray-900 uppercase tracking-wide text-xs text-red-700">Question Solved:</div>
+        <p>Which sites have the highest production efficiency? This is evaluated using a Monte Carlo simulation where efficiency is defined as <b>1,000 BOE per active well</b>, weighted by IoT production reliability constraints:</p>
         <ul class="list-disc pl-5 space-y-1 text-xs text-gray-600">
-          <li><b>Temperature envelope:</b> $60^\circ\text{F}$ to $302^\circ\text{F}$</li>
-          <li><b>Pressure envelope:</b> $200\,\text{psi}$ to $10,000\,\text{psi}$</li>
-          <li><b>Recently Added Wells:</b> W0011, W0012, W0018, W0024 fully synchronized.</li>
+          <li><b>Temperature limit:</b> Between $60^\circ\text{F}$ and $302^\circ\text{F}$</li>
+          <li><b>Pressure limit:</b> Between $200\,\text{psi}$ and $10,000\,\text{psi}$</li>
         </ul>
       </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
       <div class="cop-card p-4 border-l-4 border-red-600">
-        <div class="text-xs font-bold text-gray-500 uppercase">Indexed Wells</div>
-        <div class="text-2xl font-black text-gray-800 mt-1">40 Wells (Complete)</div>
+        <div class="text-xs font-bold text-gray-500 uppercase">Evaluated Site Hubs</div>
+        <div class="text-2xl font-black text-gray-800 mt-1">8 Sites</div>
       </div>
       <div class="cop-card p-4 border-l-4 border-emerald-600">
         <div class="text-xs font-bold text-gray-500 uppercase">Monte Carlo Iterations</div>
@@ -87,7 +86,7 @@
       </div>
       <div class="cop-card p-4 border-l-4 border-blue-600">
         <div class="text-xs font-bold text-gray-500 uppercase">Top Efficiency Leader</div>
-        <div class="text-xl font-black text-blue-700 mt-1" id="stat_top_site">W0019</div>
+        <div class="text-xl font-black text-blue-700 mt-1" id="stat_top_site">Wolfcamp North</div>
       </div>
       <div class="cop-card p-4 border-l-4 border-amber-500">
         <div class="text-xs font-bold text-gray-500 uppercase">Portfolio Mean Efficiency</div>
@@ -95,95 +94,95 @@
       </div>
     </div>
 
-    <!-- Well Graph Gallery & Sorter Suite -->
-    <div class="cop-card p-5 space-y-4">
-      <div class="flex flex-col md:flex-row justify-between items-center border-b pb-3 gap-3">
-        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide">Interactive Well Forecast Gallery & Sorter</h3>
-        <div class="flex items-center space-x-3 text-xs">
-          <label class="font-bold text-gray-600 uppercase">Sort Wells By:</label>
-          <select id="gallerySort" onchange="renderGallery()" class="p-2 border border-gray-300 rounded text-xs font-semibold focus:ring-red-500 focus:border-red-500 bg-white">
-            <option value="code">Well ID (W0001 → W0040)</option>
-            <option value="rate_desc">Base Rate: High to Low</option>
-            <option value="econ_desc">Econ Limit: High to Low</option>
-            <option value="eff_desc" selected>Weighted Efficiency: High to Low</option>
-          </select>
-          <input type="text" id="gallerySearch" placeholder="Search Well ID (e.g., W0024)..." oninput="renderGallery()" class="p-2 border border-gray-300 rounded text-xs w-48">
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-2" id="wellGalleryContainer" style="max-height: 600px; overflow-y: auto;">
-        <!-- Injected via JavaScript -->
-      </div>
-    </div>
-
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-      <div class="lg:col-span-12 cop-card p-5">
-        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Master Efficiency Rankings & PRMS Reserves Directory (W0001 - W0040)</h3>
-        <div class="overflow-x-auto" style="max-height: 400px;">
-          <table class="w-full text-left text-sm" id="rankingTable">
-            <thead>
-              <tr class="border-b text-xs text-gray-500 uppercase bg-gray-50 sticky top-0">
-                <th class="p-2">Rank & Well ID</th>
-                <th class="p-2">Econ Limit</th>
-                <th class="p-2">Reliability</th>
-                <th class="p-2">Weighted Efficiency (BOE)</th>
-                <th class="p-2">95% Confidence Interval</th>
-              </tr>
-            </thead>
-            <tbody id="rankingTableBody">
-              </tbody>
-          </table>
+      
+      <div class="lg:col-span-4 cop-card p-5 space-y-4">
+        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2">Simulation Parameters</h3>
+        
+        <div class="space-y-3 text-sm">
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Stochastic Iterations</label>
+            <select id="mc_iterations" class="w-full p-2 border border-gray-300 rounded text-sm focus:ring-red-500 focus:border-red-500">
+              <option value="1000">1,000 Iterations (Fast)</option>
+              <option value="5000" selected>5,000 Iterations (Standard)</option>
+              <option value="10000">10,000 Iterations (High Precision)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Base BOE / Active Well</label>
+            <input type="number" value="1000" class="w-full p-2 border border-gray-300 rounded text-sm bg-gray-50" readonly>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Safe Temperature ($T$)</label>
+            <input type="text" value="60°F - 302°F" class="w-full p-2 border border-gray-300 rounded text-sm bg-gray-50" readonly>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Safe Pressure ($P$)</label>
+            <input type="text" value="200 psi - 10,000 psi" class="w-full p-2 border border-gray-300 rounded text-sm bg-gray-50" readonly>
+          </div>
+
+          <button onclick="runMonteCarloSimulation()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded shadow transition-colors text-sm">
+            Run Monte Carlo Simulation
+          </button>
         </div>
+
+        <div class="pt-2 border-t">
+          <h4 class="font-bold text-xs text-gray-700 uppercase mb-2">Efficiency Formulation</h4>
+          <div class="bg-gray-50 p-3 rounded text-xs text-gray-600 leading-relaxed border text-center">
+            $$\text{Eff.} = (\text{Wells} \times 1,000) \times P(60 \le T \le 302 \land 200 \le P \le 10000)$$
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-8 space-y-6">
+        
+        <div class="cop-card p-5">
+          <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Site Efficiency Rankings & IoT Reliability Directory</h3>
+          <div class="overflow-x-auto" style="max-height: 380px;">
+            <table class="w-full text-left text-sm" id="rankingTable">
+              <thead>
+                <tr class="border-b text-xs text-gray-500 uppercase bg-gray-50 sticky top-0">
+                  <th class="p-2">Rank & Site Name</th>
+                  <th class="p-2">Active Wells</th>
+                  <th class="p-2">IoT Reliability</th>
+                  <th class="p-2">Weighted Efficiency (BOE)</th>
+                  <th class="p-2">95% Confidence Interval</th>
+                </tr>
+              </thead>
+              <tbody id="rankingTableBody">
+                </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="cop-card p-5">
+          <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Comparative Efficiency Profile</h3>
+          <div style="height: 250px;">
+            <canvas id="efficiencyChart"></canvas>
+          </div>
+        </div>
+
       </div>
     </div>
   </main>
 
   <script>
-    // Master Well Directory including W0001 to W0040 (Complete Portfolio)
-    const wellDirectory = [
-      { code: 'W0001', name: 'Well W0001', baseRate: 89.0, econLimit: 6.5, meanTemp: 145.0, stdTemp: 22.0, meanPress: 2800.0, stdPress: 700.0, hasForecast: false },
-      { code: 'W0002', name: 'Well W0002', baseRate: 0.1, econLimit: 8.4, meanTemp: 130.0, stdTemp: 20.0, meanPress: 2100.0, stdPress: 600.0, hasForecast: false },
-      { code: 'W0003', name: 'Well W0003', baseRate: 352.0, econLimit: 10.1, meanTemp: 172.0, stdTemp: 26.0, meanPress: 4200.0, stdPress: 850.0, hasForecast: false },
-      { code: 'W0004', name: 'Well W0004', baseRate: 0.1, econLimit: 8.4, meanTemp: 125.0, stdTemp: 18.0, meanPress: 1950.0, stdPress: 550.0, hasForecast: false },
-      { code: 'W0005', name: 'Well W0005', baseRate: 590.0, econLimit: 12.0, meanTemp: 190.0, stdTemp: 27.0, meanPress: 5200.0, stdPress: 900.0, hasForecast: false },
-      { code: 'W0006', name: 'Well W0006', baseRate: 840.0, econLimit: 9.1, meanTemp: 205.0, stdTemp: 28.0, meanPress: 6100.0, stdPress: 950.0, hasForecast: false },
-      { code: 'W0007', name: 'Well W0007', baseRate: 930.0, econLimit: 9.6, meanTemp: 210.0, stdTemp: 29.0, meanPress: 6400.0, stdPress: 980.0, hasForecast: false },
-      { code: 'W0008', name: 'Well W0008', baseRate: 545.0, econLimit: 11.2, meanTemp: 182.0, stdTemp: 25.0, meanPress: 4800.0, stdPress: 820.0, hasForecast: false },
-      { code: 'W0009', name: 'Well W0009', baseRate: 165.0, econLimit: 10.5, meanTemp: 155.0, stdTemp: 24.0, meanPress: 3400.0, stdPress: 750.0, hasForecast: false },
-      { code: 'W0010', name: 'Well W0010', baseRate: 1150.0, econLimit: 16.6, meanTemp: 240.0, stdTemp: 30.0, meanPress: 7800.0, stdPress: 1100.0, hasForecast: false },
-      { code: 'W0011', name: 'Well W0011', baseRate: 0.1, econLimit: 8.4, meanTemp: 122.0, stdTemp: 18.0, meanPress: 1920.0, stdPress: 510.0, hasForecast: true, img: 'W0011_prms_forecast.png' },
-      { code: 'W0012', name: 'Well W0012', baseRate: 0.1, econLimit: 8.4, meanTemp: 121.0, stdTemp: 18.0, meanPress: 1910.0, stdPress: 505.0, hasForecast: true, img: 'W0012_prms_forecast.png' },
-      { code: 'W0013', name: 'Well W0013', baseRate: 15.0, econLimit: 8.4, meanTemp: 180.5, stdTemp: 25.0, meanPress: 3500.0, stdPress: 800.0, hasForecast: false },
-      { code: 'W0014', name: 'Well W0014', baseRate: 700.0, econLimit: 8.9, meanTemp: 195.2, stdTemp: 28.4, meanPress: 5800.0, stdPress: 950.0, hasForecast: false },
-      { code: 'W0015', name: 'Well W0015', baseRate: 85.0, econLimit: 7.5, meanTemp: 140.1, stdTemp: 35.2, meanPress: 2400.0, stdPress: 1100.0, hasForecast: false },
-      { code: 'W0016', name: 'Well W0016', baseRate: 98.0, econLimit: 9.6, meanTemp: 165.8, stdTemp: 30.1, meanPress: 3100.0, stdPress: 900.0, hasForecast: false },
-      { code: 'W0017', name: 'Well W0017', baseRate: 820.0, econLimit: 13.3, meanTemp: 215.4, stdTemp: 27.9, meanPress: 6700.0, stdPress: 1020.0, hasForecast: false },
-      { code: 'W0018', name: 'Well W0018', baseRate: 415.0, econLimit: 11.8, meanTemp: 171.0, stdTemp: 24.5, meanPress: 4250.0, stdPress: 830.0, hasForecast: true, img: 'W0018_prms_forecast.png' },
-      { code: 'W0019', name: 'Well W0019', baseRate: 1060.0, econLimit: 17.7, meanTemp: 235.6, stdTemp: 26.5, meanPress: 7400.0, stdPress: 1050.0, hasForecast: false },
-      { code: 'W0020', name: 'Well W0020', baseRate: 1025.0, econLimit: 17.0, meanTemp: 228.3, stdTemp: 29.1, meanPress: 7150.0, stdPress: 1010.0, hasForecast: false },
-      { code: 'W0021', name: 'Well W0021', baseRate: 445.0, econLimit: 11.0, meanTemp: 185.0, stdTemp: 32.0, meanPress: 5100.0, stdPress: 1200.0, hasForecast: false },
-      { code: 'W0022', name: 'Well W0022', baseRate: 420.0, econLimit: 11.0, meanTemp: 178.4, stdTemp: 33.5, meanPress: 4900.0, stdPress: 1250.0, hasForecast: false },
-      { code: 'W0023', name: 'Well W0023', baseRate: 620.0, econLimit: 12.4, meanTemp: 195.0, stdTemp: 28.0, meanPress: 5700.0, stdPress: 950.0, hasForecast: false },
-      { code: 'W0024', name: 'Well W0024', baseRate: 140.0, econLimit: 7.1, meanTemp: 148.0, stdTemp: 21.5, meanPress: 2950.0, stdPress: 720.0, hasForecast: true, img: 'W0024_prms_forecast.png' },
-      { code: 'W0025', name: 'Well W0025', baseRate: 151.0, econLimit: 9.5, meanTemp: 150.0, stdTemp: 22.0, meanPress: 3200.0, stdPress: 700.0, hasForecast: false },
-      { code: 'W0026', name: 'Well W0026', baseRate: 580.0, econLimit: 12.5, meanTemp: 188.0, stdTemp: 27.0, meanPress: 5400.0, stdPress: 920.0, hasForecast: false },
-      { code: 'W0027', name: 'Well W0027', baseRate: 485.0, econLimit: 10.1, meanTemp: 175.0, stdTemp: 25.0, meanPress: 4600.0, stdPress: 850.0, hasForecast: false },
-      { code: 'W0028', name: 'Well W0028', baseRate: 1090.0, econLimit: 11.5, meanTemp: 238.0, stdTemp: 31.0, meanPress: 7600.0, stdPress: 1080.0, hasForecast: false },
-      { code: 'W0029', name: 'Well W0029', baseRate: 0.1, econLimit: 8.4, meanTemp: 120.0, stdTemp: 18.0, meanPress: 1900.0, stdPress: 500.0, hasForecast: false },
-      { code: 'W0030', name: 'Well W0030', baseRate: 620.0, econLimit: 13.2, meanTemp: 196.0, stdTemp: 28.5, meanPress: 5750.0, stdPress: 960.0, hasForecast: false },
-      { code: 'W0031', name: 'Well W0031', baseRate: 0.1, econLimit: 8.4, meanTemp: 122.0, stdTemp: 18.0, meanPress: 1920.0, stdPress: 510.0, hasForecast: false },
-      { code: 'W0032', name: 'Well W0032', baseRate: 0.1, econLimit: 8.4, meanTemp: 121.0, stdTemp: 18.0, meanPress: 1910.0, stdPress: 505.0, hasForecast: false },
-      { code: 'W0033', name: 'Well W0033', baseRate: 370.0, econLimit: 10.6, meanTemp: 174.0, stdTemp: 26.0, meanPress: 4300.0, stdPress: 860.0, hasForecast: false },
-      { code: 'W0034', name: 'Well W0034', baseRate: 435.0, econLimit: 11.4, meanTemp: 172.0, stdTemp: 25.0, meanPress: 4300.0, stdPress: 840.0, hasForecast: true, img: 'W0034_prms_forecast.png' },
-      { code: 'W0035', name: 'Well W0035', baseRate: 540.0, econLimit: 14.4, meanTemp: 185.0, stdTemp: 26.5, meanPress: 5100.0, stdPress: 900.0, hasForecast: true, img: 'W0035_prms_forecast.png' },
-      { code: 'W0036', name: 'Well W0036', baseRate: 0.1, econLimit: 8.4, meanTemp: 121.0, stdTemp: 18.0, meanPress: 1910.0, stdPress: 505.0, hasForecast: true, img: 'W0036_prms_forecast.png' },
-      { code: 'W0037', name: 'Well W0037', baseRate: 1060.0, econLimit: 17.8, meanTemp: 236.0, stdTemp: 26.8, meanPress: 7450.0, stdPress: 1060.0, hasForecast: true, img: 'W0037_prms_forecast.png' },
-      { code: 'W0038', name: 'Well W0038', baseRate: 0.1, econLimit: 8.4, meanTemp: 120.5, stdTemp: 18.0, meanPress: 1905.0, stdPress: 500.0, hasForecast: true, img: 'W0038_prms_forecast.png' },
-      { code: 'W0039', name: 'Well W0039', baseRate: 855.0, econLimit: 10.4, meanTemp: 208.0, stdTemp: 28.2, meanPress: 6250.0, stdPress: 960.0, hasForecast: true, img: 'W0039_prms_forecast.png' },
-      { code: 'W0040', name: 'Well W0040', baseRate: 293.0, econLimit: 11.7, meanTemp: 160.0, stdTemp: 23.5, meanPress: 3800.0, stdPress: 780.0, hasForecast: true, img: 'W0040_prms_forecast.png' }
+    // Master Asset Directory mapped to exact site names and codes (S01 - S08) with empirical telemetry
+    const siteDirectory = [
+      { code: 'S01', name: 'Estacado Ridge', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76 },
+      { code: 'S02', name: 'Big Spring Complex', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80 },
+      { code: 'S03', name: 'Midland Central', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 198.91, stdTemp: 29.32, meanPress: 6424.24, stdPress: 1165.75 },
+      { code: 'S04', name: 'Odessa Yard', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 109.76, stdTemp: 49.73, meanPress: 1366.32, stdPress: 2567.71 },
+      { code: 'S05', name: 'Wolfcamp North', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 285.90, stdTemp: 39.56, meanPress: 7334.92, stdPress: 1278.61 },
+      { code: 'S06', name: 'Delaware Flats', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 136.39, stdTemp: 65.25, meanPress: 2639.00, stdPress: 3169.65 },
+      { code: 'S07', name: 'Andrews Legacy', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 194.28, stdTemp: 62.63, meanPress: 5294.67, stdPress: 2762.15 },
+      { code: 'S08', name: 'Alamo Sunset', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 207.29, stdTemp: 29.05, meanPress: 6487.19, stdPress: 1095.88 }
     ];
 
-    let globalSimulationResults = [];
+    let efficiencyChartInstance = null;
 
     function sampleNormal(mean, stdDev) {
       let u = 0, v = 0;
@@ -194,37 +193,48 @@
     }
 
     function runMonteCarloSimulation() {
-      const iterations = 5000;
-      globalSimulationResults = wellDirectory.map(well => {
-        let successCount = 0;
-        for (let i = 0; i < iterations; i++) {
-          const t = sampleNormal(well.meanTemp, well.stdTemp);
-          const p = sampleNormal(well.meanPress, well.stdPress);
-          const simulatedRate = sampleNormal(well.baseRate, Math.max(0.1, well.baseRate * 0.05));
+      const iterations = parseInt(document.getElementById('mc_iterations').value);
+      document.getElementById('stat_runs').innerText = iterations.toLocaleString() + ' Runs';
 
-          if (t >= 60 && t <= 302 && p >= 200 && p <= 10000 && simulatedRate > well.econLimit) {
+      const results = siteDirectory.map(site => {
+        let successCount = 0;
+
+        for (let i = 0; i < iterations; i++) {
+          const t = sampleNormal(site.meanTemp, site.stdTemp);
+          const p = sampleNormal(site.meanPress, site.stdPress);
+
+          if (t >= 60 && t <= 302 && p >= 200 && p <= 10000) {
             successCount++;
           }
         }
+
         const reliability = successCount / iterations;
-        const weightedEfficiency = well.baseRate * reliability;
-        return { ...well, reliability, weightedEfficiency };
+        const weightedEfficiency = site.wellsCount * 1000 * reliability;
+        
+        const z = 1.96;
+        const se = Math.sqrt((reliability * (1 - reliability)) / iterations);
+        const lowerCi = Math.max(0, (reliability - z * se) * site.wellsCount * 1000);
+        const upperCi = Math.min(site.wellsCount * 1000, (reliability + z * se) * site.wellsCount * 1000);
+
+        return {
+          ...site,
+          reliability: reliability,
+          weightedEfficiency: weightedEfficiency,
+          ciLower: lowerCi,
+          ciUpper: upperCi
+        };
       });
 
-      globalSimulationResults.sort((a, b) => b.weightedEfficiency - a.weightedEfficiency);
+      results.sort((a, b) => b.weightedEfficiency - a.weightedEfficiency);
 
-      document.getElementById('stat_top_site').innerText = globalSimulationResults[0].name;
-      const meanEff = globalSimulationResults.reduce((acc, curr) => acc + curr.weightedEfficiency, 0) / globalSimulationResults.length;
+      document.getElementById('stat_top_site').innerText = results[0].name;
+      const meanEff = results.reduce((acc, curr) => acc + curr.weightedEfficiency, 0) / results.length;
       document.getElementById('stat_mean_eff').innerText = meanEff.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' BOE';
 
-      renderTable(globalSimulationResults);
-      renderGallery();
-    }
-
-    function renderTable(data) {
       const tbody = document.getElementById('rankingTableBody');
       tbody.innerHTML = '';
-      data.forEach((well, index) => {
+
+      results.forEach((site, index) => {
         const row = document.createElement('tr');
         row.className = 'border-b hover:bg-gray-50';
         const rankColor = index === 0 ? 'bg-red-100 text-red-800 font-black' : 'bg-gray-100 text-gray-700 font-bold';
@@ -233,65 +243,47 @@
           <td class="p-2 flex items-center space-x-2">
             <span class="inline-block px-2 py-0.5 rounded text-xs ${rankColor}">#${index + 1}</span>
             <div>
-              <div class="font-bold text-gray-800">${well.name} ${well.hasForecast ? '<span class="text-xs text-red-600 font-bold">[Forecasted]</span>' : ''}</div>
-              <div class="text-xs text-gray-500">Base: ${well.baseRate} BOE/d</div>
+              <div class="font-bold text-gray-800">${site.name}</div>
+              <div class="text-xs text-gray-500">${site.code} | ${site.unit}</div>
             </div>
           </td>
-          <td class="p-2 text-xs font-semibold text-red-600">${well.econLimit} BOE/d</td>
-          <td class="p-2 text-xs font-semibold text-emerald-600">${(well.reliability * 100).toFixed(2)}%</td>
-          <td class="p-2 text-xs font-black text-gray-900">${well.weightedEfficiency.toLocaleString('en-US', {maximumFractionDigits: 1})} BOE</td>
-          <td class="p-2 text-xs text-gray-500">Active Monte Carlo Bound</td>
+          <td class="p-2 text-xs font-semibold">${site.wellsCount} Wells</td>
+          <td class="p-2 text-xs font-semibold text-emerald-600">${(site.reliability * 100).toFixed(2)}%</td>
+          <td class="p-2 text-xs font-black text-gray-900">${site.weightedEfficiency.toLocaleString('en-US', {maximumFractionDigits: 1})} BOE</td>
+          <td class="p-2 text-xs text-gray-500">[${site.ciLower.toFixed(0)} - ${site.ciUpper.toFixed(0)}]</td>
         `;
         tbody.appendChild(row);
       });
+
+      updateChart(results);
     }
 
-    function renderGallery() {
-      const sortBy = document.getElementById('gallerySort').value;
-      const searchQuery = document.getElementById('gallerySearch').value.toLowerCase();
-      const container = document.getElementById('wellGalleryContainer');
-      container.innerHTML = '';
-
-      let filtered = [...globalSimulationResults];
-      if (searchQuery) {
-        filtered = filtered.filter(w => w.code.toLowerCase().includes(searchQuery) || w.name.toLowerCase().includes(searchQuery));
+    function updateChart(data) {
+      const ctx = document.getElementById('efficiencyChart').getContext('2d');
+      if (efficiencyChartInstance) {
+        efficiencyChartInstance.destroy();
       }
 
-      if (sortBy === 'code') {
-        filtered.sort((a, b) => a.code.localeCompare(b.code));
-      } else if (sortBy === 'rate_desc') {
-        filtered.sort((a, b) => b.baseRate - a.baseRate);
-      } else if (sortBy === 'econ_desc') {
-        filtered.sort((a, b) => b.econLimit - a.econLimit);
-      } else if (sortBy === 'eff_desc') {
-        filtered.sort((a, b) => b.weightedEfficiency - a.weightedEfficiency);
-      }
-
-      filtered.forEach(well => {
-        const card = document.createElement('div');
-        card.className = 'border rounded p-3 bg-gray-50 space-y-2 flex flex-col justify-between';
-        
-        let visualContent = '';
-        if (well.hasForecast) {
-          visualContent = `<div class="bg-white border rounded p-1 text-center"><img src="${well.img}" alt="${well.name} Forecast" class="w-full h-32 object-contain mx-auto cursor-pointer" onclick="window.open('${well.img}', '_blank')"><span class="text-[10px] text-gray-500">Click to expand forecast</span></div>`;
-        } else {
-          visualContent = `<div class="h-32 bg-gray-200 rounded flex items-center justify-center text-xs text-gray-600 font-medium">Standard Telemetry Profile</div>`;
+      efficiencyChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: data.map(d => d.name),
+          datasets: [{
+            label: 'Weighted Production Efficiency (BOE)',
+            data: data.map(d => d.weightedEfficiency.toFixed(1)),
+            backgroundColor: data.map((_, i) => i === 0 ? '#C8102E' : '#222222'),
+            borderRadius: 4
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, grid: { color: '#E5E7EB' } },
+            x: { grid: { display: false } }
+          }
         }
-
-        card.innerHTML = `
-          <div>
-            <div class="flex justify-between items-center mb-1">
-              <span class="font-bold text-xs text-gray-900">${well.name}</span>
-              <span class="text-[10px] bg-red-100 text-red-800 px-1.5 py-0.5 rounded font-bold">Econ: ${well.econLimit} BOE</span>
-            </div>
-            ${visualContent}
-          </div>
-          <div class="text-[11px] text-gray-600 flex justify-between pt-1 border-t">
-            <span>Base: <b>${well.baseRate} BOE/d</b></span>
-            <span>Eff: <b class="text-emerald-600">${well.weightedEfficiency.toFixed(1)} BOE</b></span>
-          </div>
-        `;
-        container.appendChild(card);
       });
     }
 
