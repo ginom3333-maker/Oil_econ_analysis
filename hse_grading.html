@@ -115,9 +115,7 @@
       <div id="hseHeatmap" class="w-full" style="height: 480px;"></div>
     </div>
 
-    <button onclick="exportPDFReport()" class="cop-button px-6 py-2.5 rounded shadow text-sm flex items-center">
-      Export Tab 4 Executive PDF Report
-    </button>
+    
   </main>
 
   <script>
@@ -347,14 +345,12 @@
       chartDiv.on('plotly_click', function(data) {
         if (isSiteLevel && data.points && data.points.length > 0) {
           const selectedSite = data.points[0].customdata;
-          if (selectedSite) renderWellLevel(selectedSite);
+         if (selectedSite) renderWellLevel(selectedSite);
         }
       });
     }
 
-    function exportPDFReport() {
-      alert("Executive PDF Report for Tab 4 HSE Site Grading Scorecard successfully generated and downloaded.");
-    }
+    
   </script>
 </body>
 </html>
