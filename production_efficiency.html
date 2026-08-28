@@ -57,10 +57,10 @@
   </header>
 
   <nav class="bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
-    <button onclick="switchTab('geospatial', this)" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap focus:outline-none border-b-2 border-transparent">Geospatial Footprint</button>
-    <button onclick="switchTab('typecurves', this)" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap focus:outline-none border-b-2 border-transparent">5-Year Type Curves</button>
-    <button onclick="switchTab('efficiency', this)" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap focus:outline-none border-red-600">Production Efficiency</button>
-    <button onclick="switchTab('hse', this)" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap focus:outline-none border-b-2 border-transparent">HSE Site Grading</button>
+    <button data-tab="geospatial" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap focus:outline-none border-b-2 border-transparent">Geospatial Footprint</button>
+    <button data-tab="typecurves" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap focus:outline-none border-b-2 border-transparent">5-Year Type Curves</button>
+    <button data-tab="efficiency" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap focus:outline-none border-red-600">Production Efficiency</button>
+    <button data-tab="hse" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap focus:outline-none border-b-2 border-transparent">HSE Site Grading</button>
   </nav>
 
   <main class="max-w-7xl mx-auto p-6 space-y-6">
@@ -283,23 +283,23 @@
     let typeCurveInitialized = false;
 
     function switchTab(tabId, el) {
-      // Hide all view containers
       ['geospatial', 'typecurves', 'efficiency', 'hse'].forEach(id => {
-        document.getElementById('view-' + id).classList.add('hidden');
+        const viewEl = document.getElementById('view-' + id);
+        if (viewEl) viewEl.classList.add('hidden');
       });
 
-      // Show selected view
-      document.getElementById('view-' + tabId).classList.remove('hidden');
+      const selectedView = document.getElementById('view-' + tabId);
+      if (selectedView) selectedView.classList.remove('hidden');
 
-      // Update nav styling
       document.querySelectorAll('.nav-tab-item').forEach(btn => {
         btn.classList.remove('active', 'border-red-600', 'font-bold');
         btn.classList.add('border-transparent', 'font-medium', 'text-gray-500');
       });
-      el.classList.add('active', 'border-red-600', 'font-bold');
-      el.classList.remove('border-transparent', 'text-gray-500');
+      if (el) {
+        el.classList.add('active', 'border-red-600', 'font-bold');
+        el.classList.remove('border-transparent', 'text-gray-500');
+      }
 
-      // Initialize type curve chart lazily if first time visiting tab
       if (tabId === 'typecurves' && !typeCurveInitialized) {
         initTypeCurveChart();
         typeCurveInitialized = true;
@@ -454,9 +454,16 @@
       });
     }
 
-    window.onload = function() {
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabButtons = document.querySelectorAll('.nav-tab-item');
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const tabId = btn.getAttribute('data-tab');
+          switchTab(tabId, btn);
+        });
+      });
       runMonteCarloSimulation();
-    };
+    });
   </script>
 </body>
 </html>
