@@ -184,7 +184,6 @@
       { code: 'S08', name: 'Alamo Sunset', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 207.29, stdTemp: 29.05, meanPress: 6487.19, stdPress: 1095.88 }
     ];
 
-    // Generate all 40 wells mapped across the 8 hub sites
     const allWells = [];
     const hubNames = ['Estacado Ridge', 'Big Spring Complex', 'Midland Central', 'Odessa Yard', 'Wolfcamp North', 'Delaware Flats', 'Andrews Legacy', 'Alamo Sunset'];
     
@@ -199,8 +198,8 @@
       let forecastStart = status === 'Active Producer' ? Math.round(recentActual * 0.95) : 0;
       let econLimit = (6.0 + (i * 0.3) % 11.0).toFixed(1);
       
-      // Standardized filename format: W0001_forecast.png through W0040_forecast.png
-      let imgName = `${wellId}_forecast.png`;
+      // Points explicitly to wells_curves/W00XX_forecast.png
+      let imgName = `wells_curves/${wellId}_forecast.png`;
 
       allWells.push({
         id: wellId,
@@ -304,7 +303,7 @@
               <span class="text-[10px] px-1.5 py-0.5 ${badgeClass} rounded font-semibold">${well.status}</span>
             </div>
             <div class="text-[10px] text-gray-500 font-medium">${well.site}</div>
-            <img src="${well.image}" alt="${well.id} Forecast" class="w-full h-auto rounded border bg-white" onerror="this.onerror=null; this.src='wells_curves/${well.id}_forecast.png';">
+            <img src="${well.image}" alt="${well.id} Forecast" class="w-full h-auto rounded border bg-white" onerror="this.onerror=null; this.src='${well.id}_forecast.png';">
             <div class="text-[11px] text-gray-600 space-y-0.5 pt-1">
               <div><b>Recent Actual:</b> ${well.recentActual} BOE/d</div>
               <div><b>2P Forecast:</b> ~${well.forecastStart} BOE/d</div>
