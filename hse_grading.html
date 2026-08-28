@@ -28,7 +28,7 @@
   <h2 class="text-xl font-bold mb-2">HSE Environmental & Safety Grading Scorecard</h2>
   <p class="mb-4 text-gray-600"><b>Question Solved:</b> How are operations performing across safety compliance and environmental metrics?</p>
 
-  <!-- Interactive Heatmap Card with Drilldown Controls -->
+  <!-- Interactive Heatmap Card -->
   <div class="glass-card mb-6">
     <div class="flex justify-between items-center mb-4">
       <div>
@@ -73,71 +73,68 @@
   </div>
 
   <script>
-    let siteDataMap = {}; // Holds top-level site scores from site_hse_scores.csv
-    let wellDataMap = {}; // Holds well array grouped by site from well_hse_scores.csv
+    let siteDataMap = {};
+    let wellList = [];
 
-    // Load both CSV files concurrently
+    // Parallel fetch for site and well scores
     Promise.all([
-      new Promise((resolve, reject) => {
-        Papa.parse("site_hse_scores.csv", {
-          download: true,
-          header: true,
-          skipEmptyLines: true,
-          complete: res => resolve(res.data),
-          error: err => reject(err)
-        });
-      }),
-      new Promise((resolve, reject) => {
-        Papa.parse("well_hse_scores.csv", {
-          download: true,
-          header: true,
-          skipEmptyLines: true,
-          complete: res => resolve(res.data),
-          error: err => reject(err)
-        });
-      })
+      fetchCsv("site_hse_scores.csv"),
+      fetchCsv("well_hse_scores.csv")
     ]).then(([siteRows, wellRows]) => {
       processBothFiles(siteRows, wellRows);
     }).catch(err => {
-      console.error("Error loading CSV files:", err);
+      console.error("CSV loading error:", err);
     });
 
+    function fetchCsv(filename) {
+      return new Promise((resolve, reject) => {
+        Papa.parse(filename, {
+          download: true,
+          header: true,
+          skipEmptyLines: true,
+          complete: res => resolve(res.data),
+          error: err => reject(err)
+        });
+      });
+    }
+
     function processBothFiles(siteRows, wellRows) {
-      // 1. Map Site Scores
+      siteDataMap = {};
+      wellList = [];
+
+      // 1. Map Site Scores (Handles site_id, site, site_name)
       siteRows.forEach(row => {
-        const siteName = row.site || row.site_name;
+        const siteId = row.site_id || row.site || row.site_name;
         const score = parseFloat(row.hse_score || row.avg_score || 0);
-        if (siteName && !isNaN(score)) {
-          siteDataMap[siteName] = { site: siteName, score: score };
+
+        if (siteId && !isNaN(score)) {
+          siteDataMap[siteId.trim()] = score;
         }
       });
 
-      // 2. Map Well Scores and group by Site Name
+      // 2. Map Well Scores
       wellRows.forEach(row => {
-        const siteName = row.site || row.site_name || "Site Alpha";
-        const wellId = row.well_id;
+        const wellId = row.well_id || row.well;
         const score = parseFloat(row.hse_score);
+        const siteId = row.site_id || row.site;
 
         if (wellId && !isNaN(score)) {
-          if (!wellDataMap[siteName]) wellDataMap[siteName] = [];
-          wellDataMap[siteName].push({ id: wellId, score: score });
+          wellList.push({ id: wellId.trim(), score: score, siteId: siteId ? siteId.trim() : null });
         }
       });
 
       renderSiteLevel();
     }
 
-    // -------------------------------------------------------------
-    // Level 1: Site Overview Matrix
-    // -------------------------------------------------------------
+    // Level 1: Site Heatmap
     function renderSiteLevel() {
       document.getElementById('heatmapTitle').innerText = "Site Asset Overview (Click a Site to Inspect Wells)";
       document.getElementById('heatmapSubtitle').innerText = "Click any site cell below to inspect its individual well metrics.";
       document.getElementById('backBtn').classList.add('hidden');
 
-      const siteNames = Object.keys(siteDataMap);
+      const siteKeys = Object.keys(siteDataMap);
       const cols = 4;
-      const rows = Math.ceil(siteNames.length / cols) || 1;
+      const rows = Math.ceil(siteKeys.length / cols) || 1;
 
       let zMatrix = [], textMatrix = [], customDataMatrix = [], annotations = [];
 
@@ -145,23 +142,19 @@
         let zRow = [], textRow = [], customRow = [];
         for (let c = 0; c < cols; c++) {
           let idx = r * cols + c;
-          if (idx < siteNames.length) {
-            const site = siteNames[idx];
-            const score = siteDataMap[site].score;
+          if (idx < siteKeys.length) {
+            const siteId = siteKeys[idx];
+            const score = siteDataMap[siteId];
             zRow.push(score);
-            textRow.push(`<b>${site}</b><br>HSE Score: ${score}`);
-            customRow.push(site);
+            textRow.push(`<b>${siteId}</b><br>HSE Score: ${score}`);
+            customRow.push(siteId);
 
             annotations.push({
               x: c, y: r,
-              text: `<b>${site}</b><br><span style="font-size:13px;">Score: ${score}</span>`,
+              text: `<b>${siteId}</b><br><span style="font-size:13px;">Score: ${score}</span>`,
               font: { color: score < 50 ? '#FFFFFF' : '#0F172A', size: 13, family: 'Inter, sans-serif' },
               showarrow: false
             });
-          } else {
-            zRow.push(null);
-            textRow.push('');
-            customRow.push(null);
           }
         }
         zMatrix.push(zRow);
@@ -172,18 +165,19 @@
       plotHeatmap(zMatrix, textMatrix, customDataMatrix, annotations, true);
     }
 
-    // -------------------------------------------------------------
-    // Level 2: Well Level Matrix for Selected Site
-    // -------------------------------------------------------------
-    function renderWellLevel(siteName) {
-      const wells = (wellDataMap[siteName] || []).slice(0, 40); // Cap layout to 40 wells
+    // Level 2: Well Heatmap for Selected Site
+    function renderWellLevel(siteId) {
+      // Filter wells matching siteId if present in CSV, otherwise show all wells
+      let wells = wellList.filter(w => w.siteId === siteId);
+      if (wells.length === 0) wells = wellList; 
+      wells = wells.slice(0, 40);
 
-      document.getElementById('heatmapTitle').innerText = `${siteName} — Well HSE Scores`;
-      document.getElementById('heatmapSubtitle').innerText = `Showing ${wells.length} wells registered under ${siteName}`;
+      document.getElementById('heatmapTitle').innerText = `Site ${siteId} — Well HSE Scores`;
+      document.getElementById('heatmapSubtitle').innerText = `Showing ${wells.length} wells associated with Site ${siteId}`;
       document.getElementById('backBtn').classList.remove('hidden');
 
       const cols = 5;
-      const rows = 8; // Fixed 8x5 grid layout for 40 wells
+      const rows = Math.ceil(wells.length / cols) || 1;
 
       let zMatrix = [], textMatrix = [], customDataMatrix = [], annotations = [];
 
@@ -203,10 +197,6 @@
               font: { color: item.score < 50 ? '#FFFFFF' : '#0F172A', size: 11, family: 'Inter, sans-serif' },
               showarrow: false
             });
-          } else {
-            zRow.push(null);
-            textRow.push('');
-            customRow.push(null);
           }
         }
         zMatrix.push(zRow);
@@ -217,9 +207,7 @@
       plotHeatmap(zMatrix, textMatrix, customDataMatrix, annotations, false);
     }
 
-    // -------------------------------------------------------------
-    // Shared Plotly Drawing & Event Setup
-    // -------------------------------------------------------------
+    // Plot Heatmap & Handle Clicks
     function plotHeatmap(zMatrix, textMatrix, customDataMatrix, annotations, isSiteLevel) {
       const trace = {
         z: zMatrix,
@@ -236,10 +224,7 @@
           [0.5, '#EAB308'], // 50 = Yellow
           [1.0, '#059669']  // 100 = Green
         ],
-        colorbar: {
-          title: 'HSE Score',
-          dtick: 20
-        }
+        colorbar: { title: 'HSE Score', dtick: 20 }
       };
 
       const layout = {
@@ -253,7 +238,6 @@
       const chartDiv = document.getElementById('hseHeatmap');
       Plotly.newPlot(chartDiv, [trace], layout, { responsive: true, displayModeBar: false });
 
-      // Click Event to trigger drilldown when clicking site tiles
       chartDiv.on('plotly_click', function(data) {
         if (isSiteLevel && data.points && data.points.length > 0) {
           const selectedSite = data.points[0].customdata;
