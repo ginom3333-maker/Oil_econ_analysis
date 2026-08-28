@@ -61,18 +61,18 @@
       <h1 class="text-xl font-black tracking-widest uppercase text-white">ConocoPhillips</h1>
     </div>
     <div class="hidden md:block text-right text-xs text-red-100 font-medium leading-tight">
-      <div><b>Active Asset Region:</b> Permian Basin (All 40 Wells with Live Inline SVG Visualizations)</div>
+      <div><b>Active Asset Region:</b> Permian Basin (All 40 Wells Linked Properly)</div>
     </div>
   </header>
 
   <nav class="bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
-    <a href="index.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">1. Geospatial Footprint</a>
-    <a href="well_tiering.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">2. Single-Well Tiering & Q5</a>
-    <a href="type_curves.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">3. 5-Year Type Curves</a>
-    <a href="economic_viability.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">4. Economic Viability</a>
-    <a href="production_efficiency.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">5. Production Efficiency</a>
-    <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">6. HSE Site Grading</a>
-    <a href="competitor_acumen.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">7. Competitor & Acumen</a>
+    <a href="index.html" id="nav-tab-1" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">1. Geospatial Footprint</a>
+    <a href="well_tiering.html" id="nav-tab-2" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">2. Single-Well Tiering & Q5</a>
+    <a href="type_curves.html" id="nav-tab-3" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" id="nav-tab-4" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">4. Economic Viability</a>
+    <a href="production_efficiency.html" id="nav-tab-5" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">5. Production Efficiency</a>
+    <a href="hse_grading.html" id="nav-tab-6" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">6. HSE Site Grading</a>
+    <a href="competitor_acumen.html" id="nav-tab-7" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">7. Competitor & Acumen</a>
   </nav>
 
   <main class="max-w-7xl mx-auto p-6 space-y-6">
@@ -234,7 +234,6 @@
     }
 
     function generateInlineSvgGraph(well) {
-      // Generate a mini coordinate curve based on well parameters
       const qi = well.oil;
       const b = well.b;
       const di = well.di;
@@ -253,9 +252,7 @@
           <line x1="20" y1="50" x2="180" y2="50" stroke="#374151" stroke-dasharray="2" />
           <line x1="20" y1="80" x2="180" y2="80" stroke="#4B5563" />
           <line x1="20" y1="20" x2="20" y2="80" stroke="#4B5563" />
-          
           <polyline fill="none" stroke="#C8102E" stroke-width="2.5" points="${points}" />
-          
           <text x="24" y="30" fill="#9CA3AF" font-size="8" font-family="sans-serif">${well.id}</text>
           <text x="135" y="75" fill="#10B981" font-size="7" font-family="sans-serif">EUR:${well.eur.toFixed(0)}k</text>
         </svg>
