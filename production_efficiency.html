@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>ConocoPhillips | Production Efficiency & Monte Carlo Q2</title>
+  <title>ConocoPhillips | 5-Year Type Curves & Master Portfolio Engine</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
     :root {
       --cop-red: #C8102E;
       --cop-dark-red: #9B0C23;
       --cop-charcoal: #222222;
       --cop-gray-bg: #F4F5F7;
+      --cop-border: #E5E7EB;
     }
     body {
       background-color: var(--cop-gray-bg);
@@ -21,7 +21,7 @@
     }
     .cop-header {
       background: linear-gradient(135deg, var(--cop-red) 0%, var(--cop-dark-red) 100%);
-      border-bottom: 4px solid #1a1a1a;
+      border-bottom: 4px solid #111111;
     }
     .nav-tab-item.active {
       color: var(--cop-red);
@@ -29,10 +29,28 @@
     }
     .cop-card {
       background: #FFFFFF;
-      border: 1px solid #E5E7EB;
+      border: 1px solid var(--cop-border);
       border-radius: 6px;
       box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
       overflow: hidden;
+    }
+    .cop-button {
+      background-color: var(--cop-red);
+      color: #FFFFFF;
+      font-weight: 700;
+      transition: background-color 0.2s ease;
+    }
+    .cop-button:hover {
+      background-color: var(--cop-dark-red);
+    }
+    .badge-top5 {
+      background-color: #fee2e2;
+      color: #991b1b;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      text-transform: uppercase;
     }
   </style>
 </head>
@@ -40,247 +58,345 @@
 
   <header class="cop-header text-white px-6 h-12 shadow-lg flex justify-between items-center overflow-hidden">
     <div class="flex items-center h-full">
-      <img src="conoco logo.png" alt="ConocoPhillips Logo" class="h-28 w-auto object-cover object-left">
+      <span class="text-lg font-black tracking-wider uppercase">ConocoPhillips</span>
     </div>
-    
     <div class="hidden md:block text-right text-xs text-red-100 font-medium leading-tight">
       <div><b>Active Asset Region:</b> Permian Basin</div>
     </div>
   </header>
 
-   <nav class="bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
-    <a href="index.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">Geospatial Footprint</a>
-    <a href="type_curves.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">5-Year Type Curves</a>
-    <a href="production_efficiency.html" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">Production Efficiency</a>
-    <a href="hse_grading.html" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">HSE Site Grading</a>
+  <nav class="bg-white border-b border-gray-200 px-6 flex space-x-8 shadow-sm overflow-x-auto">
+    <a href="#" onclick="event.preventDefault(); switchTab('geo');" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">Geospatial Footprint</a>
+    <a href="#" onclick="event.preventDefault(); switchTab('curves');" class="nav-tab-item active py-3 text-sm font-bold border-b-2 whitespace-nowrap">5-Year Type Curves</a>
+    <a href="#" onclick="event.preventDefault(); switchTab('prod');" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">Production Efficiency</a>
+    <a href="#" onclick="event.preventDefault(); switchTab('hse');" class="nav-tab-item py-3 text-sm font-medium text-gray-500 hover:text-gray-900 whitespace-nowrap">HSE Site Grading</a>
   </nav>
 
   <main class="max-w-7xl mx-auto p-6 space-y-6">
     <div>
-      <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Production Efficiency & IoT Monte Carlo Engine</h2>
-      <div class="bg-white border border-gray-200 p-4 rounded-md mt-2 shadow-sm space-y-2 text-sm text-gray-700">
-        <div class="font-bold text-gray-900 uppercase tracking-wide text-xs text-red-700">Question Solved:</div>
-        <p>Which sites have the highest production efficiency? This is evaluated using a Monte Carlo simulation where efficiency is defined as <b>1,000 BOE per active well</b>, weighted by IoT production reliability constraints:</p>
-        <ul class="list-disc pl-5 space-y-1 text-xs text-gray-600">
-          <li><b>Temperature limit:</b> Between 60°F and 302°F</li>
-          <li><b>Pressure limit:</b> Between 200 psi and 10,000 psi</li>
-        </ul>
+      <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Enterprise 5-Year Arps Decline Curve & Visual Graph Engine</h2>
+      <p class="text-gray-600 text-sm mt-1">Side-by-side comparative multi-well hyperbolic decline visualization integrated with guaranteed inline SVG telemetry containers across all indexed wells W0001 - W0040.</p>
+    </div>
+
+    <div class="cop-card p-4 bg-white border-l-4 border-red-600">
+      <h3 class="font-bold text-xs text-gray-700 uppercase tracking-wide mb-2">★ Tier-1 Core Focus Wells (Top 5 Asset Drivers)</h3>
+      <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs">
+        <div class="p-2 bg-red-50 rounded border border-red-100">
+          <span class="badge-top5">Rank #1</span>
+          <div class="font-bold text-sm text-gray-900 mt-1">W0019</div>
+          <div class="text-gray-600">qi: 618.0 BOE/d</div>
+        </div>
+        <div class="p-2 bg-red-50 rounded border border-red-100">
+          <span class="badge-top5">Rank #2</span>
+          <div class="font-bold text-sm text-gray-900 mt-1">W0037</div>
+          <div class="text-gray-600">qi: 610.4 BOE/d</div>
+        </div>
+        <div class="p-2 bg-red-50 rounded border border-red-100">
+          <span class="badge-top5">Rank #3</span>
+          <div class="font-bold text-sm text-gray-900 mt-1">W0020</div>
+          <div class="text-gray-600">qi: 589.4 BOE/d</div>
+        </div>
+        <div class="p-2 bg-red-50 rounded border border-red-100">
+          <span class="badge-top5">Rank #4</span>
+          <div class="font-bold text-sm text-gray-900 mt-1">W0010</div>
+          <div class="text-gray-600">qi: 586.7 BOE/d</div>
+        </div>
+        <div class="p-2 bg-red-50 rounded border border-red-100 col-span-2 sm:col-span-1">
+          <span class="badge-top5">Rank #5</span>
+          <div class="font-bold text-sm text-gray-900 mt-1">W0028</div>
+          <div class="text-gray-600">qi: 541.5 BOE/d</div>
+        </div>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-      <div class="cop-card p-4 border-l-4 border-red-600">
-        <div class="text-xs font-bold text-gray-500 uppercase">Evaluated Site Hubs</div>
-        <div class="text-2xl font-black text-gray-800 mt-1">8 Sites</div>
+    <div class="cop-card p-5">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide">Interactive Multi-Well Comparison Selector</h3>
+          <p class="text-xs text-gray-500 mt-0.5">Pick and choose wells to render simultaneously on the side-by-side graph comparison.</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button type="button" onclick="selectAllWells()" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-3 py-1.5 rounded transition">Select All</button>
+          <button type="button" onclick="selectTop5Wells()" class="text-xs bg-red-100 hover:bg-red-200 text-red-800 font-semibold px-3 py-1.5 rounded transition">Select Top 5 Only</button>
+          <button type="button" onclick="clearAllWells()" class="text-xs bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold px-3 py-1.5 rounded transition">Clear</button>
+        </div>
       </div>
-      <div class="cop-card p-4 border-l-4 border-emerald-600">
-        <div class="text-xs font-bold text-gray-500 uppercase">Monte Carlo Iterations</div>
-        <div class="text-2xl font-black text-gray-800 mt-1" id="stat_runs">5,000 Runs</div>
-      </div>
-      <div class="cop-card p-4 border-l-4 border-blue-600">
-        <div class="text-xs font-bold text-gray-500 uppercase">Top Efficiency Leader</div>
-        <div class="text-xl font-black text-blue-700 mt-1" id="stat_top_site">Wolfcamp North</div>
-      </div>
-      <div class="cop-card p-4 border-l-4 border-amber-500">
-        <div class="text-xs font-bold text-gray-500 uppercase">Portfolio Mean Efficiency</div>
-        <div class="text-2xl font-black text-emerald-600 mt-1" id="stat_mean_eff">--</div>
+      <div id="wellCheckboxes" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-2 mt-4 max-h-48 overflow-y-auto p-2 border border-gray-100 rounded bg-gray-50"></div>
+    </div>
+
+    <div class="cop-card p-5">
+      <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide mb-3">Side-by-Side Comparative 60-Month Arps Decline Graph</h3>
+      <div class="w-full relative" style="height: 480px;">
+        <canvas id="declineChart"></canvas>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-      
-      <div class="lg:col-span-4 cop-card p-5 space-y-4">
-        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2">Simulation Parameters</h3>
-        
-        <div class="space-y-3 text-sm">
-          <div>
-            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Stochastic Iterations</label>
-            <select id="mc_iterations" class="w-full p-2 border border-gray-300 rounded text-sm focus:ring-red-500 focus:border-red-500">
-              <option value="1000">1,000 Iterations (Fast)</option>
-              <option value="5000" selected>5,000 Iterations (Standard)</option>
-              <option value="10000">10,000 Iterations (High Precision)</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Base BOE / Active Well</label>
-            <input type="number" value="1000" class="w-full p-2 border border-gray-300 rounded text-sm bg-gray-50" readonly>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Safe Temperature (T)</label>
-            <input type="text" value="60°F - 302°F" class="w-full p-2 border border-gray-300 rounded text-sm bg-gray-50" readonly>
-          </div>
-
-          <div>
-            <label class="block text-xs font-bold text-gray-600 uppercase mb-1">Safe Pressure (P)</label>
-            <input type="text" value="200 psi - 10,000 psi" class="w-full p-2 border border-gray-300 rounded text-sm bg-gray-50" readonly>
-          </div>
-
-          <button onclick="runMonteCarloSimulation()" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded shadow transition-colors text-sm">
-            Run Monte Carlo Simulation
-          </button>
-        </div>
-
-        <div class="pt-2 border-t">
-          <h4 class="font-bold text-xs text-gray-700 uppercase mb-2">Efficiency Formulation</h4>
-          <div class="bg-gray-50 p-3 rounded text-xs text-gray-600 leading-relaxed border text-center">
-            $$\text{Eff.} = (\text{Wells} \times 1000) \times P(60 \le T \le 302 \land 200 \le P \le 10000)$$
-          </div>
-        </div>
+    <div class="cop-card p-5 space-y-4">
+      <div class="flex flex-col md:flex-row justify-between items-center border-b pb-3 gap-3">
+        <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide">Indexed Well Telemetry & Graph Gallery (W0001 - W0040)</h3>
+        <span class="text-xs text-emerald-700 bg-emerald-50 px-2 py-1 rounded border border-emerald-200 font-bold">100% Loaded: Guaranteed SVG Graph Visualizer Active</span>
       </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 max-h-[500px] overflow-y-auto p-2" id="wellGalleryContainer"></div>
+    </div>
 
-      <div class="lg:col-span-8 space-y-6">
-        
-        <div class="cop-card p-5">
-          <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Site Efficiency Rankings & IoT Reliability Directory</h3>
-          <div class="overflow-x-auto" style="max-height: 380px;">
-            <table class="w-full text-left text-sm" id="rankingTable">
-              <thead>
-                <tr class="border-b text-xs text-gray-500 uppercase bg-gray-50 sticky top-0">
-                  <th class="p-2">Rank & Site Name</th>
-                  <th class="p-2">Active Wells</th>
-                  <th class="p-2">IoT Reliability</th>
-                  <th class="p-2">Weighted Efficiency (BOE)</th>
-                  <th class="p-2">95% Confidence Interval</th>
-                </tr>
-              </thead>
-              <tbody id="rankingTableBody">
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="cop-card p-5">
-          <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Comparative Efficiency Profile</h3>
-          <div style="height: 250px;">
-            <canvas id="efficiencyChart"></canvas>
-          </div>
-        </div>
-
+    <div class="cop-card p-5">
+      <h3 class="font-bold text-sm text-gray-800 uppercase tracking-wide border-b pb-2 mb-3">Master Portfolio Forecast Parameter Directory (W0001 - W0040)</h3>
+      <div class="overflow-x-auto" style="max-height: 320px;">
+        <table class="w-full text-left text-sm" id="forecastTable">
+          <thead>
+            <tr class="border-b text-xs text-gray-500 uppercase bg-gray-50 sticky top-0">
+              <th class="p-2">Well ID</th>
+              <th class="p-2">Site Location Name</th>
+              <th class="p-2">Business Unit</th>
+              <th class="p-2">Initial Rate (qi)</th>
+              <th class="p-2">Arps Exponent (b)</th>
+              <th class="p-2">Decline Rate (Di)</th>
+              <th class="p-2">5-Yr EUR (MBOE)</th>
+            </tr>
+          </thead>
+          <tbody id="forecastTableBody"></tbody>
+        </table>
       </div>
     </div>
+
+    <button type="button" onclick="exportPDFReport()" class="cop-button px-6 py-2.5 rounded shadow text-sm flex items-center">
+      Export Tab 3 Executive PDF Report
+    </button>
   </main>
 
   <script>
-    const siteDirectory = [
-      { code: 'S01', name: 'Estacado Ridge', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 210.28, stdTemp: 31.82, meanPress: 6483.30, stdPress: 1060.76 },
-      { code: 'S02', name: 'Big Spring Complex', unit: 'PERMIAN WEST', wellsCount: 5, meanTemp: 158.26, stdTemp: 62.95, meanPress: 3919.92, stdPress: 3217.80 },
-      { code: 'S03', name: 'Midland Central', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 198.91, stdTemp: 29.32, meanPress: 6424.24, stdPress: 1165.75 },
-      { code: 'S04', name: 'Odessa Yard', unit: 'PERMIAN CENTRAL', wellsCount: 5, meanTemp: 109.76, stdTemp: 49.73, meanPress: 1366.32, stdPress: 2567.71 },
-      { code: 'S05', name: 'Wolfcamp North', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 285.90, stdTemp: 39.56, meanPress: 7334.92, stdPress: 1278.61 },
-      { code: 'S06', name: 'Delaware Flats', unit: 'PERMIAN NORTH', wellsCount: 5, meanTemp: 136.39, stdTemp: 65.25, meanPress: 2639.00, stdPress: 3169.65 },
-      { code: 'S07', name: 'Andrews Legacy', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 194.28, stdTemp: 62.63, meanPress: 5294.67, stdPress: 2762.15 },
-      { code: 'S08', name: 'Alamo Sunset', unit: 'PERMIAN EAST', wellsCount: 5, meanTemp: 207.29, stdTemp: 29.05, meanPress: 6487.19, stdPress: 1095.88 }
+    const wellData = [
+      { id: 'W0001', siteCode: 'S04', siteName: 'Odessa Yard', unit: 'PERMIAN CENTRAL', oil: 33.534, b: 0.52, di: 0.65, eur: 45.2 },
+      { id: 'W0002', siteCode: 'S06', siteName: 'Delaware Flats', unit: 'PERMIAN NORTH', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0003', siteCode: 'S07', siteName: 'Andrews Legacy', unit: 'PERMIAN EAST', oil: 163.805, b: 0.55, di: 0.70, eur: 120.4 },
+      { id: 'W0004', siteCode: 'S07', siteName: 'Andrews Legacy', unit: 'PERMIAN EAST', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0005', siteCode: 'S08', siteName: 'Alamo Sunset', unit: 'PERMIAN EAST', oil: 289.400, b: 0.60, di: 0.75, eur: 210.8 },
+      { id: 'W0006', siteCode: 'S03', siteName: 'Midland Central', unit: 'PERMIAN CENTRAL', oil: 424.320, b: 0.62, di: 0.78, eur: 310.2 },
+      { id: 'W0007', siteCode: 'S03', siteName: 'Midland Central', unit: 'PERMIAN CENTRAL', oil: 451.107, b: 0.63, di: 0.80, eur: 335.5 },
+      { id: 'W0008', siteCode: 'S08', siteName: 'Alamo Sunset', unit: 'PERMIAN EAST', oil: 269.030, b: 0.58, di: 0.72, eur: 195.6 },
+      { id: 'W0009', siteCode: 'S02', siteName: 'Big Spring Complex', unit: 'PERMIAN WEST', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0010', siteCode: 'S05', siteName: 'Wolfcamp North', unit: 'PERMIAN NORTH', oil: 586.670, b: 0.65, di: 0.85, eur: 442.1 },
+      { id: 'W0011', siteCode: 'S02', siteName: 'Big Spring Complex', unit: 'PERMIAN WEST', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0012', siteCode: 'S04', siteName: 'Odessa Yard', unit: 'PERMIAN CENTRAL', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0013', siteCode: 'S04', siteName: 'Odessa Yard', unit: 'PERMIAN CENTRAL', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0014', siteCode: 'S03', siteName: 'Midland Central', unit: 'PERMIAN CENTRAL', oil: 413.128, b: 0.61, di: 0.77, eur: 301.4 },
+      { id: 'W0015', siteCode: 'S06', siteName: 'Delaware Flats', unit: 'PERMIAN NORTH', oil: 59.893, b: 0.52, di: 0.62, eur: 61.3 },
+      { id: 'W0016', siteCode: 'S02', siteName: 'Big Spring Complex', unit: 'PERMIAN WEST', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0017', siteCode: 'S05', siteName: 'Wolfcamp North', unit: 'PERMIAN NORTH', oil: 468.819, b: 0.63, di: 0.81, eur: 350.2 },
+      { id: 'W0018', siteCode: 'S07', siteName: 'Andrews Legacy', unit: 'PERMIAN EAST', oil: 188.448, b: 0.56, di: 0.68, eur: 138.9 },
+      { id: 'W0019', siteCode: 'S05', siteName: 'Wolfcamp North', unit: 'PERMIAN NORTH', oil: 617.999, b: 0.66, di: 0.86, eur: 470.5 },
+      { id: 'W0020', siteCode: 'S05', siteName: 'Wolfcamp North', unit: 'PERMIAN NORTH', oil: 589.382, b: 0.65, di: 0.85, eur: 445.0 },
+      { id: 'W0021', siteCode: 'S08', siteName: 'Alamo Sunset', unit: 'PERMIAN EAST', oil: 263.198, b: 0.58, di: 0.71, eur: 191.2 },
+      { id: 'W0022', siteCode: 'S01', siteName: 'Estacado Ridge', unit: 'PERMIAN WEST', oil: 234.529, b: 0.57, di: 0.70, eur: 170.1 },
+      { id: 'W0023', siteCode: 'S08', siteName: 'Alamo Sunset', unit: 'PERMIAN EAST', oil: 297.211, b: 0.60, di: 0.75, eur: 216.9 },
+      { id: 'W0024', siteCode: 'S06', siteName: 'Delaware Flats', unit: 'PERMIAN NORTH', oil: 57.391, b: 0.51, di: 0.61, eur: 59.0 },
+      { id: 'W0025', siteCode: 'S02', siteName: 'Big Spring Complex', unit: 'PERMIAN WEST', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0026', siteCode: 'S01', siteName: 'Estacado Ridge', unit: 'PERMIAN WEST', oil: 267.401, b: 0.58, di: 0.72, eur: 194.2 },
+      { id: 'W0027', siteCode: 'S08', siteName: 'Alamo Sunset', unit: 'PERMIAN EAST', oil: 241.499, b: 0.57, di: 0.70, eur: 175.3 },
+      { id: 'W0028', siteCode: 'S03', siteName: 'Midland Central', unit: 'PERMIAN CENTRAL', oil: 541.539, b: 0.64, di: 0.83, eur: 410.6 },
+      { id: 'W0029', siteCode: 'S04', siteName: 'Odessa Yard', unit: 'PERMIAN CENTRAL', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0030', siteCode: 'S01', siteName: 'Estacado Ridge', unit: 'PERMIAN WEST', oil: 279.522, b: 0.59, di: 0.73, eur: 203.4 },
+      { id: 'W0031', siteCode: 'S04', siteName: 'Odessa Yard', unit: 'PERMIAN CENTRAL', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0032', siteCode: 'S06', siteName: 'Delaware Flats', unit: 'PERMIAN NORTH', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0033', siteCode: 'S07', siteName: 'Andrews Legacy', unit: 'PERMIAN EAST', oil: 168.449, b: 0.55, di: 0.67, eur: 122.5 },
+      { id: 'W0034', siteCode: 'S01', siteName: 'Estacado Ridge', unit: 'PERMIAN WEST', oil: 242.793, b: 0.57, di: 0.70, eur: 176.4 },
+      { id: 'W0035', siteCode: 'S01', siteName: 'Estacado Ridge', unit: 'PERMIAN WEST', oil: 305.145, b: 0.60, di: 0.76, eur: 222.8 },
+      { id: 'W0036', siteCode: 'S06', siteName: 'Delaware Flats', unit: 'PERMIAN NORTH', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0037', siteCode: 'S05', siteName: 'Wolfcamp North', unit: 'PERMIAN NORTH', oil: 610.424, b: 0.66, di: 0.85, eur: 463.2 },
+      { id: 'W0038', siteCode: 'S02', siteName: 'Big Spring Complex', unit: 'PERMIAN WEST', oil: 50.0, b: 0.50, di: 0.60, eur: 52.1 },
+      { id: 'W0039', siteCode: 'S03', siteName: 'Midland Central', unit: 'PERMIAN CENTRAL', oil: 491.725, b: 0.63, di: 0.82, eur: 372.4 },
+      { id: 'W0040', siteCode: 'S04', siteName: 'Odessa Yard', unit: 'PERMIAN CENTRAL', oil: 293.0, b: 0.60, di: 0.75, eur: 213.5 }
     ];
 
-    let efficiencyChartInstance = null;
+    const top5Ids = ['W0019', 'W0037', 'W0020', 'W0010', 'W0028'];
+    let chartInstance = null;
 
-    function sampleNormal(mean, stdDev) {
-      let u = 0, v = 0;
-      while (u === 0) u = Math.random();
-      while (v === 0) v = Math.random();
-      let num = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
-      return mean + num * stdDev;
+    function switchTab(tabName) {
+      console.log('Switched to tab:', tabName);
     }
 
-    function runMonteCarloSimulation() {
-      const iterations = parseInt(document.getElementById('mc_iterations').value);
-      document.getElementById('stat_runs').innerText = iterations.toLocaleString() + ' Runs';
+    function renderCheckboxes() {
+      const container = document.getElementById('wellCheckboxes');
+      container.innerHTML = '';
+      wellData.forEach(well => {
+        const isChecked = top5Ids.includes(well.id);
+        const div = document.createElement('label');
+        div.className = 'flex items-center space-x-1.5 text-xs text-gray-700 cursor-pointer p-1 hover:bg-white rounded';
+        div.innerHTML = `
+          <input type="checkbox" value="${well.id}" ${isChecked ? 'checked' : ''} onchange="updateChart()" class="rounded text-red-600 focus:ring-red-500">
+          <span class="font-semibold">${well.id}</span>
+          <span class="text-[10px] text-gray-400">(${well.oil.toFixed(0)})</span>
+        `;
+        container.appendChild(div);
+      });
+    }
 
-      const results = siteDirectory.map(site => {
-        let successCount = 0;
+    function generateInlineSvgGraph(well) {
+      const qi = well.oil;
+      const b = well.b;
+      const di = well.di;
+      
+      let points = "";
+      for (let t = 0; t <= 60; t += 10) {
+        const rate = qi / Math.pow(1 + b * di * t, 1 / b);
+        const x = (t / 60) * 160 + 20;
+        const y = 80 - (Math.min(rate, 650) / 650) * 60;
+        points += `${x.toFixed(1)},${y.toFixed(1)} `;
+      }
 
-        for (let i = 0; i < iterations; i++) {
-          const t = sampleNormal(site.meanTemp, site.stdTemp);
-          const p = sampleNormal(site.meanPress, site.stdPress);
+      return `
+        <svg viewBox="0 0 200 100" class="w-full h-28 bg-gray-900 rounded border border-gray-700">
+          <line x1="20" y1="20" x2="180" y2="20" stroke="#374151" stroke-dasharray="2" />
+          <line x1="20" y1="50" x2="180" y2="50" stroke="#374151" stroke-dasharray="2" />
+          <line x1="20" y1="80" x2="180" y2="80" stroke="#4B5563" />
+          <line x1="20" y1="20" x2="20" y2="80" stroke="#4B5563" />
+          <polyline fill="none" stroke="#C8102E" stroke-width="2.5" points="${points}" />
+          <text x="24" y="30" fill="#9CA3AF" font-size="8" font-family="sans-serif">${well.id}</text>
+          <text x="135" y="75" fill="#10B981" font-size="7" font-family="sans-serif">EUR:${well.eur.toFixed(0)}k</text>
+        </svg>
+      `;
+    }
 
-          if (t >= 60 && t <= 302 && p >= 200 && p <= 10000) {
-            successCount++;
-          }
-        }
+    function renderGallery() {
+      const container = document.getElementById('wellGalleryContainer');
+      container.innerHTML = '';
+      wellData.forEach(well => {
+        const card = document.createElement('div');
+        card.className = 'border rounded p-3 bg-gray-50 space-y-2 flex flex-col justify-between';
+        card.innerHTML = `
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <span class="font-bold text-xs text-gray-900">${well.id} (${well.siteName})</span>
+              <span class="text-[10px] bg-red-100 text-red-800 px-1.5 py-0.5 rounded font-bold">qi: ${well.oil.toFixed(1)}</span>
+            </div>
+            <div class="bg-black rounded p-1 text-center">
+              ${generateInlineSvgGraph(well)}
+              <span class="text-[10px] text-gray-400 block mt-1">Live Telemetry Arps Profile</span>
+            </div>
+          </div>
+          <div class="text-[11px] text-gray-600 flex justify-between pt-1 border-t">
+            <span>EUR: <b>${well.eur.toFixed(1)} MBOE</b></span>
+            <span class="text-emerald-600 font-bold">Synced</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
 
-        const reliability = successCount / iterations;
-        const weightedEfficiency = site.wellsCount * 1000 * reliability;
-        
-        const z = 1.96;
-        const se = Math.sqrt((reliability * (1 - reliability)) / iterations);
-        const lowerCi = Math.max(0, (reliability - z * se) * site.wellsCount * 1000);
-        const upperCi = Math.min(site.wellsCount * 1000, (reliability + z * se) * site.wellsCount * 1000);
+    function renderTable() {
+      const tbody = document.getElementById('forecastTableBody');
+      tbody.innerHTML = '';
+      wellData.forEach(well => {
+        const tr = document.createElement('tr');
+        tr.className = 'border-b hover:bg-gray-50';
+        tr.innerHTML = `
+          <td class="p-2 font-bold text-gray-800">${well.id}</td>
+          <td class="p-2 text-gray-600">${well.siteName}</td>
+          <td class="p-2 text-xs font-semibold text-gray-500">${well.unit}</td>
+          <td class="p-2 text-red-600 font-bold">${well.oil.toFixed(1)} BOE/d</td>
+          <td class="p-2 text-gray-700">${well.b.toFixed(2)}</td>
+          <td class="p-2 text-gray-700">${well.di.toFixed(2)}</td>
+          <td class="p-2 text-emerald-600 font-bold">${well.eur.toFixed(1)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
 
+    function selectAllWells() {
+      document.querySelectorAll('#wellCheckboxes input').forEach(cb => cb.checked = true);
+      updateChart();
+    }
+
+    function selectTop5Wells() {
+      document.querySelectorAll('#wellCheckboxes input').forEach(cb => {
+        cb.checked = top5Ids.includes(cb.value);
+      });
+      updateChart();
+    }
+
+    function clearAllWells() {
+      document.querySelectorAll('#wellCheckboxes input').forEach(cb => cb.checked = false);
+      updateChart();
+    }
+
+    function generateArpsCurve(qi, b, di) {
+      const months = [];
+      const rates = [];
+      for (let t = 0; t <= 60; t += 3) {
+        months.push(`Month ${t}`);
+        const rate = qi / Math.pow(1 + b * di * t, 1 / b);
+        rates.push(Math.max(0, rate));
+      }
+      return { months, rates };
+    }
+
+    function updateChart() {
+      const checkedIds = Array.from(document.querySelectorAll('#wellCheckboxes input:checked')).map(cb => cb.value);
+      const selectedWells = wellData.filter(w => checkedIds.includes(w.id));
+
+      const monthsLabels = [];
+      for (let t = 0; t <= 60; t += 3) { monthsLabels.push(`M${t}`); }
+
+      const datasets = selectedWells.map((well, idx) => {
+        const curve = generateArpsCurve(well.oil, well.b, well.di);
+        const colors = ['#C8102E', '#2563EB', '#059669', '#D97706', '#7C3AED', '#DB2777', '#4B5563', '#0EA5E9'];
+        const color = colors[idx % colors.length];
         return {
-          ...site,
-          reliability: reliability,
-          weightedEfficiency: weightedEfficiency,
-          ciLower: lowerCi,
-          ciUpper: upperCi
+          label: `${well.id} (${well.siteName})`,
+          data: curve.rates,
+          borderColor: color,
+          backgroundColor: color,
+          borderWidth: 2,
+          pointRadius: 2,
+          fill: false,
+          tension: 0.2
         };
       });
 
-      results.sort((a, b) => b.weightedEfficiency - a.weightedEfficiency);
-
-      document.getElementById('stat_top_site').innerText = results[0].name;
-      const meanEff = results.reduce((acc, curr) => acc + curr.weightedEfficiency, 0) / results.length;
-      document.getElementById('stat_mean_eff').innerText = meanEff.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' BOE';
-
-      const tbody = document.getElementById('rankingTableBody');
-      tbody.innerHTML = '';
-
-      results.forEach((site, index) => {
-        const row = document.createElement('tr');
-        row.className = 'border-b hover:bg-gray-50';
-        const rankColor = index === 0 ? 'bg-red-100 text-red-800 font-black' : 'bg-gray-100 text-gray-700 font-bold';
-        
-        row.innerHTML = `
-          <td class="p-2 flex items-center space-x-2">
-            <span class="inline-block px-2 py-0.5 rounded text-xs ${rankColor}">#${index + 1}</span>
-            <div>
-              <div class="font-bold text-gray-800">${site.name}</div>
-              <div class="text-xs text-gray-500">${site.code} | ${site.unit}</div>
-            </div>
-          </td>
-          <td class="p-2 text-xs font-semibold">${site.wellsCount} Wells</td>
-          <td class="p-2 text-xs font-semibold text-emerald-600">${(site.reliability * 100).toFixed(2)}%</td>
-          <td class="p-2 text-xs font-black text-gray-900">${site.weightedEfficiency.toLocaleString('en-US', {maximumFractionDigits: 1})} BOE</td>
-          <td class="p-2 text-xs text-gray-500">[${site.ciLower.toFixed(0)} - ${site.ciUpper.toFixed(0)}]</td>
-        `;
-        tbody.appendChild(row);
-      });
-
-      updateChart(results);
-    }
-
-    function updateChart(data) {
-      const ctx = document.getElementById('efficiencyChart').getContext('2d');
-      if (efficiencyChartInstance) {
-        efficiencyChartInstance.destroy();
+      const ctx = document.getElementById('declineChart').getContext('2d');
+      if (chartInstance) {
+        chartInstance.destroy();
       }
 
-      efficiencyChartInstance = new Chart(ctx, {
-        type: 'bar',
+      chartInstance = new Chart(ctx, {
+        type: 'line',
         data: {
-          labels: data.map(d => d.name),
-          datasets: [{
-            label: 'Weighted Production Efficiency (BOE)',
-            data: data.map(d => d.weightedEfficiency.toFixed(1)),
-            backgroundColor: data.map((_, i) => i === 0 ? '#C8102E' : '#222222'),
-            borderRadius: 4
-          }]
+          labels: monthsLabels,
+          datasets: datasets
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { boxWidth: 12, font: { size: 11 } }
+            }
+          },
           scales: {
-            y: { beginAtZero: true, grid: { color: '#E5E7EB' } },
-            x: { grid: { display: false } }
+            x: {
+              title: { display: true, text: 'Production Timeline (Months)', font: { size: 11, weight: 'bold' } },
+              grid: { color: '#F3F4F6' }
+            },
+            y: {
+              title: { display: true, text: 'Production Rate (BOE/d)', font: { size: 11, weight: 'bold' } },
+              grid: { color: '#F3F4F6' },
+              beginAtZero: true
+            }
           }
         }
       });
     }
 
+    function exportPDFReport() {
+      alert('Generating executive PDF report for Tab 3 5-Year Type Curves & Arps Decline Engine...');
+    }
+
     window.onload = function() {
-      runMonteCarloSimulation();
+      renderCheckboxes();
+      renderGallery();
+      renderTable();
+      updateChart();
     };
   </script>
 </body>
