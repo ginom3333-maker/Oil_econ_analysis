@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 
-def export_all_site_safety_scores(
+def export_site_hse_scores(
     output_csv="site_hse_scores.csv", file_path="cleaned_unified_master.csv"
 ):
   if not os.path.exists(file_path):
@@ -11,14 +11,12 @@ def export_all_site_safety_scores(
 
   df = pd.read_csv(file_path)
 
-  # Determine grouping identifier (use 'site_id' if present, otherwise map/fallback from 'well_id')
-  group_col = "site_id" if "site_id" in df.columns else "well_id"
-  if group_col not in df.columns:
-    print("Error: Neither 'site_id' nor 'well_id' column found in the dataset.")
+  if "well_id" not in df.columns:
+    print("Error: 'well_id' column missing from the dataset.")
     return
 
-  # If grouping by site but only well_id exists, create a site mapping
-  if group_col == "site_id" and "site_id" not in df.columns:
+  # Ensure 'site_id' exists; if not present, map/fallback from 'well_id'
+  if "site_id" not in df.columns:
     df["site_id"] = df["well_id"]
 
   def get_incident_points(description):
@@ -93,27 +91,38 @@ def export_all_site_safety_scores(
 
     return 0
 
-  results = []
-  unique_sites = df[group_col].unique()
+  # 1. Calculate individual score for each well starting from 100 with penalties
+  well_scores = []
+  unique_wells = df["well_id"].unique()
 
-  for site_id in unique_sites:
-    site_rows = df[df[group_col] == site_id]
+  for well_id in unique_wells:
+    well_rows = df[df["well_id"] == well_id]
     total_penalty = 0
 
-    for _, row in site_rows.iterrows():
+    for _, row in well_rows.iterrows():
       desc = row.get("incident_description", "")
       total_penalty += get_incident_points(desc)
 
-    final_score = max(0, 100 - total_penalty)
-    results.append({"site_id": site_id, "hse_score": final_score})
+    well_score = max(0, 100 - total_penalty)
+    site_id = well_rows["site_id"].iloc[0]
+    well_scores.append(
+        {"well_id": well_id, "site_id": site_id, "well_score": well_score}
+    )
 
-  result_df = pd.DataFrame(results)
-  result_df.to_csv(output_csv, index=False)
+  well_df = pd.DataFrame(well_scores)
+
+  # 2. Average the well scores grouped by site, and assign that score to the site
+  site_grouped = well_df.groupby("site_id")["well_score"].mean().reset_index()
+  site_grouped.rename(columns={"well_score": "hse_score"}, inplace=True)
+  site_grouped["hse_score"] = site_grouped["hse_score"].round(2)
+
+  # 3. Export site scores to CSV
+  site_grouped.to_csv(output_csv, index=False)
   print(
-      f"Successfully generated and saved '{output_csv}' with"
-      f" {len(unique_sites)} sites."
+      f"Successfully generated and saved '{output_csv}' with site-averaged"
+      f" scores for {len(site_grouped)} sites."
   )
 
 
 if __name__ == "__main__":
-  export_all_site_safety_scores()
+  export_site_hse_scores()
