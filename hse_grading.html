@@ -43,61 +43,12 @@
     <div id="hseHeatmap" style="width: 100%; height: 450px;"></div>
   </div>
 
-  <!-- Dynamic Summary Table -->
-  <div class="glass-card">
-    <h3 class="font-bold text-lg mb-4">Site Safety Summaries</h3>
-    <table class="w-full text-left border-collapse">
-      <thead>
-        <tr class="border-b text-sm font-semibold text-gray-700">
-          <th class="pb-3">Site Name</th>
-          <th class="pb-3">Incident Count</th>
-          <th class="pb-3">Severity Points</th>
-          <th class="pb-3">HSE Score</th>
-          <th class="pb-3">Safety Grade</th>
-        </tr>
-      </thead>
-      <tbody id="summaryTableBody">
-        <tr>
-          <td colspan="5" class="py-4 text-center text-gray-500">Loading site safety summaries...</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
   <script>
-    let siteDataMap = {};        // Maps siteCode -> score
-    let siteNameMap = {};        // Maps siteCode -> Display Name
-    let wellDataMap = {};        // Maps wellId -> { score, incidents, explicitCount }
-    let siteToWells = {};        // Maps siteCode -> array of well objects
-    let sensorAnomalyMap = {};   // Maps wellId -> total anomalies
-    let siteDirectIncidents = {}; // Maps siteCode -> site-level incidents
+    let siteDataMap = {}; // Maps siteCode -> score
+    let wellDataMap = {}; // Maps wellId -> score
+    let siteToWells = {}; // Maps siteCode -> array of well objects
 
-    // Incident Severity Grading Weights Schema
-    const INCIDENT_SEVERITY = {
-      "Minor Spill": 1,
-      "Slip/trip/fall": 1,
-      "Vehicle Incident": 1,
-      "Hydrocarbon spill": 2,
-      "Environmental exceedance": 2,
-      "Regulatory Citation": 2,
-      "Permit Violation": 2,
-      "Produced water release": 2,
-      "Recordable injury": 4,
-      "Fire/Near miss": 4,
-      "Lost-time Injury": 8,
-      "Serious injury": 16,
-      "Uncontrolled Release": 16
-    };
-
-    function getSeverityPoints(incName) {
-      if (!incName) return 0;
-      const clean = incName.trim().toLowerCase();
-      for (const [key, val] of Object.entries(INCIDENT_SEVERITY)) {
-        if (key.toLowerCase() === clean) return val;
-      }
-      return 1;
-    }
-
+    // Normalize site codes (e.g., converts 's01', 'S01', 'S001' -> 'S01')
     function normalizeSiteCode(raw) {
       if (!raw) return "";
       let str = raw.toString().trim().toUpperCase();
@@ -109,12 +60,15 @@
       return str;
     }
 
+    // Normalize well IDs (e.g., converts '30' -> 'W0030', 'W0022' -> 'W0022')
     function normalizeWellId(raw) {
       if (!raw) return "";
       let str = raw.toString().trim().toUpperCase();
       if (!str.startsWith("W")) {
         let num = parseInt(str, 10);
-        if (!isNaN(num)) return "W" + num.toString().padStart(4, "0");
+        if (!isNaN(num)) {
+          return "W" + num.toString().padStart(4, "0");
+        }
       }
       return str;
     }
@@ -131,90 +85,45 @@
       });
     }
 
-    // Main CSV Loading Workflow
+    // Load all 3 CSVs concurrently
     Promise.all([
-      fetchCsv("site_hse_scores.csv").catch(() => []),
-      fetchCsv("well_hse_scores.csv").catch(() => []),
-      fetchCsv("well_site_map.csv").catch(() => []),
-      fetchCsv("well_sensor_anomalies.csv").catch(() => [])
-    ]).then(([siteRows, wellRows, mapRows, anomalyRows]) => {
-      parseSensorAnomalies(anomalyRows);
+      fetchCsv("site_hse_scores.csv"),
+      fetchCsv("well_hse_scores.csv"),
+      fetchCsv("well_site_map.csv")
+    ]).then(([siteRows, wellRows, mapRows]) => {
       processAllData(siteRows, wellRows, mapRows);
     }).catch(err => {
       console.error("Error loading CSV files:", err);
     });
 
-    function parseSensorAnomalies(rows) {
-      sensorAnomalyMap = {};
-      if (rows && rows.length > 0) {
-        rows.forEach(r => {
-          const wId = normalizeWellId(r.well_id || r.well || r.Well_ID);
-          const total = parseInt(r.combined_total_anomalies || r.temp_total_anomalies || r.pressure_total_anomalies || 0, 10);
-          if (wId) sensorAnomalyMap[wId] = isNaN(total) ? 0 : total;
-        });
-      }
-    }
-
-    function parseIncidentField(row) {
-      const rawIncidents = row.incidents || row.incident || row.incident_type || row.incident_list || row.Incidents || "";
-      const rawCount = row.incident_count || row.num_incidents || row.incidents_count || row.Incident_Count;
-
-      let list = [];
-      if (typeof rawIncidents === 'string' && rawIncidents.trim() !== '') {
-        list = rawIncidents.split(/[,;|]+/).map(s => s.trim()).filter(Boolean);
-      }
-
-      let count = null;
-      if (rawCount !== undefined && rawCount !== null && rawCount !== '') {
-        const parsed = parseInt(rawCount, 10);
-        if (!isNaN(parsed)) count = parsed;
-      }
-
-      return { list, count };
-    }
-
     function processAllData(siteRows, wellRows, mapRows) {
       siteDataMap = {};
-      siteNameMap = {};
       wellDataMap = {};
       siteToWells = {};
-      siteDirectIncidents = {};
 
-      // 1. Process site scores, names, & site-level incident fields
+      // 1. Process site scores
       siteRows.forEach(row => {
-        const rawSite = row.site_id || row.site || row.site_code || row.Site;
+        const rawSite = row.site_id || row.site || row.site_name || row.Site;
         const siteCode = normalizeSiteCode(rawSite);
-        const score = parseFloat(row.hse_score || row.avg_score || row.score || 0);
-        const name = row.site_name || row.name || row.site_label || row.Site_Name || (siteCode ? `Site ${siteCode}` : "");
+        const score = parseFloat(row.hse_score || row.avg_score || 0);
 
-        if (siteCode) {
-          if (!isNaN(score)) siteDataMap[siteCode] = score;
-          siteNameMap[siteCode] = name;
-
-          const incData = parseIncidentField(row);
-          if (incData.list.length > 0 || incData.count !== null) {
-            siteDirectIncidents[siteCode] = incData;
-          }
+        if (siteCode && !isNaN(score)) {
+          siteDataMap[siteCode] = score;
         }
       });
 
-      // 2. Process well scores & incidents
+      // 2. Process well scores lookup table
       wellRows.forEach(row => {
         const rawWell = row.well_id || row.well || row.Well_ID;
         const wellId = normalizeWellId(rawWell);
         const score = parseFloat(row.hse_score || row.score);
-        const incData = parseIncidentField(row);
 
-        if (wellId) {
-          wellDataMap[wellId] = {
-            score: !isNaN(score) ? score : 0,
-            incidents: incData.list,
-            explicitCount: incData.count
-          };
+        if (wellId && !isNaN(score)) {
+          wellDataMap[wellId] = score;
         }
       });
 
-      // 3. Map wells to sites
+      // 3. Map wells to their respective site codes
       mapRows.forEach(row => {
         const rawWell = row["Well ID"] || row.well_id || row.well;
         const rawSite = row["Site Code"] || row.site_code || row.site;
@@ -223,95 +132,15 @@
         const siteCode = normalizeSiteCode(rawSite);
 
         if (wellId && siteCode) {
-          if (!siteToWells[siteCode]) siteToWells[siteCode] = [];
-          
-          const wellObj = wellDataMap[wellId] || { score: 80, incidents: [], explicitCount: null };
-          siteToWells[siteCode].push({
-            id: wellId,
-            score: wellObj.score,
-            incidents: wellObj.incidents,
-            explicitCount: wellObj.explicitCount,
-            anomalies: sensorAnomalyMap[wellId] || 0
-          });
+          if (!siteToWells[siteCode]) {
+            siteToWells[siteCode] = [];
+          }
+          const score = wellDataMap[wellId] !== undefined ? wellDataMap[wellId] : 0;
+          siteToWells[siteCode].push({ id: wellId, score: score });
         }
       });
 
       renderSiteLevel();
-      renderSummaryTable();
-    }
-
-    function getGradeBadge(score) {
-      if (score >= 90) return `<span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full text-xs">Grade A (Optimal)</span>`;
-      if (score >= 80) return `<span class="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-xs">Grade B (Good)</span>`;
-      if (score >= 70) return `<span class="bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full text-xs">Grade C (Review Needed)</span>`;
-      if (score >= 60) return `<span class="bg-orange-100 text-orange-800 font-bold px-3 py-1 rounded-full text-xs">Grade D (Warning)</span>`;
-      return `<span class="bg-red-100 text-red-800 font-bold px-3 py-1 rounded-full text-xs">Grade F (Critical)</span>`;
-    }
-
-    function renderSummaryTable() {
-      const tbody = document.getElementById("summaryTableBody");
-      const siteKeys = Object.keys(siteDataMap).sort();
-
-      if (siteKeys.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-4 text-center text-gray-500">No site safety data found.</td></tr>`;
-        return;
-      }
-
-      let rowsHtml = "";
-
-      siteKeys.forEach(siteCode => {
-        const wells = siteToWells[siteCode] || [];
-        let totalIncidents = 0;
-        let severityPoints = 0;
-        let totalAnomalies = 0;
-
-        // Sum well-level explicit incidents and sensor anomalies
-        wells.forEach(well => {
-          totalAnomalies += well.anomalies || 0;
-
-          if (well.incidents && well.incidents.length > 0) {
-            totalIncidents += well.incidents.length;
-            well.incidents.forEach(inc => severityPoints += getSeverityPoints(inc));
-          } else if (well.explicitCount !== null && well.explicitCount > 0) {
-            totalIncidents += well.explicitCount;
-            severityPoints += well.explicitCount * 1;
-          }
-        });
-
-        // Fallback 1: Site-level incident row check
-        if (totalIncidents === 0 && siteDirectIncidents[siteCode]) {
-          const direct = siteDirectIncidents[siteCode];
-          if (direct.list && direct.list.length > 0) {
-            totalIncidents = direct.list.length;
-            direct.list.forEach(inc => severityPoints += getSeverityPoints(inc));
-          } else if (direct.count !== null && direct.count > 0) {
-            totalIncidents = direct.count;
-            severityPoints = direct.count * 1;
-          }
-        }
-
-        // Fallback 2: Map sensor anomalies directly to incident count if no explicit incidents are recorded
-        if (totalIncidents === 0 && totalAnomalies > 0) {
-          totalIncidents = totalAnomalies;
-          severityPoints = Math.round(totalAnomalies * 0.1); // Weight high anomaly volume
-        }
-
-        const baseScore = siteDataMap[siteCode] !== undefined ? siteDataMap[siteCode] : 0;
-        const calculatedScore = Math.max(0, Math.min(100, Math.round(baseScore - (severityPoints * 0.5))));
-        const siteDisplayName = siteNameMap[siteCode] || `Site ${siteCode}`;
-
-        rowsHtml += `
-          <tr class="border-b hover:bg-gray-50 transition-colors">
-            <td class="py-3 font-semibold text-slate-900">${siteDisplayName}</td>
-            <td class="py-3 text-gray-600 font-semibold">${totalIncidents.toLocaleString()}</td>
-            <td class="py-3 font-semibold text-gray-700">${severityPoints.toLocaleString()} pts</td>
-            <td class="py-3 font-bold">${calculatedScore}</td>
-            <td class="py-3">${getGradeBadge(calculatedScore)}</td>
-          </tr>
-        `;
-      });
-
-      tbody.innerHTML = rowsHtml;
     }
 
     // Level 1: Site Matrix Heatmap
@@ -333,14 +162,13 @@
           if (idx < siteKeys.length) {
             const siteCode = siteKeys[idx];
             const score = siteDataMap[siteCode];
-            const displayName = siteNameMap[siteCode] || `Site ${siteCode}`;
             zRow.push(score);
-            textRow.push(`<b>${displayName}</b> (${siteCode})<br>HSE Score: ${score}`);
+            textRow.push(`<b>Site ${siteCode}</b><br>HSE Score: ${score}`);
             customRow.push(siteCode);
 
             annotations.push({
               x: c, y: r,
-              text: `<b>${displayName}</b><br><span style="font-size:13px;">Score: ${score}</span>`,
+              text: `<b>${siteCode}</b><br><span style="font-size:13px;">Score: ${score}</span>`,
               font: { color: score < 50 ? '#FFFFFF' : '#0F172A', size: 13, family: 'Inter, sans-serif' },
               showarrow: false
             });
@@ -354,13 +182,12 @@
       plotHeatmap(zMatrix, textMatrix, customDataMatrix, annotations, true);
     }
 
-    // Level 2: Well Level Matrix
+    // Level 2: Well Level Matrix (Filtered strictly to selected Site)
     function renderWellLevel(siteCode) {
       const wells = siteToWells[siteCode] || [];
-      const displayName = siteNameMap[siteCode] || `Site ${siteCode}`;
 
-      document.getElementById('heatmapTitle').innerText = `${displayName} — Mapped Well Scores`;
-      document.getElementById('heatmapSubtitle').innerText = `Showing ${wells.length} wells assigned to ${displayName}`;
+      document.getElementById('heatmapTitle').innerText = `Site ${siteCode} — Mapped Well Scores`;
+      document.getElementById('heatmapSubtitle').innerText = `Showing ${wells.length} wells assigned to ${siteCode}`;
       document.getElementById('backBtn').classList.remove('hidden');
 
       const cols = Math.min(5, wells.length) || 1;
@@ -375,7 +202,7 @@
           if (idx < wells.length) {
             const item = wells[idx];
             zRow.push(item.score);
-            textRow.push(`<b>${item.id}</b><br>Site: ${displayName}<br>HSE Score: ${item.score}<br>Sensor Anomalies: ${item.anomalies}`);
+            textRow.push(`<b>${item.id}</b><br>Site: ${siteCode}<br>HSE Score: ${item.score}`);
             customRow.push(item.id);
 
             annotations.push({
@@ -394,6 +221,7 @@
       plotHeatmap(zMatrix, textMatrix, customDataMatrix, annotations, false);
     }
 
+    // Plot Heatmap Rendering Engine
     function plotHeatmap(zMatrix, textMatrix, customDataMatrix, annotations, isSiteLevel) {
       const trace = {
         z: zMatrix,
@@ -406,9 +234,9 @@
         xgap: 6,
         ygap: 6,
         colorscale: [
-          [0.0, '#C8102E'], // Red
-          [0.5, '#EAB308'], // Yellow
-          [1.0, '#059669']  // Green
+          [0.0, '#C8102E'], // 0 = Red
+          [0.5, '#EAB308'], // 50 = Yellow
+          [1.0, '#059669']  // 100 = Green
         ],
         colorbar: { title: 'HSE Score', dtick: 20 }
       };
