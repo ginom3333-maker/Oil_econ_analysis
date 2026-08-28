@@ -7,6 +7,13 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      }
+    };
+  </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
     :root {
@@ -61,7 +68,7 @@
       <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Production Efficiency & IoT Monte Carlo Engine</h2>
       <div class="bg-white border border-gray-200 p-4 rounded-md mt-2 shadow-sm space-y-2 text-sm text-gray-700">
         <div class="font-bold text-gray-900 uppercase tracking-wide text-xs text-red-700">Dataset Verified:</div>
-        <p>Site performance metrics mapped precisely from `site_efficiency_ranked (1).csv`, evaluated dynamically through a Monte Carlo simulation based on temperature ($60^\circ\text{F}$ to $302^\circ\text{F}$) and pressure ($200\,\text{psi}$ to $10,000\,\text{psi}$) limits:</p>
+        <p>Site performance metrics mapped precisely from <code>site_efficiency_ranked (1).csv</code>, evaluated dynamically through a Monte Carlo simulation based on temperature ($60^\circ\text{F}$ to $302^\circ\text{F}$) and pressure ($200\,\text{psi}$ to $10,000\,\text{psi}$) limits:</p>
       </div>
     </div>
 
@@ -156,7 +163,6 @@
   </main>
 
   <script>
-    // Exact Master Asset Directory with fully validated numeric telemetry and mapped names matching CSV rows strictly
     const siteDirectory = [
       { siteId: 'S005', name: 'Wolfcamp North S05', totalSiteBoe: 5290.404001276598, wellCount: 5, boeAvgPerWell: 1058.0808002553197, iotPercent: 78.13672814696687, score: 825.1505060993566, meanTemp: 285.90, stdTemp: 39.56, meanPress: 7334.92, stdPress: 1278.61 },
       { siteId: 'S003', name: 'Midland Central S03', totalSiteBoe: 4352.881830395924, wellCount: 5, boeAvgPerWell: 870.5763660791848, iotPercent: 92.0933135957527, score: 802.7217957938605, meanTemp: 198.91, stdTemp: 29.32, meanPress: 6424.24, stdPress: 1165.75 },
@@ -204,7 +210,6 @@
         };
       });
 
-      // Keep exact rank ordering matching CSV sheet rankings strictly
       results.sort((a, b) => b.score - a.score);
 
       document.getElementById('stat_top_site').innerText = results[0].name;
@@ -220,11 +225,13 @@
         const rankColor = index === 0 ? 'bg-red-100 text-red-800 font-black' : 'bg-gray-100 text-gray-700 font-bold';
         
         row.innerHTML = `
-          <td class="p-2 flex items-center space-x-2">
-            <span class="inline-block px-2 py-0.5 rounded text-xs ${rankColor}">#${index + 1}</span>
-            <div>
-              <div class="font-bold text-gray-800">${site.name}</div>
-              <div class="text-xs text-gray-500">Permian Basin Hub (${site.siteId})</div>
+          <td class="p-2">
+            <div class="flex items-center space-x-2">
+              <span class="inline-block px-2 py-0.5 rounded text-xs ${rankColor}">#${index + 1}</span>
+              <div>
+                <div class="font-bold text-gray-800">${site.name}</div>
+                <div class="text-xs text-gray-500">Permian Basin Hub (${site.siteId})</div>
+              </div>
             </div>
           </td>
           <td class="p-2 text-xs font-semibold">${site.wellCount}</td>
