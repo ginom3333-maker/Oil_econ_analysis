@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ConocoPhillips | Geospatial Footprint</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <div class="cop-header">
+    <h1>ConocoPhillips</h1>
+    <p>Quantum Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
+  </div>
+
+  <nav class="nav-tabs">
+    <a href="index.html" class="nav-tab-item active">1. Geospatial Footprint</a>
+    <a href="well_tiering.html" class="nav-tab-item">2. Single-Well Tiering & Q5</a>
+    <a href="type_curves.html" class="nav-tab-item">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" class="nav-tab-item">4. Economic Viability</a>
+    <a href="production_efficiency.html" class="nav-tab-item">5. Production Efficiency</a>
+    <a href="hse_grading.html" class="nav-tab-item">6. HSE Site Grading</a>
+    <a href="competitor_acumen.html" class="nav-tab-item">7. Competitor & Acumen</a>
+  </nav>
+
+  <h2 class="text-xl font-bold mb-2">Permian Basin Asset Portfolio & Cleansed Data Inspector</h2>
+  <p class="mb-4 text-gray-600"><b>Question Solved:</b> Where are our physical assets located, what are their live telemetry metrics, and which wells are assigned to each location?</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+    <div id="mapDiv" class="md:col-span-7 h-96 border rounded-lg bg-white"></div>
+    <div class="md:col-span-5">
+      <div class="glass-card">
+        <h3 class="font-bold text-lg mb-2">Cleansed Asset Audit Inspector</h3>
+        <label class="block text-sm font-medium mb-1">Select Location Name:</label>
+        <select id="siteSelect" class="w-full mb-4" onchange="updateInspector()">
+          <option value="Site Alpha">Site Alpha (Permian North)</option>
+          <option value="Site Beta">Site Beta (Delaware Basin)</option>
+        </select>
+        <div id="inspectorDetails"></div>
+      </div>
+    </div>
+  </div>
+
+  <button onclick="exportPDF()" class="btn-primary mt-6">
+    Export Tab 1 Executive PDF Report
+  </button>
+
+  <script>
+    const mockData = {
+      "Site Alpha": { id: "S-01", region: "Permian North", manager: "John Doe", phone: "+1-555-0192", email: "j.doe@conocophillips.com", wells: "W-101, W-102", avgOil: 450.5, avgGas: 1200.0, avgWater: 300.2, uptime: 98.4, downtime: 120, avgPrice: 75.00, revenue: 33787.50, cost: 12500.00, profit: 21287.50, lat: 31.85, lon: -102.35 },
+      "Site Beta": { id: "S-02", region: "Delaware Basin", manager: "Jane Smith", phone: "+1-555-0193", email: "j.smith@conocophillips.com", wells: "W-201, W-202", avgOil: 320.1, avgGas: 890.0, avgWater: 410.0, uptime: 92.1, downtime: 450, avgPrice: 75.00, revenue: 24007.50, cost: 18000.00, profit: 6007.50, lat: 31.95, lon: -103.55 }
+    };
+
+    function renderMap() {
+      const lats = Object.values(mockData).map(d => d.lat);
+      const lons = Object.values(mockData).map(d => d.lon);
+      const names = Object.keys(mockData);
+
+      const data = [{
+        type: 'scattergeo',
+        mode: 'markers+text',
+        text: names,
+        lon: lons,
+        lat: lats,
+        marker: { color: '#C8102E', size: 14 }
+      }];
+
+      const layout = {
+        geo: { scope: 'usa', center: { lon: -103, lat: 31.9 }, zoom: 6 },
+        margin: { l: 0, r: 0, t: 0, b: 0 }
+      };
+
+      Plotly.newPlot('mapDiv', data, layout);
+    }
+
+    function updateInspector() {
+      const site = document.getElementById('siteSelect').value;
+      const d = mockData[site];
+      const profitColor = d.profit < 0 ? '#C8102E' : '#059669';
+
+      document.getElementById('inspectorDetails').innerHTML = `
+        <b>Location Name:</b> ${site} (${d.id})<br/>
+        <b>Operating Region:</b> ${d.region}<br/>
+        <b>Site Manager:</b> ${d.manager}<br/>
+        <b>Contact Number:</b> ${d.phone}<br/>
+        <b>Contact Email:</b> ${d.email}<br/><hr class="my-2"/>
+        <b>Assigned Wells:</b> ${d.wells}<br/><hr class="my-2"/>
+        <b>Verified Telemetry Averages:</b><br/>
+        • Avg Oil Rate: <b>${d.avgOil} BBL/d</b><br/>
+        • Avg Gas Rate: <b>${d.avgGas} MCF/d</b><br/>
+        • Avg Water Rate: <b>${d.avgWater} BBL/d</b><br/>
+        • Operational Uptime: <b>${d.uptime}%</b><br/>
+        • Cumulative Downtime: <b>${d.downtime} mins</b><br/><hr class="my-2"/>
+        <b>Financials:</b><br/>
+        • Avg Realized Price: <b>$${d.avgPrice.toFixed(2)}/bbl</b><br/>
+        • Avg Revenue: <b>$${d.revenue.toLocaleString()}</b><br/>
+        • Avg Operating Cost: <b>$${d.cost.toLocaleString()}</b><br/>
+        • Net Profit / Loss: <span style="color: ${profitColor};"><b>$${d.profit.toLocaleString()}</b></span>
+      `;
+    }
+
+    function exportPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const site = document.getElementById('siteSelect').value;
+      const d = mockData[site];
+
+      doc.setFillColor(200, 16, 46);
+      doc.rect(0, 0, 210, 22, 'F');
+      doc.setTextColor(255, 255, 255);
+      doc.setFont("helvetica", "bold");
+      doc.text("CONOCOPHILLIPS | GEOSPATIAL ASSET FOOTPRINT REPORT", 105, 14, { align: "center" });
+
+      doc.setTextColor(15, 23, 42);
+      doc.setFontSize(12);
+      doc.text(`Selected Location Inspection: ${site}`, 14, 35);
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(10);
+      doc.text(`Region: ${d.region} | Manager: ${d.manager}`, 14, 43);
+      doc.text(`Assigned Wells: ${d.wells}`, 14, 51);
+      doc.text(`Average Oil Rate: ${d.avgOil} BBL/d`, 14, 59);
+      doc.text(`Net Profit / Loss: $${d.profit.toLocaleString()}`, 14, 67);
+
+      doc.save(`Tab1_Geospatial_Report.pdf`);
+    }
+
+    renderMap();
+    updateInspector();
+  </script>
+</body>
+</html>

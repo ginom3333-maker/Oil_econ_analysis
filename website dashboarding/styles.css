@@ -1,0 +1,86 @@
+/* styles.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+
+body { 
+    background-color: #F8FAFC !important; 
+    color: #0F172A !important; 
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 24px;
+}
+
+/* ConocoPhillips Branding Header */
+.cop-header { 
+    background: linear-gradient(135deg, #C8102E 0%, #990B22 100%);
+    border: 1px solid rgba(200, 16, 46, 0.2);
+    padding: 32px; 
+    border-radius: 16px; 
+    color: #FFFFFF !important; 
+    margin-bottom: 24px; 
+    box-shadow: 0 10px 30px rgba(200, 16, 46, 0.2);
+}
+.cop-header h1 { color: #FFFFFF !important; font-weight: 800; margin: 0; font-size: 36px; letter-spacing: -0.5px; }
+.cop-header p { color: #FEE2E2 !important; margin: 8px 0 0 0; font-size: 16px; }
+
+/* Futuristic Glassmorphic Cards */
+.glass-card {
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    color: #0F172A;
+}
+
+/* Custom Navigation Tabs styling matching Streamlit */
+.nav-tabs {
+    display: flex;
+    gap: 8px;
+    background-color: #E2E8F0;
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid #CBD5E1;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+.nav-tab-item {
+    height: 42px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    color: #475569;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+.nav-tab-item:hover {
+    background-color: #CBD5E1;
+}
+.nav-tab-item.active {
+    background-color: #C8102E !important;
+    color: #FFFFFF !important;
+}
+
+/* Inputs & Form Controls */
+input, select, button {
+    border: 1px solid #CBD5E1 !important;
+    background-color: #FFFFFF !important;
+    color: #0F172A !important;
+    border-radius: 8px !important;
+    padding: 8px 12px;
+}
+
+.btn-primary {
+    background-color: #C8102E !important;
+    color: #FFFFFF !important;
+    font-weight: 600;
+    border: none !important;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+.btn-primary:hover {
+    background-color: #990B22 !important;
+}

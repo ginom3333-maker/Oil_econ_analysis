@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ConocoPhillips | Well Tiering & Q5</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div class="cop-header">
+    <h1>ConocoPhillips</h1>
+    <p>Quantum Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
+  </div>
+
+  <nav class="nav-tabs">
+    <a href="index.html" class="nav-tab-item">1. Geospatial Footprint</a>
+    <a href="well_tiering.html" class="nav-tab-item active">2. Single-Well Tiering & Q5</a>
+    <a href="type_curves.html" class="nav-tab-item">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" class="nav-tab-item">4. Economic Viability</a>
+    <a href="production_efficiency.html" class="nav-tab-item">5. Production Efficiency</a>
+    <a href="hse_grading.html" class="nav-tab-item">6. HSE Site Grading</a>
+    <a href="competitor_acumen.html" class="nav-tab-item">7. Competitor & Acumen</a>
+  </nav>
+
+  <h2 class="text-xl font-bold mb-2">Single-Well Tiering & Q5 Productivity Engine</h2>
+  <p class="mb-4 text-gray-600"><b>Question Solved:</b> How are individual wells ranked by IP30 performance, and which assets fall into Tier 1 vs Tier 3?</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div class="glass-card">
+      <h3 class="font-bold text-lg mb-4">Well Asset Distribution by Tier</h3>
+      <div id="tierDistribution" class="h-80"></div>
+    </div>
+    <div class="glass-card">
+      <h3 class="font-bold text-lg mb-4">Top Producers (Q5 Benchmark)</h3>
+      <table class="w-full text-left text-sm">
+        <thead>
+          <tr class="border-b">
+            <th class="pb-2">Well ID</th>
+            <th class="pb-2">IP30 Oil (BBL/d)</th>
+            <th class="pb-2">Tier Grade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b"><td class="py-2">W-101</td><td>850</td><td class="text-emerald-600 font-bold">Tier 1 (Core)</td></tr>
+          <tr class="border-b"><td class="py-2">W-102</td><td>620</td><td class="text-emerald-600 font-bold">Tier 1 (Core)</td></tr>
+          <tr class="border-b"><td class="py-2">W-201</td><td>410</td><td class="text-amber-600 font-bold">Tier 2 (Upside)</td></tr>
+          <tr><td class="py-2">W-202</td><td>210</td><td class="text-red-600 font-bold">Tier 3 (Marginal)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    Plotly.newPlot('tierDistribution', [{
+      x: ['Tier 1 (Core)', 'Tier 2 (Upside)', 'Tier 3 (Marginal)'],
+      y: [12, 8, 4],
+      type: 'bar',
+      marker: { color: ['#059669', '#D97706', '#C8102E'] }
+    }], { margin: { t: 20, b: 40, l: 40, r: 20 } });
+  </script>
+</body>
+</html>

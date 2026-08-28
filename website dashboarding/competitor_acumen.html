@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ConocoPhillips | Competitor Acumen</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div class="cop-header">
+    <h1>ConocoPhillips</h1>
+    <p>Quantum Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
+  </div>
+
+  <nav class="nav-tabs">
+    <a href="index.html" class="nav-tab-item">1. Geospatial Footprint</a>
+    <a href="well_tiering.html" class="nav-tab-item">2. Single-Well Tiering & Q5</a>
+    <a href="type_curves.html" class="nav-tab-item">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" class="nav-tab-item">4. Economic Viability</a>
+    <a href="production_efficiency.html" class="nav-tab-item">5. Production Efficiency</a>
+    <a href="hse_grading.html" class="nav-tab-item">6. HSE Site Grading</a>
+    <a href="competitor_acumen.html" class="nav-tab-item active">7. Competitor & Acumen</a>
+  </nav>
+
+  <h2 class="text-xl font-bold mb-2">Strategic Peer Benchmarking</h2>
+  <p class="mb-4 text-gray-600"><b>Question Solved:</b> How does ConocoPhillips' supply cost efficiency compare to key industry peers?</p>
+
+  <div class="glass-card">
+    <div id="compChart" class="h-80"></div>
+  </div>
+
+  <script>
+    Plotly.newPlot('compChart', [{
+      x: ['ConocoPhillips', 'EOG Resources', 'ExxonMobil', 'Devon Energy', 'Diamondback'],
+      y: [38.5, 36.0, 39.2, 42.0, 40.5],
+      type: 'bar',
+      marker: { color: ['#C8102E', '#334155', '#475569', '#64748B', '#94A3B8'] }
+    }], {
+      title: 'Average Cost of Supply Benchmark ($/bbl)',
+      margin: { t: 40, b: 40, l: 40, r: 20 }
+    });
+  </script>
+</body>
+</html>

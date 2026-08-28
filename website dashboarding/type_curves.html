@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ConocoPhillips | 5-Year Type Curves</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+  <div class="cop-header">
+    <h1>ConocoPhillips</h1>
+    <p>Quantum Subsurface Asset Intelligence & Automated M&A Optimization Engine</p>
+  </div>
+
+  <nav class="nav-tabs">
+    <a href="index.html" class="nav-tab-item">1. Geospatial Footprint</a>
+    <a href="well_tiering.html" class="nav-tab-item">2. Single-Well Tiering & Q5</a>
+    <a href="type_curves.html" class="nav-tab-item active">3. 5-Year Type Curves</a>
+    <a href="economic_viability.html" class="nav-tab-item">4. Economic Viability</a>
+    <a href="production_efficiency.html" class="nav-tab-item">5. Production Efficiency</a>
+    <a href="hse_grading.html" class="nav-tab-item">6. HSE Site Grading</a>
+    <a href="competitor_acumen.html" class="nav-tab-item">7. Competitor & Acumen</a>
+  </nav>
+
+  <h2 class="text-xl font-bold mb-2">5-Year Arps Hyperbolic Decline Curve Engine</h2>
+  <p class="mb-4 text-gray-600"><b>Question Solved:</b> What is the forecasted long-term production trajectory and Estimated Ultimate Recovery (EUR) per well?</p>
+
+  <div class="glass-card">
+    <div id="declineChart" class="h-96"></div>
+  </div>
+
+  <script>
+    const months = Array.from({length: 60}, (_, i) => i + 1);
+    const qi = 850; const b = 1.1; const Di = 0.55;
+    const rate = months.map(m => qi / Math.pow(1 + b * Di * (m / 12), 1 / b));
+
+    Plotly.newPlot('declineChart', [{
+      x: months,
+      y: rate,
+      mode: 'lines',
+      name: 'Well W-101 Hyperbolic Curve',
+      line: { color: '#C8102E', width: 3 }
+    }], {
+      title: '60-Month Forecasted Oil Decline (BBL/d)',
+      xaxis: { title: 'Operating Month' },
+      yaxis: { title: 'Oil Production Rate (BBL/d)' },
+      margin: { t: 40, b: 40, l: 50, r: 20 }
+    });
+  </script>
+</body>
+</html>
