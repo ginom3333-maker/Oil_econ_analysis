@@ -43,41 +43,61 @@
     <div id="hseHeatmap" style="width: 100%; height: 450px;"></div>
   </div>
 
-  <!-- Summary Table -->
+  <!-- Dynamic Summary Table -->
   <div class="glass-card">
     <h3 class="font-bold text-lg mb-4">Site Safety Summaries</h3>
-    <table class="w-full text-left">
+    <table class="w-full text-left border-collapse">
       <thead>
-        <tr class="border-b">
-          <th class="pb-2">Site Name</th>
-          <th class="pb-2">Region</th>
-          <th class="pb-2">Incident Count</th>
-          <th class="pb-2">Safety Grade</th>
+        <tr class="border-b text-sm font-semibold text-gray-700">
+          <th class="pb-3">Site ID</th>
+          <th class="pb-3">Mapped Wells</th>
+          <th class="pb-3">Incident Count</th>
+          <th class="pb-3">Severity Points</th>
+          <th class="pb-3">HSE Score</th>
+          <th class="pb-3">Safety Grade</th>
         </tr>
       </thead>
-      <tbody>
-        <tr class="border-b">
-          <td class="py-3 font-semibold">Site Alpha</td>
-          <td>Permian North</td>
-          <td>1</td>
-          <td><span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full text-xs">Grade A (Optimal)</span></td>
-        </tr>
+      <tbody id="summaryTableBody">
         <tr>
-          <td class="py-3 font-semibold">Site Beta</td>
-          <td>Delaware Basin</td>
-          <td>6</td>
-          <td><span class="bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full text-xs">Grade C (Review Needed)</span></td>
+          <td colspan="6" class="py-4 text-center text-gray-500">Loading site safety summaries...</td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <script>
-    let siteDataMap = {}; // Maps siteCode -> score
-    let wellDataMap = {}; // Maps wellId -> score
+    let siteDataMap = {}; // Maps siteCode -> base score
+    let wellDataMap = {}; // Maps wellId -> score & incidents
     let siteToWells = {}; // Maps siteCode -> array of well objects
+    let rawSiteRows = []; // Retained for region/metadata if present
 
-    // Normalize site codes (e.g., converts 's01', 'S01', 'S001' -> 'S01')
+    // Incident Severity Grading Weights Schema
+    const INCIDENT_SEVERITY = {
+      // 1 — Minor (Limited consequence)
+      "Minor Spill": 1,
+      "Slip/trip/fall": 1,
+      "Vehicle Incident": 1,
+
+      // 2 — Environmental & Compliance (Environmental or regulatory deviation)
+      "Hydrocarbon spill": 2,
+      "Environmental exceedance": 2,
+      "Regulatory Citation": 2,
+      "Permit Violation": 2,
+      "Produced water release": 2,
+
+      // 4 — Moderate (Recordable injury or contained operational event)
+      "Recordable injury": 4,
+      "Fire/Near miss": 4,
+
+      // 8 — Major (Lost-time injury or off-pad environmental release)
+      "Lost-time Injury": 8,
+
+      // 16 — Critical (Serious injury or uncontrolled hazardous release)
+      "Serious injury": 16,
+      "Uncontrolled Release": 16
+    };
+
+    // Normalize site codes (e.g., 's01', 'S01', 'S001' -> 'S01')
     function normalizeSiteCode(raw) {
       if (!raw) return "";
       let str = raw.toString().trim().toUpperCase();
@@ -89,7 +109,7 @@
       return str;
     }
 
-    // Normalize well IDs (e.g., converts '30' -> 'W0030', 'W0022' -> 'W0022')
+    // Normalize well IDs (e.g., '30' -> 'W0030', 'W0022' -> 'W0022')
     function normalizeWellId(raw) {
       if (!raw) return "";
       let str = raw.toString().trim().toUpperCase();
@@ -120,6 +140,7 @@
       fetchCsv("well_hse_scores.csv"),
       fetchCsv("well_site_map.csv")
     ]).then(([siteRows, wellRows, mapRows]) => {
+      rawSiteRows = siteRows;
       processAllData(siteRows, wellRows, mapRows);
     }).catch(err => {
       console.error("Error loading CSV files:", err);
@@ -141,18 +162,22 @@
         }
       });
 
-      // 2. Process well scores lookup table
+      // 2. Process well scores & incidents
       wellRows.forEach(row => {
         const rawWell = row.well_id || row.well || row.Well_ID;
         const wellId = normalizeWellId(rawWell);
         const score = parseFloat(row.hse_score || row.score);
+        const incidentStr = row.incidents || row.incident || row.incident_type || "";
 
-        if (wellId && !isNaN(score)) {
-          wellDataMap[wellId] = score;
+        if (wellId) {
+          wellDataMap[wellId] = {
+            score: !isNaN(score) ? score : 0,
+            incidents: incidentStr ? incidentStr.split(";").map(s => s.trim()) : []
+          };
         }
       });
 
-      // 3. Map wells to their respective site codes
+      // 3. Map wells to site codes
       mapRows.forEach(row => {
         const rawWell = row["Well ID"] || row.well_id || row.well;
         const rawSite = row["Site Code"] || row.site_code || row.site;
@@ -164,12 +189,80 @@
           if (!siteToWells[siteCode]) {
             siteToWells[siteCode] = [];
           }
-          const score = wellDataMap[wellId] !== undefined ? wellDataMap[wellId] : 0;
-          siteToWells[siteCode].push({ id: wellId, score: score });
+          const wellObj = wellDataMap[wellId] || { score: 0, incidents: [] };
+          siteToWells[siteCode].push({
+            id: wellId,
+            score: wellObj.score,
+            incidents: wellObj.incidents
+          });
         }
       });
 
       renderSiteLevel();
+      renderSummaryTable();
+    }
+
+    // Grade Helper Function
+    function getGradeBadge(score) {
+      if (score >= 90) {
+        return `<span class="bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full text-xs">Grade A (Optimal)</span>`;
+      } else if (score >= 85) {
+        return `<span class="bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full text-xs">Grade B (Good)</span>`;
+      } else if (score >= 70) {
+        return `<span class="bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full text-xs">Grade C (Review Needed)</span>`;
+      } else if (score >= 60) {
+        return `<span class="bg-orange-100 text-orange-800 font-bold px-3 py-1 rounded-full text-xs">Grade D (Warning)</span>`;
+      } else {
+        return `<span class="bg-red-100 text-red-800 font-bold px-3 py-1 rounded-full text-xs">Grade F (Critical)</span>`;
+      }
+    }
+
+    // Calculate Dynamic Table Data
+    function renderSummaryTable() {
+      const tbody = document.getElementById("summaryTableBody");
+      const siteKeys = Object.keys(siteDataMap).sort();
+
+      if (siteKeys.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-gray-500">No site data available.</td></tr>`;
+        return;
+      }
+
+      let rowsHtml = "";
+
+      siteKeys.forEach(siteCode => {
+        const wells = siteToWells[siteCode] || [];
+        let totalIncidents = 0;
+        let severityPoints = 0;
+
+        // Calculate severity points and incidents per site
+        wells.forEach(well => {
+          if (well.incidents && well.incidents.length > 0) {
+            well.incidents.forEach(inc => {
+              if (inc) {
+                totalIncidents++;
+                severityPoints += (INCIDENT_SEVERITY[inc] || 1); // Default to 1 if unknown
+              }
+            });
+          }
+        });
+
+        const baseScore = siteDataMap[siteCode] || 0;
+        // Adjusted score incorporating severity deductions
+        const calculatedScore = Math.max(0, Math.round(baseScore - (severityPoints * 0.5)));
+
+        rowsHtml += `
+          <tr class="border-b hover:bg-gray-50 transition-colors">
+            <td class="py-3 font-semibold text-slate-900">${siteCode}</td>
+            <td class="py-3 text-gray-600">${wells.length} Wells</td>
+            <td class="py-3 text-gray-600">${totalIncidents}</td>
+            <td class="py-3 font-semibold text-gray-700">${severityPoints} pts</td>
+            <td class="py-3 font-bold">${calculatedScore}</td>
+            <td class="py-3">${getGradeBadge(calculatedScore)}</td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = rowsHtml;
     }
 
     // Level 1: Site Matrix Heatmap
