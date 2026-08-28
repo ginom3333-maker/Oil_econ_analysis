@@ -1,0 +1,201 @@
+"company","well_id","sensor_type","timestamp","value","unit"
+ESTACADO_ENERGY,W0001,temperature,"2025-08-27T00:00:00+00:00",231.856,F
+Estacado Energy,W0001,pressure,"2025-08-27T00:00:00Z",5039.006,psi
+EE,W0001,vibration,"2025-08-27T00:00:00+00:00",2.251,mm/s
+estacado,W0001,flow_rate,"2025-08-27T00:00:00Z",28.063,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T01:00:00Z",220.462,F
+Estacado Energy,W0001,pressure,"2025-08-27T01:00:00+00:00",5630.787,psi
+estacado,W0001,vibration,"2025-08-27T01:00:00Z",3.095,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T01:00:00Z",20.532,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T02:00:00Z",192.995,F
+ESTACADO_ENERGY,W0001,pressure,"2025-08-27T02:00:00Z",7764.167,psi
+Estacado Energy ,W0001,vibration,"2025-08-27T02:00:00Z",2.692,mm/s
+estacado,W0001,flow_rate,"2025-08-27T02:00:00",28.295,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T03:00:00Z",215.428,F
+Estacado Energy,W0001,pressure,"2025-08-27T03:00:00Z",5347.286,psi
+Estacado Energy,W0001,vibration,"2025-08-27T03:00:00Z",2.224,mm/s
+Estacado Energy ,"1",flow_rate,"2025-08-27T03:00:00+00:00",25.396,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T04:00:00+00:00",175.389,F
+Estacado Energy,W0001,pressure,"2025-08-27T04:00:00Z",6321.077,psi
+Estacado Energy,W0001,vibration,"2025-08-27T04:00:00Z",1.894,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T04:00:00Z",22.302,bbl/hr
+Estacado Energy ,W0001,temperature,"2025-08-27T05:00:00Z",189.842,F
+Estacado Energy,W0001,pressure,"2025-08-27T05:00:00+00:00",7040.39,psi
+Estacado Energy,w0001,vibration,"2025-08-27T05:00:00Z",2.463,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T05:00:00Z",22.49,bbl/hr
+EE,W0001,temperature,"2025-08-27T06:00:00Z",233.205,F
+Estacado Energy,W0001,pressure,"2025-08-27T06:00:00Z",5826.135,psi
+Estacado Energy,W0001,vibration,"2025-08-27T06:00:00Z",2.248,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T06:00:00",16.238,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T07:00:00Z",178.856,F
+Estacado Energy,w0001,pressure,"2025-08-27T07:00:00Z",7326.483,psi
+Estacado Energy,W0001,vibration,"2025-08-27T07:00:00Z",2.582,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T07:00:00Z",26.03,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T08:00:00Z",203.178,F
+estacado,W0001,pressure,"2025-08-27T08:00:00Z",6709.461,psi
+Estacado Energy,W0001,vibration,"2025-08-27T08:00:00+00:00",,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T08:00:00+00:00",23.121,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T09:00:00Z",174.204,F
+Estacado Energy,W0001,pressure,"2025-08-27T09:00:00Z",6937.664,psi
+Estacado Energy,W0001,vibration,"2025-08-27T09:00:00Z",3.215,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T09:00:00Z",23.618,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T10:00:00Z",201.309,F
+Estacado Energy ,W0001,pressure,"2025-08-27T10:00:00+00:00",4385.545,psi
+Estacado Energy,W0001,vibration,"2025-08-27T10:00:00+00:00",8.465,mm/s
+estacado,W0001,flow_rate,"2025-08-27T10:00:00Z",24.547,bbl/hr
+EE,W0001,temperature,"2025-08-27T11:00:00Z",177.881,F
+Estacado Energy,W0001,pressure,"2025-08-27T11:00:00+00:00",6281.689,psi
+Estacado Energy,W0001,vibration,"2025-08-27T11:00:00",3.293,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T11:00:00Z",19.867,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T12:00:00",203.971,F
+ESTACADO_ENERGY,W0001,pressure,"2025-08-27T12:00:00Z",6020.156,psi
+Estacado Energy,"1",vibration,"2025-08-27T12:00:00Z",1.721,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T12:00:00Z",21.38,bbl/hr
+EE,W0001,temperature,"2025-08-27T13:00:00Z",219.662,F
+Estacado Energy,W0001,pressure,"2025-08-27T13:00:00Z",5953.205,psi
+Estacado Energy,W0001,vibration,"2025-08-27T13:00:00Z",2.512,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T13:00:00Z",21.212,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T14:00:00Z",198.888,F
+Estacado Energy,W0001,pressure,"2025-08-27T14:00:00Z",5668.733,psi
+Estacado Energy,W0001,vibration,"2025-08-27T14:00:00Z",2.609,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T14:00:00Z",21.084,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T15:00:00Z",165.26,F
+Estacado Energy,W0001,pressure,"2025-08-27T15:00:00+00:00",4575.295,psi
+estacado,W0001,vibration,"2025-08-27T15:00:00Z",2.179,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T15:00:00Z",25.048,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T16:00:00+00:00",180.756,F
+EE,W0001,pressure,"2025-08-27T16:00:00Z",6306.247,psi
+Estacado Energy,W0001,vibration,"2025-08-27T16:00:00Z",2.238,mm/s
+ESTACADO_ENERGY,w0001,flow_rate,"2025-08-27T16:00:00Z",22.501,bbl/hr
+estacado,W0001,temperature,"2025-08-27T17:00:00+00:00",161.978,F
+Estacado Energy ,W0001,pressure,"2025-08-27T17:00:00Z",6825.854,psi
+Estacado Energy,W0001,vibration,"2025-08-27T17:00:00Z",2.607,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T17:00:00Z",22.389,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T18:00:00+00:00",197.45,F
+Estacado Energy,W0001,pressure,"2025-08-27T18:00:00+00:00",6207.929,psi
+Estacado Energy,W0001,vibration,"2025-08-27T18:00:00Z",2.629,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T18:00:00Z",21.655,bbl/hr
+ESTACADO_ENERGY,W0001,temperature,"2025-08-27T19:00:00+00:00",131.105,F
+Estacado Energy,W0001,pressure,"2025-08-27T19:00:00",6630.091,psi
+ESTACADO_ENERGY,W0001,vibration,"2025-08-27T19:00:00Z",3.169,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T19:00:00Z",25.746,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T20:00:00Z",213.749,F
+ESTACADO_ENERGY,W0001,pressure,"2025-08-27T20:00:00",5653.353,psi
+Estacado Energy,W0001,vibration,"2025-08-27T20:00:00Z",2.706,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T20:00:00Z",27.581,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T21:00:00+00:00",330.481,F
+ESTACADO_ENERGY,W0001,pressure,"2025-08-27T21:00:00",7724.22,psi
+Estacado Energy,W0001,vibration,"2025-08-27T21:00:00Z",3.267,mm/s
+EE,W0001,flow_rate,"2025-08-27T21:00:00Z",20.628,bbl/hr
+EE,W0001,temperature,"2025-08-27T22:00:00Z",196.941,F
+Estacado Energy,W0001,pressure,"2025-08-27T22:00:00Z",6638.113,psi
+Estacado Energy,W0001,vibration,"2025-08-27T22:00:00Z",2.077,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T22:00:00Z",28.073,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-27T23:00:00+00:00",145.638,F
+EE,W0001,pressure,"2025-08-27T23:00:00+00:00",4332.278,psi
+Estacado Energy,W0001,vibration,"2025-08-27T23:00:00Z",3.32,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-27T23:00:00+00:00",30.837,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T00:00:00Z",196.845,F
+Estacado Energy,W0001,pressure,"2025-08-28T00:00:00Z",7780.882,psi
+Estacado Energy ,W0001,vibration,"2025-08-28T00:00:00Z",2.67,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T00:00:00+00:00",18.373,bbl/hr
+ESTACADO_ENERGY,W0001,temperature,"2025-08-28T01:00:00Z",181.704,F
+Estacado Energy,W0001,pressure,"2025-08-28T01:00:00+00:00",6286.641,psi
+ESTACADO_ENERGY,W0001,vibration,"2025-08-28T01:00:00Z",2.515,mm/s
+Estacado Energy,"1",flow_rate,"2025-08-28T01:00:00Z",23.33,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T02:00:00+00:00",202.626,F
+Estacado Energy,W0001,pressure,"2025-08-28T02:00:00Z",7184.545,psi
+Estacado Energy,W0001,vibration,"2025-08-28T02:00:00+00:00",1.688,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T02:00:00Z",21.095,bbl/hr
+ESTACADO_ENERGY,W0001,temperature,"2025-08-28T03:00:00Z",165.107,F
+Estacado Energy,W0001,pressure,"2025-08-28T03:00:00+00:00",12322.711,psi
+Estacado Energy,W0001,vibration,"2025-08-28T03:00:00Z",2.067,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T03:00:00Z",26.797,bbl/hr
+ESTACADO_ENERGY,W0001,temperature,"2025-08-28T04:00:00Z",176.92,F
+Estacado Energy,W0001,pressure,"2025-08-28T04:00:00Z",10675.381,psi
+ESTACADO_ENERGY,W0001,vibration,"2025-08-28T04:00:00",2.515,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T04:00:00+00:00",22.431,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T05:00:00Z",214.764,F
+Estacado Energy,W0001,pressure,"2025-08-28T05:00:00Z",11486.548,psi
+Estacado Energy,W0001,vibration,"2025-08-28T05:00:00Z",2.609,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T05:00:00Z",21.662,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T06:00:00Z",178.888,F
+estacado,W0001,pressure,"2025-08-28T06:00:00Z",11779.85,psi
+Estacado Energy,W0001,vibration,"2025-08-28T06:00:00",2.122,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T06:00:00Z",25.582,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T07:00:00Z",240.96,F
+Estacado Energy,W0001,pressure,"2025-08-28T07:00:00Z",10610.509,psi
+Estacado Energy,W0001,vibration,"2025-08-28T07:00:00Z",2.622,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T07:00:00Z",18.417,bbl/hr
+Estacado Energy ,W0001,temperature,"2025-08-28T08:00:00Z",211.289,F
+Estacado Energy,W0001,pressure,"2025-08-28T08:00:00Z",11063.19,psi
+EE,W0001,vibration,"2025-08-28T08:00:00Z",2.481,mm/s
+estacado,W0001,flow_rate,"2025-08-28T08:00:00Z",20.521,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T09:00:00+00:00",172.591,F
+ESTACADO_ENERGY,"1",pressure,"2025-08-28T09:00:00Z",10285.641,psi
+Estacado Energy,W0001,vibration,"2025-08-28T09:00:00+00:00",1.497,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T09:00:00+00:00",11.708,bbl/hr
+EE,w0001,temperature,"2025-08-28T10:00:00Z",214.619,F
+estacado,W0001,pressure,"2025-08-28T10:00:00Z",11920.786,psi
+Estacado Energy,W0001,vibration,"2025-08-28T10:00:00Z",2.436,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T10:00:00Z",20.584,bbl/hr
+estacado,W0001,temperature,"2025-08-28T11:00:00Z",194.602,F
+Estacado Energy,W0001,pressure,"2025-08-28T11:00:00Z",11739.215,psi
+Estacado Energy,W0001,vibration,"2025-08-28T11:00:00Z",2.01,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T11:00:00Z",20.787,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T12:00:00Z",211.457,F
+Estacado Energy,W0001,pressure,"2025-08-28T12:00:00Z",9765.783,psi
+Estacado Energy,W0001,vibration,"2025-08-28T12:00:00+00:00",2.387,mm/s
+estacado,W0001,flow_rate,"2025-08-28T12:00:00Z",17.36,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T13:00:00+00:00",169.779,F
+Estacado Energy,W0001,pressure,"2025-08-28T13:00:00Z",10836.953,psi
+EE,W0001,vibration,"2025-08-28T13:00:00Z",0.915,mm/s
+ESTACADO_ENERGY,W0001,flow_rate,"2025-08-28T13:00:00Z",23.025,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T14:00:00Z",190.754,F
+estacado,W0001,pressure,"2025-08-28T14:00:00Z",9427.298,psi
+estacado,W0001,vibration,"2025-08-28T14:00:00Z",1.683,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T14:00:00Z",28.339,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T15:00:00Z",203.776,F
+Estacado Energy,W0001,pressure,"2025-08-28T15:00:00Z",12185.676,psi
+ESTACADO_ENERGY,W0001,vibration,"2025-08-28T15:00:00Z",2.325,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T15:00:00",20.128,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T16:00:00+00:00",199.0,F
+EE,W0001,pressure,"2025-08-28T16:00:00Z",12803.218,psi
+ESTACADO_ENERGY,W0001,vibration,"2025-08-28T16:00:00Z",3.928,mm/s
+Estacado Energy ,W0001,flow_rate,"2025-08-28T16:00:00Z",29.831,bbl/hr
+EE,W0001,temperature,"2025-08-28T17:00:00Z",226.266,F
+Estacado Energy,W0001,pressure,"2025-08-28T17:00:00Z",10076.025,psi
+Estacado Energy,W0001,vibration,"2025-08-28T17:00:00Z",3.013,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T17:00:00Z",17.751,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T18:00:00Z",214.022,F
+Estacado Energy,W0001,pressure,"2025-08-28T18:00:00Z",12167.422,psi
+EE,W0001,vibration,"2025-08-28T18:00:00Z",2.401,mm/s
+estacado,W0001,flow_rate,"2025-08-28T18:00:00+00:00",15.939,bbl/hr
+Estacado Energy,"1",temperature,"2025-08-28T19:00:00Z",215.332,F
+Estacado Energy,W0001,pressure,"2025-08-28T19:00:00",11779.099,psi
+Estacado Energy,W0001,vibration,"2025-08-28T19:00:00Z",2.516,mm/s
+Estacado Energy,"1",flow_rate,"2025-08-28T19:00:00Z",23.081,bbl/hr
+Estacado Energy ,W0001,temperature,"2025-08-28T20:00:00Z",155.755,F
+Estacado Energy,W0001,pressure,"2025-08-28T20:00:00Z",13595.527,psi
+ESTACADO_ENERGY,W0001,vibration,"2025-08-28T20:00:00+00:00",3.262,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T20:00:00Z",28.453,bbl/hr
+estacado,"1",temperature,"2025-08-28T21:00:00Z",177.294,F
+Estacado Energy,W0001,pressure,"2025-08-28T21:00:00Z",13657.495,psi
+Estacado Energy,W0001,vibration,"2025-08-28T21:00:00Z",3.322,mm/s
+Estacado Energy ,W0001,flow_rate,"2025-08-28T21:00:00Z",17.085,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T22:00:00Z",173.019,F
+ESTACADO_ENERGY,W0001,pressure,"2025-08-28T22:00:00Z",12107.208,psi
+Estacado Energy ,W0001,vibration,"2025-08-28T22:00:00Z",2.379,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T22:00:00+00:00",12.875,bbl/hr
+Estacado Energy,W0001,temperature,"2025-08-28T23:00:00Z",198.485,F
+EE,W0001,pressure,"2025-08-28T23:00:00Z",11276.84,psi
+Estacado Energy ,W0001,vibration,"2025-08-28T23:00:00Z",1.869,mm/s
+Estacado Energy,W0001,flow_rate,"2025-08-28T23:00:00Z",20.441,bbl/hr
+ESTACADO_ENERGY,W0001,temperature,"2025-08-29T00:00:00Z",,F
+Estacado Energy,W0001,pressure,"2025-08-29T00:00:00Z",10763.686,psi
+EE,W0001,vibration,"2025-08-29T00:00:00Z",2.246,mm/s
+estacado,W0001,flow_rate,"2025-08-29T00:00:00Z",19.1,bbl/hr
+Estacado Energy,"1",temperature,"2025-08-29T01:00:00Z",181.201,F
+Estacado Energy,W0001,pressure,"2025-08-29T01:00:00Z",10922.812,psi
+Estacado Energy,W0001,vibration,"2025-08-29T01:00:00Z",3.357,mm/s
+estacado,W0001,flow_rate,"2025-08-29T01:00:00Z",17.377,bbl/hr
